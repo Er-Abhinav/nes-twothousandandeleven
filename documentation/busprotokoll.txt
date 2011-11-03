@@ -1,0 +1,113 @@
+Hab mir gestern und heute Gedanken gemacht über die Adressfindung für das 
+Busprotokoll (ohne Master, ohne Vorkonfiguration der Nodes) - mit folgendem 
+Outcome:
+Für Layer1 verwenden wir ja UART, Layer2 ist hier ein Vorschlag, Layer3 
+(Services, etc) fehlt noch.
+
+Ablauf:
+-) Neuer unkonfigurierter Node schickt "Hello, world!"
+-) Jeder konfigurierte Node antwort: "Hello!"
+-) Neuer Node weiß nun welche Adressen in Verwendung sind und wählt sich aus 
+den übrigen eine zufällig aus.
+-) Neuer Node schickt nun mit seiner neuen Adresse eine Nachricht mit Random-
+Daten mit einer bestimmten Länge (siehe weiter unten). Falls andere Nodes 
+zeitglich genau selbiges gemacht haben und dieselbe Adresse gewählt haben, 
+wird das nun (mit einer gewissen Wahrscheinlichkeit) detektiert und nur einer 
+behält die Adresse.
+
+Worst-Case Überlegungen:
+Wieviele Nachrichten werden maximal geschickt?
+Pro Durchlauf: 1*"Hello, World!", i*"Hello", 1*Random-Data-Nachricht
+Bei n Durchläufen: n*"Hello, World!", (n+1)*n/2*"Hello", n*Random-Data-
+Nachricht
+Für n = 2047 (11 Bit für die Adressierung, eine Adresse ist für unkonfigurierte 
+Nodes reserviert):
+2047*"Hello, World!"
+(2047+1)*2047/2=2096128*"Hello"  (da könnt noch ein Rundungsfehler drin sein, 
+aber die Größenordnung paßt jedenfalls)
+2047*"Random-Data-Nachrichten
+Dh wenn alle möglichen Nodes (2047) gleichzeitig Adressen konfigurieren wollen 
+und der Worst-Case für Kollissionen eintritt, sind ~2.1Millionen Nachrichten 
+notwendig. Der Average-Case müßte weit drunter liegen - hab ich mir aber jetzt 
+nicht ausgerechnet.
+
+Wie hoch ist die Wahrscheinlichkeit, daß eine Kollision auftritt?
+X: Kollision tritt auf
+P(X): Wahrscheinlichkeit, daß eine Kollision auftritt
+n: Anzahl der Nodes
+L: Länge der Random-Data-Nachricht in Bit
+
+P(X) = 1/2^L*(n+1)*n/2
+
+Die Wahrscheinlichkeit soll natürlich <1 sein und idealerweise möglichst 
+niedrig. Damits für n=2047 <1 wird, muß L>=21 sein. Dh mindestens 21 Bit für 
+die Random-Data-Nachricht. Idealerweise natürlich größer.
+
+Warum können keine Garantien bzgl Adresssierung ohne Konflikte gegeben werden?
+Weil AVRs keine Unique IDentifier haben (außer die XMega oder AVR32), die 
+verwendet werden könnten.
+
+Was mir noch komplett fehlt, ist der Zusammenhang Baudrate zu übertragenen 
+Byte und so. Wie habts Ihr das gestern gerechnet? Damit könnt ma nämlich (in 
+etwa) sagen, wie lange die Konfiguration im Worst-Case so dauert.. 
+
+
+
+Habs gestern nicht mehr lassen können und mir auch den Average-Case überlegt:
+
+z(k) ... Anzahl der eindeutig gewählten IDs
+n ... Anzahl der möglichen Nodes (2047 in unserem Fall bisher)
+
+z(k) = Summe von i=0 bis k-1 ((n-1)/n)^k
+
+ghci Code: let n = 2047; z 0 = 0; z k = 1 + (n-1) * z (k-1) / n in z 200
+
+Wenn 2047 Nodes probieren 2047 Adressen zu bekommen, dauert es recht lang bis 
+das ganze terminiert:
+Durchlauf 1) n=2047 k=2047 => 1294 (dh 1294 eindeutig gewählte Adressen - im 
+nächsten Durchlauf müssen dann noch 2047-1294=753 Adressen gefunden werden)
+Durchlauf 2) n=753 k=753 => 476
+Durchlauf 3) n=277 k=277 => 175
+Durchlauf 4) n=102 k=102 => 64
+Durchlauf 5) n=38 k=38 => 24
+Durchlauf 6) n=14 k=14 => 9
+Durchlauf 7) n=5 k=5 => 3
+Durchlauf 8) n=2 k=2 => 1
+Durchlauf 9) n=1 k=1 => 1
+
+Anzahl der benötigten Nachrichten:
+9*"Hello, world!"
+0+1294+(1294+476)+(1294+476+175)+(1294+476+175+64)+
+(1294+476+175+64+24)+(1294+476+175+64+24+9)+
+(1294+476+175+64+24+3)+(1294+476+175+64+24+1)+
+(1294+476+175+64+24+1+1)=17198*"Hello"
+2047*"Random-Data"
+
+Dh ~19k Nachrichten in Summe.
+
+Sobalds ein paar weniger Nodes sind, terminiert das schon wesentlich 
+schneller:
+zb für 1500 Nodes:
+Durchlauf 1) n=2047 k=1500 => 1063
+Durchlauf 2) n=984 k=437 =>353
+Durchlauf 3) n=631 k=84 => 78
+Durchlauf 4) n=553 k=6 => 6
+
+Anzahl der benötigten Nachrichten:
+4*"Hello, world!"
+2479*"Hello"
+1500*"Random-Data"
+
+dh ~4k Nachrichten in Summe.
+
+
+
+Zwei Überlegungen noch dazu:
+-) Evtl sollte nach einem "Hello, world!" ausschließlich 
+Adressierungsnachrichten verschickt werden, bis die Adressierung erfolgreich 
+ist. Ansonsten könnts sein, daß eine Adressierung nie erfolgreich wird bzw 
+ewig lang dauert. Auf der anderen Seite werden so normale Nachrichten am Bus 
+de facto benachteiligt..
+-) Wenn wir sowieso Adressierung haben wollen, macht das Autoconfig-Zeug 
+irgendwie im Allg keinen Sinn. Der einzige Vorteil ist, daß eine eindeutige 
+Adressierung eben nicht unbedingt notwendig ist..
