@@ -1,0 +1,160 @@
+\documentclass[hyperref={pdfpagelabels=false}]{beamer}
+\usepackage{textcomp}
+\usepackage[german]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{times}
+\usepackage[T1]{fontenc}
+
+%gets rid of navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+\mode<presentation>
+{
+  \usetheme{Rochester}
+  \setbeamercovered{transparent}
+}
+
+\title {Mindmachine mit EEG-Feedbackschleife}
+\subtitle {Ein Open-Source-Software- und -Hardware-Ansatz für geregelte Phasenkopplung von Gehirnwellen}
+\author{Robert Annessi <robert@annessi.at>}
+
+% custom date
+\usepackage{datetime}
+\newdateformat{customdate}{\monthname{ }\THEYEAR}
+\date{\customdate\today}
+
+
+\logo{
+\includegraphics[height=0.5cm]{./images/logo_neu.jpg}
+}
+
+
+\begin{document}
+\begin{frame}
+  \titlepage
+\end{frame}
+% logo only on title page
+\logo{}
+
+
+\begin{frame}{Gliederung des Vortrags}
+  \tableofcontents
+\end{frame}
+
+
+\section{Motivation}
+\begin{frame}{Mindmachine}
+\begin{center}
+%\includegraphics[width=0.55\textwidth]{../images/presentation/brainmachine.png}
+\end{center}
+\end{frame}
+\begin{frame}{Mindmachine}
+\begin{center}
+%\includegraphics[width=0.55\textwidth]{../images/presentation/brainmachine2.png}
+\end{center}
+\end{frame}
+
+\begin{frame}{Elektroenzephalographie}
+\begin{center}
+%\includegraphics[width=0.5\textwidth]{../images/presentation/eeg.jpg}
+\end{center}
+\end{frame}
+
+\begin{frame}{Bewusstseinszustand}{Was kann ein EEG über darüber aussagen?}
+\begin{center}
+%\includegraphics[width=0.9\textwidth]{../images/presentation/consciousness.png}
+\end{center}
+\end{frame}
+
+\section{Elektroenzephalographie}
+\begin{frame}{Frequenzbänder}{Einteilung und Bezeichnung der Frequenzbereiche eines Elektroenzephalogramms}
+\begin{center}
+%\includegraphics[width=0.9\textwidth]{../images/presentation/brainwaves.png}
+\end{center}
+\end{frame}
+
+\section{Versuchsaufbau}
+\begin{frame}{Versuchsaufbau}
+\begin{center}
+%\includegraphics[width=0.65\textwidth]{../images/presentation/big_picture.png}
+\end{center}
+\vspace{1cm}
+\end{frame}
+
+
+\begin{frame}{Erfassung der Hirnströme}
+\begin{center}
+%\includegraphics[width=0.65\textwidth]{../images/presentation/big_picture_electrodes.png}
+\end{center}
+\vspace{1cm}
+\end{frame}
+
+
+\begin{frame}{Elektroenzephalograph}
+\begin{center}
+%\includegraphics[width=0.65\textwidth]{../images/presentation/big_picture_eeg.png}
+\end{center}
+\vspace{1cm}
+\end{frame}
+
+
+\begin{frame}{Ermittlung des Ist-Werts und Setzen des Stellwerts}
+\begin{center}
+%\includegraphics[width=0.65\textwidth]{../images/presentation/big_picture_computer.png}
+\end{center}
+\vspace{1cm}
+\end{frame}
+
+
+\begin{frame}{Setzen des Stellwerts}
+\begin{center}
+%\includegraphics[width=0.65\textwidth]{../images/presentation/big_picture_lightsound.png}
+\end{center}
+\vspace{1cm}
+\end{frame}
+
+
+\section{Ergebnisse}
+\begin{frame}{Messung}
+\begin{center}
+%\includegraphics[width=1.0\textwidth]{../images/presentation/measurement.png}
+\end{center}
+\vspace{1cm}
+\end{frame}
+
+
+\section*{Zusammenfassung}
+\begin{frame}{Zusammenfassung}
+  \begin{itemize}
+  \item \begin{large}Bewusstseinszustand ist beeinflussbar durch Licht \& Ton!\end{large}
+  \item \begin{large}Bewusstseinszustand messbar mittels EEG\end{large}
+  \item \begin{large}Regelbares Einschlafen scheint möglich\end{large}
+  \end{itemize}
+\vspace{1cm}
+\end{frame}
+
+\section*{Ausblick}
+\begin{frame}{Ausblick}
+\begin{itemize}
+ \item \begin{large}Mehr Tests notwendig\end{large}
+ \item \begin{large}Schleife vollständig schließen\end{large}
+ \item \begin{large}Alltagstauglichkeit\end{large}
+\end{itemize}
+\vspace{1cm}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\begin{Huge}\textbf{Danke!}\end{Huge}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Fragen}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{./images/question-marks.png}
+\end{center}
+\end{frame}
+
+
+\end{document}
