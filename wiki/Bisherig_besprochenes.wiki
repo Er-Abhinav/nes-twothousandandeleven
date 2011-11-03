@@ -3,150 +3,161 @@ http://ti.tuwien.ac.at/rts/teaching/courses/networked-embedded-systems
 
 = Thema =
 = Projektthema =
-* Entwicklungsprozess ist auch ok
-* Ist das mit dem Board realisierbar?
-* 6ECTS sollten hin kommen
-* Muss keine hoch komplexe Sache am uC Board sein
+ * Entwicklungsprozess ist auch ok
+ * Ist das mit dem Board realisierbar?
+ * 6ECTS sollten hin kommen
+ * Muss keine hoch komplexe Sache am uC Board sein
 = Spezialisierung =
-= Gruppenthema
-Uhrensync, Fehlertoleranz (TMR), Mathematische Beweise, ...
+= Gruppenthema<br>
+Uhrensync, Fehlertoleranz (TMR), Mathematische Beweise, ...<br>
 z.B.:
-* Projektentwicklug -> Schwerpunkt Projekt komplett durch einen Entwicklungszyklus führen
+ * Projektentwicklug -> Schwerpunkt Projekt komplett durch einen Entwicklungszyklus führen
+
 = Ablauf =
 == Abstract ==
 Erarbeiten:
-* Was wollen wir machen
-** Was ist dabei zu tun?
-* Wie soll das ablaufen
-** Aufgabenoptimiert (Rad nicht neu erfinden)
-* Projektplan (Gantt Chart)
-** Arbeitspakete (Doku, Visualisierung, Regelung) Thematische Sachen (Ohne Anfang und Ende)
-** Tasks (Definierter Start und Ende, [Urlaub, Pausen])
-*** Tasks haben subprodukte
-** Meilensteine (Extern das Projekt beobachtbar)
-*** Zeitpunkte für fixe Fortschrittspunke
-*** 1. Spezifikation Fertig (erste Workshop day)
-*** 2. zweiter Workshop day, alles fertig
+ * Was wollen wir machen
+  ** Was ist dabei zu tun?
+ * Wie soll das ablaufen
+  ** Aufgabenoptimiert (Rad nicht neu erfinden)
+ * Projektplan (Gantt Chart)
+  ** Arbeitspakete (Doku, Visualisierung, Regelung) Thematische Sachen  (Ohne Anfang und Ende)
+  ** Tasks (Definierter Start und Ende, [Urlaub, Pausen])
+   *** Tasks haben subprodukte
+  ** Meilensteine (Extern das Projekt beobachtbar)
+   *** Zeitpunkte für fixe Fortschrittspunke
+   *** 1. Spezifikation Fertig (erste Workshop day)
+   *** 2. zweiter Workshop day, alles fertig
+
 == Doku ==
 Output als pdf
-* Fünf Einzelteile schon auf der Homepage
+ * Fünf Einzelteile schon auf der Homepage
 == Workshop days ==
 Datum 1.WorkSD: 3.11.2011
-* Codeaustausch ist auch begrenzt ok
-* Vorstellung des eigenen Projekts
-** Was machen wir und die Anderen?
-* Vorstellung des Gruppenthemas
-* 30min Zeit/Gruppe
+ * Codeaustausch ist auch begrenzt ok
+ * Vorstellung des eigenen Projekts
+  ** Was machen wir und die Anderen?
+ * Vorstellung des Gruppenthemas
+ * 30min Zeit/Gruppe
 === Benefit ===
-* Was machen die Anderen
-* Untschiedliche Ansätze kennenlernen
-######################################################################
-######################################################################
+ * Was machen die Anderen
+ * Untschiedliche Ansätze kennenlernen
+
+----
+
 = 1. Workshop Day =
 Es ist ein Übergang vom Projekt(thema) zum Gruppethema zu wählen:
-* Übergang
-** Vom Projekt zum Gruppethema
-** Vom Gruppethema zum Projekt
-** Beide komplett trennen
-Folien Inhalt
+ * Übergang
+  ** Vom Projekt zum Gruppethema
+  ** Vom Gruppethema zum Projekt
+  ** Beide komplett trennen
+Folien Inhalt<br/>
 Folgendes muss am ersten Workshop day präsentiert werden
+
 == Projektidee ==
 Folgendes gehört im Projekt gemacht; was ist unsere Idee dabei
-* Realisierbarkeit / Aufwandsabschätzung
-* Günstiges Busprotokoll für Automation im Semi-Profi Bereich
-* Einarbeitungszeit/Migrationsaufwand soll gering sein
-* Geringe Sicherheitsmaßnahmen
+ * Realisierbarkeit / Aufwandsabschätzung
+ * Günstiges Busprotokoll für Automation im Semi-Profi Bereich
+ * Einarbeitungszeit/Migrationsaufwand soll gering sein
+ * Geringe Sicherheitsmaßnahmen
+
 == Gruppenthema/Spezialisierung ==
-* Spezifizieren eines geeigneten Kommunikationsprotokolls für die später besprochenen Bus-Eigenschaften
-* Definition geeigneter Abstraktionslayer um einfache Erweiterbarkeit und modulorientierte Entwicklung zu gewährleisten.
-* Uhrensynchronisation
+ * Spezifizieren eines geeigneten Kommunikationsprotokolls für die später besprochenen Bus-Eigenschaften
+ * Definition geeigneter Abstraktionslayer um einfache Erweiterbarkeit und modulorientierte Entwicklung zu gewährleisten.
+ * Uhrensynchronisation
+
 === Wichtiges ===
 === Problemstellungen und Lösungen ===
 == Time plan ==
-* Mitte Oktober: Project outline including project idea, time plan, milestones, roles
-* Ende Oktober: Spezifikation und Design des Busprotokolls
-* Ende November: Spezifikation und Design der Steuerapplikation
-* Weihnachten: Implementierung und Validierung des Busprotokolls
-* Ende Jänner: Implementierung und Validierung der Steuerapplikation
+ * Mitte Oktober: Project outline including project idea, time plan, milestones, roles
+ * Ende Oktober: Spezifikation und Design des Busprotokolls
+ * Ende November: Spezifikation und Design der Steuerapplikation
+ * Weihnachten: Implementierung und Validierung des Busprotokolls
+ * Ende Jänner: Implementierung und Validierung der Steuerapplikation
 == Gantt Chart ==
 === Milestones ===
-* Fertigstellung Pflichtenheft (Need-to-Haves, Nice-to-Haves)
-* Fertigstellung des Bus Protokolls
-* Fertigstellung der Demo-Application Nodes
-* Fertigstellung der Dokumentation
-* Abschlusspräsentation
+ * Fertigstellung Pflichtenheft (Need-to-Haves, Nice-to-Haves)
+ * Fertigstellung des Bus Protokolls
+ * Fertigstellung der Demo-Application Nodes
+ * Fertigstellung der Dokumentation
+ * Abschlusspräsentation
 === Activities ===
 === Tasks ===
-* Project Repository einrichten / Entwicklungsumgebung einrichten
-* Technische Spezifikation erstellen
-* Pflichtenheft (Need-to-Haves, Nice-to-Haves)
-* Implementierung des Bus Protokolls
-* Implementierung einzelner Application Nodes
-* Dokumentation
-* Testing
+ * Project Repository einrichten / Entwicklungsumgebung einrichten
+ * Technische Spezifikation erstellen
+ * Pflichtenheft (Need-to-Haves, Nice-to-Haves)
+ * Implementierung des Bus Protokolls
+ * Implementierung einzelner Application Nodes
+ * Dokumentation
+ * Testing
 === SubTasks ===
 == Rollenverteilungen ==
-* Project Manager ... Robert
-* Technischer Manager ... Alexanda
-* Doku Manager ... Nick
+ * Project Manager ... Robert
+ * Technischer Manager ... Alexanda
+ * Doku Manager ... Nick
   (Rechtschreibung, etc. aber jeder schreibt selbst Doku)
 == Kommunikationsprotokoll ==
 === Claims / Anfoderungen ===
-* Günstig
-* Einfach zu verwenden (für Hobbyisten/Bastler)
-* Geringer Resourcenbedarf
+ * Günstig
+ * Einfach zu verwenden (für Hobbyisten/Bastler)
+ * Geringer Resourcenbedarf
 = Ideen = 
 == Protokoll Eigenschaften==
 Was soll es können:
+{{{
 Difinitionen bitte so angeben: |<Vorname[0]> | <Priorität(Low...High) | <Eigenschaft>|
-| N | Mid | Checksum response ->  (CRC, Retransmission, Fehlertoleranz)|
-| N | Low | Automatische Geschwindigkeitswahl ODER Geschwindigkeitsstufen |
-| N | High | 500m Reichweite |
-* Repeated-Retransmission (ID,Daten,Repeat,Daten,Repeat,Daten)
-* A | High Multicast/Broadcast
-** Angebotene Services
-** Servicegruppen
-** Automatische (optionale) An-/Abmeldung vom Netzwerk (mit Refresh)
-* Authentizität (Secrete on bus)
-* Krypto
-* Echtzeitfähigkeit (Uhrensync)
-** Beides: Echtzeit und Asynchrone Komm. möglich?
-* Reichweite/Latenzzeit
-* großteils selbstkonfigurierend (autodetect einzelner nodes und services)
-* robust
-* 4-layered:
-** application layer
-** service layer
-*** Note: app layer lt. osi = ( app layer + service layer)
-*** Service definiert in welcher Art und Weise die Messages aufgebaut werden für verschiedene Applikationen
-*** Service legt fest welche Fähigkeiten einzelne Nodes haben
-*** Service ermöglicht Gruppenbildung mehrerer Nodes
-** data link layer layer (Bus-Protokoll-Spezifisch)
-** physical layer (Bus-Protokoll-Spezifisch)
+}}}
+
+|| N || Mid || Checksum response ->  (CRC, Retransmission, Fehlertoleranz)||
+|| N || Low || Automatische Geschwindigkeitswahl ODER Geschwindigkeitsstufen ||
+|| N || High || 500m Reichweite ||
+
+ * Repeated-Retransmission (ID,Daten,Repeat,Daten,Repeat,Daten)
+ * A | High Multicast/Broadcast
+  ** Angebotene Services
+  ** Servicegruppen
+  ** Automatische (optionale) An-/Abmeldung vom Netzwerk (mit Refresh)
+ * Authentizität (Secrete on bus)
+ * Krypto
+ * Echtzeitfähigkeit (Uhrensync)
+ ** Beides: Echtzeit und Asynchrone Komm. möglich?
+ * Reichweite/Latenzzeit
+ * großteils selbstkonfigurierend (autodetect einzelner nodes und services)
+ * robust
+ * 4-layered:
+  ** application layer
+  ** service layer
+   *** Note: app layer lt. osi = ( app layer + service layer)
+   *** Service definiert in welcher Art und Weise die Messages aufgebaut werden für verschiedene Applikationen
+   *** Service legt fest welche Fähigkeiten einzelne Nodes haben
+   *** Service ermöglicht Gruppenbildung mehrerer Nodes
+  ** data link layer layer (Bus-Protokoll-Spezifisch)
+  ** physical layer (Bus-Protokoll-Spezifisch)
+
 == random shit ==
-* one wire
-* i2c nutzen
-* uart nutzen
-* time triggered
-* autoconfig (nodes dazustöpseln)
-* master-slave (master könnte auch als kleiner avr zb attiny implementiert werden)
-* slave library für avr bauen
+ * one wire
+ * i2c nutzen
+ * uart nutzen
+ * time triggered
+ * autoconfig (nodes dazustöpseln)
+ * master-slave (master könnte auch als kleiner avr zb attiny implementiert werden)
+ * slave library für avr bauen
+
 = Protokoll =
 == Physical Layer ==
 encoding
--nrz (none return to 0)
-fehlerekrennung/korrektur
--parity
--- pro:
--- * einfach zu realisieren
--- * bei uart quasi geschenkt
--- contra:
--- * retransmission benötigt da man keine fehlerkorrektur auf empfängerseite realisieren kann
-- crc
--- pro:
--- * rückgewinnung
+ *nrz (none return to 0) <br/>fehlerekrennung/korrektur
+ *parity
+   ** pro:
+     *** einfach zu realisieren
+     *** bei uart quasi geschenkt
+   ** contra:
+     *** retransmission benötigt da man keine fehlerkorrektur auf  empfängerseite realisieren kann
+ * crc
+  ** pro:
+   *** rückgewinnung
 == Statische Slots ==
-* Wann darf letzte Nachricht gesendet werden
-** Statischen Nodes kümmern sich darum
-* Anmeldung mit Dynamischer Adresse
-** Anmeldung nach einer Zyklendauer möglich
+ * Wann darf letzte Nachricht gesendet werden
+  ** Statischen Nodes kümmern sich darum
+ * Anmeldung mit Dynamischer Adresse
+  ** Anmeldung nach einer Zyklendauer möglich
