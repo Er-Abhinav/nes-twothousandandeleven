@@ -1,0 +1,26 @@
+\section{Layer 2}
+
+Ein Fram setzt sich aus folgendem Inhalt zusammen
+\begin{itemize}
+  \item Frame-ID
+  \item Msg Len
+  \item Data
+  \item Checksum
+\end{itemize}
+
+Frame-ID und Msg-Len bilden den Header jeder Nachricht.
+\\
+Die Frame-ID setzt sich aus der Message-ID und einer dem Knoten fix zugewiesenen Node-ID zusammen.
+Die Aufteilung der Bits zwischen Message- und Node-ID wird nicht spezifiziert und wird je nach Projekt verschieden aufgeteilt.\\
+\\
+Somit ist es möglich verschiedene Messagetypen von beliebig vielen Nodes zur selben Zeit zu versenden.
+Die Priorisierung verschiedenster Messages ist anhand des dominanteren Bits an der höher prioren Stelle der jeweiligen Message-ID gegeben.\\
+\\
+Im Anschluss an den Header folgen die Nutzdaten deren Länge durch das Feld Msg-Len im Header angegeben wird und an deren Ende die Checksumme, welche sowohl über den Header- als auch den Nutzdatenteil gebildet wird, folgt.\\
+
+\section{Uhrensynchronisation}
+Auf den Layer 2 setzt die Uhrensynchronisation / das Messageordering auf.
+
+\section{Benchmarking und Testing}
+Diese wird mittels Node X mitprotokolliert und am LCD ausgegeben.
+Buttons die sich auf den jeweiligen Nodes befinden (mit diesen verbunden sind) werden dazu verwendet diverse Fehlerszenarien zu aktivieren oder Unschärfen zu verursachen.\\ 
