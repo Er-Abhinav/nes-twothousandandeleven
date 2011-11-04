@@ -1,0 +1,15 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+ * Präsentation bis KW45 an Armin senden - zwei teilig
+  * Gruppenthema
+  * Anwendung
+ * Workshop day im laufe der kommenden Woche
+
+== Für Präsentation ==
+ * Wie schaut unser Validierungsansatz aus
+ * Vergleich der Algorithmen schon etwas herzeigen
+  * Survey (Central Master von H.K., FTA, Probabalistic [Mit unserer Distanz ev. von Vorteil])
+  * Ev. Fundamentale Probleme aufzeigen und Lösung beschreiben
+ 
