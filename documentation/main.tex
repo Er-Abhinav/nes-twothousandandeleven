@@ -26,6 +26,7 @@
 \usepackage{tikz}
 \usepackage{units}
 \usepackage{tabularx}
+\usepackage{bytefield}
 
 % separate page numbering for title page and table of contents
 \pagenumbering{roman}
@@ -45,9 +46,10 @@
 %\usepackage{html}
 \renewcommand{\htmladdnormallinkfoot}[2]{#1{\footnote{\htmlurl{#2}}}}
 
+\title{The Ultra Leightweight Fault Tolerant Real Time Protocol}
+\author{Robert Annessi, Alexander Heinisch, Nick Mayerhofer}
+\date{November 2011}
 
-\renewcommand{\author}{Robert Annessi}
-\renewcommand{\title}{Building an auditory and visual stimulation device with EEG feedback loop}
 \newcommand{\subject}{An open source software and hardware approach for controllable brainwave entrainment}
 
 % configure pdf attachments
@@ -64,13 +66,14 @@
 \makeatother
 
 
-\hypersetup{unicode=true,pdftitle=\title,pdfauthor=\author,pdfsubject=\subject,pdfcreator=LaTeX,pdfproducer=pdfTeX,
-pdfkeywords={}}
+%\hypersetup{unicode=true,pdftitle=\title,pdfauthor=\author,pdfsubject=\subject,pdfcreator=LaTeX,pdfproducer=pdfTeX,
+%pdfkeywords={}}
 
 \begin{document} 
 
 %\input{chapters/000_deckblatt}
-%\input{chapters/010_abstract}
+
+\maketitle
 
 \thispagestyle{empty}
 \tableofcontents
@@ -81,6 +84,11 @@ pdfkeywords={}}
 
 
 \pagenumbering{arabic}
+
+\input{management}
+\input{specification/protocol_layer2}
+\input{clock_sync}
+
 %\input{chapters/020_introduction}
 %\input{chapters/035_theory}
 %\input{chapters/040_approach}
