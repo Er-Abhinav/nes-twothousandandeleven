@@ -46,6 +46,8 @@ Datum 1.WorkSD: 3.11.2011
 ----
 
 = 1. Workshop Day =
+20 - 25 Slides
+
 Es ist ein Übergang vom Projekt(thema) zum Gruppethema zu wählen:
  * Übergang
   ** Vom Projekt zum Gruppethema
@@ -161,3 +163,9 @@ encoding
   ** Statischen Nodes kümmern sich darum
  * Anmeldung mit Dynamischer Adresse
   ** Anmeldung nach einer Zyklendauer möglich
+
+= 2. Workshop Day = 
+
+ * Verwendete Software
+  * Vorteile / Nachteile
+  * Ist Bestandsaufnahme
