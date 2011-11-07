@@ -1,4 +1,5 @@
-
+Waiting room Protokoll anschauen
+Vectored clock
 
 = Verbesserungen = 
 
