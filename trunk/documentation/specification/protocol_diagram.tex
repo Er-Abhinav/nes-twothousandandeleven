@@ -1,0 +1,22 @@
+\begin{figure}[htbp]
+  \centering
+  \begin{bytefield}{24}
+    \bitheader{0,3-4,9-10,15-16,23} \\
+
+%   begin{rightwordgroup}{RTP \\ Header}
+    \bitbox{4}{MsgType} & \bitbox{6}{Receiver NodeID} & \bitbox{6}{Sender NodeID}
+    & \bitbox{8}{Data Len} \\
+%   \end{rightwordgroup} \\
+
+%     \wordbox[lrt]{1}{Data 0} \\
+%     \skippedwords \\
+% %     \wordbox[lrb]{1}{} \\
+%     \wordbox[lrb]{1}{Data \textless len\textgreater}\\
+    
+    \bitbox{8}{Data 0} & \bitbox{8}{Data ... } & 
+    \bitbox{8}{Data \textless len\textgreater}\\
+    \bitbox{8}{CRC0} & \bitbox{8}{CRC ...} & \bitbox{8}{CRC 4}
+  \end{bytefield}
+  \caption{ULFTRT-Protocol}
+  \label{figure:bus:messageformat}
+\end{figure}
