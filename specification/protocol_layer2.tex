@@ -3,9 +3,60 @@
 
 \begin{document}
 
-\section{Layer 2}
+\section{Bus Protocol}
 
-Ein Fram setzt sich aus folgendem Inhalt zusammen
+Generally our goal is to implement an easy to use bus protocol for fault tolerant application which can detect bit errors on a very low level and possibly provide forward error correction.
+The physical layer of our protocol is a one wire bus accessed via an usart, which provides an dominant high and an recessive low level.
+In the following we differentiate between
+
+\begin{enumerate}
+ \item the basic accessing part 
+ \item the fault tolerant non starvation handling (FTNSH) part
+ \item the fault tolerant non babbling idiot (FTNBI) part
+\end{enumerate}
+
+of the bus.\\
+
+\subsection{basic access}
+
+The access to the bus is provided by arbitration via the Frame ID consisting of the Message Type (or Message ID), the Receivers Node ID  and the Sender Node ID, whereat the Node ID have to be globally unique among all Nodes sharing the bus.\\
+Since we use the USART with a 9 bit data width but transfer 8 bits of payload a time only we can use the msb of the transferred character data for message synchronisation. A logic 1 prefixing a byte of data notifies the receiving nodes of the start of a frame.
+After the synchronisation bit the arbitration mask described above followed by the payload length in byte the payload and the 32-bit-CRC checksum are transmitted.
+
+Depicting the state machine shown in figure \ref{figure:bus:basicaccess:statemachine} we outline three cases.
+
+\begin{enumerate}
+ \item Only one node wants to transmit data and the bus is free: The node A knows that the bus is free by observing the bus since startup. A starts to write the MessageID prefixed by the synchronisation bit to the bus and listens bitwise for the data last written.
+       If the bit received equals the bit written A knows the bus currently is dominated by it and the arbitration can continue. After arbitrating the whole FrameID every Node currently connected to the bus is in the RECEIVE\_STATE except A which is in the TRANSMIT\_SATE of the state machine.
+       A can now send the rest of the message without being interrupted by another node.
+
+ \item more than one node wants to transmit data: Both nodes A and B start to send the synchronisation bit and some bits of their Frame ID. Since the Node IDs have to be unique one of the two nodes does not read back the bit written on the bus and changes to the RECEIVE\_STATE. The further scenario is like the one described above.
+
+ \item one node wants to transmit data during another node's already transmitting: Since all nodes connected to the bus are in the RECEIVE\_STATE while another node is sending the node has to wait until the other node currently sending has finished.
+
+ \item some new node (e.g. a node just powered on): The node C just powered on has a wrong state within the protocols state machine. This means he does not know if there is a communication going on at the moment, leading to the fact of not being capable to decide when he is allowed to arbitrate the bus without violating another transmission.
+       In this case C has to wait until the next synchronisation bit set HIGH is received. From this time on C has the correct state in the protocols state machine. And after receiving the current message C can start to arbitrate the bus like in one of the scenarios depicted above.
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ein Frame setzt sich aus folgendem Inhalt zusammen
 \begin{itemize}
   \item Frame-ID
   \item Msg Len
