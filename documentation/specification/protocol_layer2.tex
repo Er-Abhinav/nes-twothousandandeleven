@@ -38,7 +38,7 @@ Depicting the state machine shown in figure \ref{figure:bus:basicaccess:statemac
        In this case C has to wait until the next synchronisation bit set HIGH is received. From this time on C has the correct state in the protocols state machine. And after receiving the current message C can start to arbitrate the bus like in one of the scenarios depicted above.
 \end{enumerate}
 
-\subsection{fault tolerant non starvation handling (FTNSH)}
+\subsection{fault tolerant none starvation handling (FTNSH)}
 \label{sec:bus:ftnsh}
 
 Since the whole network starves in case of a fault, e.g. a hang up or a power off, at the sending node during transmission as well as on power on of the very first node, we have to provide the so called FTNSH, to ensure proper operation after some time.
@@ -47,7 +47,7 @@ In case the message has been transmitted correctly the timer or watchdog can be 
 In case the sender node stucks during message transmission the timer or watchdog triggers an interrupt resetting the state in the protocols state machine which offers the receiver nodes to initiate a new transmission.
 Another advantage of the FTNSH is a faster integration of new nodes, since a new node does not have to wait for the synchronisation bit of another message to synchronize to the bus protocol because he can set its timer or watchdog and initiate a new transmission after the configured timeout.
 
-\subsection {fault tolerant non babbling idiot (FTNBI)}
+\subsection {fault tolerant none babbling idiot (FTNBI)}
 \label{sec:bus:ftnbi}
 
 \textit{Note: the FTNBI is not part of the protocol implementation}\\
