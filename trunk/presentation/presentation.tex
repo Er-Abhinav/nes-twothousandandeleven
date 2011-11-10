@@ -1,4 +1,3 @@
-
 %\documentclass[hyperref={pdfpagelabels=false}]{beamer}
 \documentclass{beamer}
 \usepackage{textcomp}
@@ -18,7 +17,7 @@
 
 \title {Networked embedded Systems}
 \subtitle {LightBus}
-\author{Robert Annessi\\ Alex Heinisch\\ Nick Mayerhofer}
+\author{Robert Annessi\\ Alexander Heinisch\\ Nick Mayerhofer}
 
 % custom date
 \usepackage{datetime}
@@ -32,54 +31,123 @@
 
 
 \begin{document}
-
- \begin{frame}
-    \frametitle{This is the first slide}
-    Content goes here
-  \end{frame}
 \begin{frame}
   \titlepage
 \end{frame}
 % logo only on title page
  \logo{}
 
+\begin{frame}{Table of Contents}
+  \tableofcontents
+\end{frame}
 
-% \begin{frame}{Gliederung des Vortrags}
-%   \tableofcontents
-% \end{frame}
 
-\section{Elektroenzephalographie}
-\begin{frame}{Frequenzbänder}{Einteilung und Bezeichnung der Frequenzbereiche eines Elektroenzephalogramms}
+\section{Project Outline}
+\begin{frame}{Defining project goals}%{}
+\begin{center}
+\begin{itemize}
+  \item embedded communication for home automation are expensive
+    \begin{itemize}
+      \item certification necessary
+      \item licence needed
+      \item ...
+    \end{itemize}
+  \item implementation of given protocols are often heavily
+  \item migration of additional components in given systems claims expertise
+\end{itemize}
+\end{center}
+\end{frame}
+
+\begin{frame}{Project goals}%{}
+\begin{center}
+\begin{itemize}
+ \item \begin{large}building a fault tolerant bus protocol\end{large}
+ \item \begin{large}separation of communication and application layers\end{large}
+ \item \begin{large}providing basic fault tolerance\end{large}
+ \item \begin{large}easy adaptable to existing projects\end{large}
+ \item \begin{large}easy migrateable to existing systems\end{large}
+\end{itemize}
+\end{center}
+\end{frame}
+
+\begin{frame}{Group subject}{Synchronous Clocks}
+  \begin{itemize}
+    \item \begin{large}comparison of clock sync algorithms\end{large}
+    \item \begin{large}implementation of an algorithm including\end{large}
+      \begin{itemize}
+	\item time estimation
+	\item feasibility estimation
+      \end{itemize}
+    \item \begin{large}testing under fault conditions\end{large}
+  \end{itemize}
+\end{frame}
+
+\section{Bus Protocol}
+\begin{frame}{Bus protocol}{ULFTRTP}
 \begin{center}
 %\includegraphics[width=0.9\textwidth]{../images/presentation/brainwaves.png}
+\begin{itemize}
+  \item \begin{large}\end{large}
+ \item \begin{large}\end{large}
+ \item \begin{large}\end{large}
+ \item \begin{large}\end{large}
+\end{itemize}
+\end{center}
+\end{frame}
+
+\begin{frame}{}%{}
+\begin{center}
+%\includegraphics[width=0.9\textwidth]{../images/presentation/brainwaves.png}
+\begin{itemize}
+  \item \begin{large}\end{large}
+ \item \begin{large}\end{large}
+ \item \begin{large}\end{large}
+ \item \begin{large}\end{large}
+\end{itemize}
 \end{center}
 \end{frame}
 
 
-\begin{frame}{Grundidee}
-  \begin{itemize}
-  \item \begin{large}okok\end{large}
-  \end{itemize}
+\section{Clock Synchronisation}
+\begin{frame}{}%{}
+\begin{center}
+%\includegraphics[width=0.9\textwidth]{../images/presentation/brainwaves.png}
+\begin{itemize}
+  \item \begin{large}\end{large}
+ \item \begin{large}\end{large}
+ \item \begin{large}\end{large}
+ \item \begin{large}\end{large}
+\end{itemize}
+\end{center}
 \end{frame}
 
-% \section*{Ausblick}
-\begin{frame}{Ausblick}
+\begin{frame}{}%{}
+\begin{center}
+%\includegraphics[width=0.9\textwidth]{../images/presentation/brainwaves.png}
 \begin{itemize}
- \item \begin{large}Mehr Tests notwendig\end{large}
- \item \begin{large}Schleife vollständig schließen\end{large}
- \item \begin{large}Alltagstauglichkeit\end{large}
+  \item \begin{large}\end{large}
+ \item \begin{large}\end{large}
+ \item \begin{large}\end{large}
+ \item \begin{large}\end{large}
 \end{itemize}
+\end{center}
+\end{frame}
+
+
+\section{Time Plan}
+\begin{frame}{Time Plan}
+\includegraphics[width=1.0\textwidth]{./images/201111_ganttchart.png}
 \vspace{1cm}
 \end{frame}
 
 \begin{frame}
 \begin{center}
-\begin{Huge}\textbf{Danke!}\end{Huge}
+\begin{Huge}\textbf{Thank you!}\end{Huge}
 \end{center}
 \end{frame}
 
 
-\begin{frame}{Fragen}
+\begin{frame}{Questions}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{./images/question-marks.png}
 \end{center}
