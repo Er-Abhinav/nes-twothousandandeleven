@@ -5,6 +5,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{times}
 \usepackage[T1]{fontenc}
+\usepackage{bytefield}
 
 %gets rid of navigation symbols
 \setbeamertemplate{navigation symbols}{}
@@ -90,23 +91,58 @@
   \item \begin{large}balanced bus tailored to our needs\end{large}
   \item \begin{large}csma/ca\end{large}
  \item \begin{large}non starvation handling\end{large}
- \item \begin{large}source/destination addressing\end{large}
+ \item \begin{large}re/integration handling\end{large}
 \end{itemize}
 \end{center}
 \end{frame}
 
-\begin{frame}{}%{}
+\begin{frame}{Bus protocol}{basic access}
 \begin{center}
 %\includegraphics[width=0.9\textwidth]{../images/presentation/brainwaves.png}
 \begin{itemize}
-  \item \begin{large}\end{large}
- \item \begin{large}\end{large}
- \item \begin{large}\end{large}
- \item \begin{large}\end{large}
+ \item \begin{large}one wire\end{large}
+ \item \begin{large}9N1 UART Configuration\end{large}
+ \item \begin{large}bus arbitration\end{large}
+ \item \begin{large}message format\end{large}
 \end{itemize}
+
+\begin{center}
+
+   \begin{bytefield}{24}
+     \bitheader{0,3-4,9-10,15-16,23}\\
+     %\begin{rightwordgroup}{Header}
+         \bitbox{4}{Type} \bitbox{6}{Dest ID} \bitbox{6}{Src ID} \bitbox{8}{Len}\\
+     %\end{rightwordgroup} \\
+
+     \bitbox[lrt]{8}{Data<0>} \bitbox[lrt]{8}{Data<1>} \bitbox[lrt]{8}{Data<2>}\\ 
+     \skippedwords \\
+% 
+% %     \wordbox[lrt]{1}{Data 0} \\
+% %     \skippedwords \\
+% % %     \wordbox[lrb]{1}{} \\
+% %     \wordbox[lrb]{1}{Data \textless len\textgreater}\\
+%     
+%     \bitbox{8}{Data 0} & \bitbox{8}{Data ... } & 
+%     \bitbox{8}{Data \textless len\textgreater}\\
+     \bitbox[lrb]{8}{Data<Len-2>} \bitbox[lrb]{8}{Data<Len-1>} \bitbox[lrb]{8}{CRC<0>}\\ 
+     \bitbox{8}{CRC<1>} \bitbox{8}{CRC<2>} \bitbox{8}{CRC<3>}\\
+   \end{bytefield}
 \end{center}
+\end{center}
+
 \end{frame}
 
+\begin{frame}{Bus protocol}{fault tolerance \& non starvation handling}
+\begin{center}
+%\includegraphics[width=0.9\textwidth]{../images/presentation/brainwaves.png}
+\begin{itemize}
+ \item \begin{large}timer / watchdog\end{large}
+\end{itemize}
+\begin{center}
+%\includegraphics[width=0.7\textwidth]{./images/faulttolerance.png}
+\end{center}
+\end{center}
+\end{frame}
 
 %welche gibts?
 %vergleichen
