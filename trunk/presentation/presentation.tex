@@ -17,7 +17,7 @@
 }
 
 \title {Networked Embedded Systems VU}
-\subtitle {Clock Synchronisation\\over the\\Ultra Leightweight Fault Tolerant Real Time Protocol}
+\subtitle {Clock Synchronisation\\over a\\ leightweight protocol with basic fault tolerance}
 \author{R. Annessi,\\ A. Heinisch,\\ N. Mayerhofer}
 
 % custom date
@@ -38,59 +38,59 @@
 % logo only on title page
  \logo{}
 
-\begin{frame}{Table of Contents}
+\begin{frame}{Structure of presentation}
   \tableofcontents
 \end{frame}
 
 
 \section{Project Outline}
-\begin{frame}{Defining project goals}%{}
+\begin{frame}{Motivation}
 \begin{center}
 \begin{itemize}
-  \item embedded communication for home automation are expensive
+  \item Embedded communication for home automation are expensive
     \begin{itemize}
-      \item certification necessary
-      \item licence needed
+      \item Certification necessary
+      \item Licence needed
       \item ...
     \end{itemize}
-  \item implementation of given protocols are often heavily
-  \item migration of additional components in given systems claims expertise
+  \item Implementation of existing protocols are often resource intensive
+  \item Migration of additional components in given systems claims expertise
 \end{itemize}
 \end{center}
 \end{frame}
 
-\begin{frame}{Project goals}%{}
+\begin{frame}{Project goals}
 \begin{center}
 \begin{itemize}
- \item \begin{large}building a fault tolerant bus protocol\end{large}
- \item \begin{large}separation of communication and application layers\end{large}
- \item \begin{large}providing basic fault tolerance\end{large}
- \item \begin{large}easy adaptable to existing projects\end{large}
- \item \begin{large}easy migrateable to existing systems\end{large}
+ \item \begin{large}Easy adaptable to existing projects\end{large}
+ \item \begin{large}Easy migrateable to existing systems\end{large}
+ \item \begin{large}Usable for small microcontrollers\end{large}
+ \item \begin{large}Separation of communication and application layers\end{large}
+ \item \begin{large}Providing basic fault tolerance\end{large}
 \end{itemize}
 \end{center}
 \end{frame}
 
-\begin{frame}{Group subject}{Synchronous Clocks}
+\begin{frame}{Group subject}{Clock synchronization}
   \begin{itemize}
-    \item \begin{large}comparison of clock sync algorithms\end{large}
-    \item \begin{large}implementation of an algorithm including\end{large}
+    \item \begin{large}Comparison of clock synchronisation algorithms\end{large}
+    \item \begin{large}Implementation of an algorithm including\end{large}
       \begin{itemize}
-	\item time estimation
-	\item feasibility estimation
+	\item Time estimation
+	\item Feasibility estimation
       \end{itemize}
-    \item \begin{large}testing under fault conditions\end{large}
+    \item \begin{large}Testing under fault conditions\end{large}
   \end{itemize}
 \end{frame}
 
 \section{Bus Protocol}
-\begin{frame}{Bus protocol}{ULFTRTP}
+\begin{frame}{Bus protocol}{Layer 2}
 \begin{center}
 \begin{itemize}
   \item \begin{large}balanced bus tailored to our needs\end{large}
-  \item \begin{large}csma/ca\end{large}
- \item \begin{large}non starvation handling\end{large}
- \item \begin{large}re/integration handling\end{large}
+  \item \begin{large}CSMA/CA\end{large}
+  \item \begin{large}Non-starvation handling\end{large}
+  \item \begin{large}Re/integration handling\end{large}
 \end{itemize}
 \end{center}
 \end{frame}
