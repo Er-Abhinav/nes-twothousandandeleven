@@ -83,11 +83,27 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}{Bus protocol}{Layer 1}
+\begin{center}
+\begin{itemize}
+ \item \begin{large}One wire\end{large}
+ \item \begin{large}USART 9N1 configuration\end{large}
+\end{itemize}
+\vspace{1cm}
+\begin{bytefield}{11}
+ \bitheader{0-1,9-10}\\
+ \bitbox{1}{S} \bitbox{9}{Datenbits} \bitbox{1}{S}\\
+\end{bytefield}
+\end{center}
+\end{frame}
+
+
 \section{Bus Protocol}
 \begin{frame}{Bus protocol}{Layer 2}
 \begin{center}
 \begin{itemize}
-  \item \begin{large}balanced bus tailored to our needs\end{large}
+  \item \begin{large}Bus tailored to our needs\end{large}
+  \item \begin{large}Bus arbitration\end{large}
   \item \begin{large}CSMA/CA\end{large}
   \item \begin{large}Non-starvation handling\end{large}
   \item \begin{large}Re/integration handling\end{large}
@@ -95,26 +111,9 @@
 \end{center}
 \end{frame}
 
-\begin{frame}{Bus protocol}{basic access}
+
+\begin{frame}{Bus protocol}{Layer 2: message format}
 \begin{center}
-\begin{itemize}
- \item \begin{large}one wire\end{large}
- \item \begin{large}9N1 USART configuration\end{large}
- \item \begin{large}bus arbitration\end{large}
- \item \begin{large}message format\end{large}
-\end{itemize}
-\end{center}
-\end{frame}
-
-
-\begin{frame}
-\begin{center}
-   \begin{bytefield}{11}
-     \bitheader{0-1,9-10}\\
-     \bitbox{1}{S} \bitbox{9}{Datenbits} \bitbox{1}{S}\\
-   \end{bytefield}
-\pause
-
    \begin{bytefield}{24}
      \bitheader{0,3-4,9-10,15-16,23}\\
      \bitbox{4}{Type} \bitbox{6}{Dest ID} \bitbox{6}{Src ID} \bitbox{8}{Len}\\
@@ -127,9 +126,8 @@
 \end{frame}
 
 
-\begin{frame}{Bus protocol}{fault tolerance \& non starvation handling}
+\begin{frame}{Bus protocol}{Basic fault tolerance \& non starvation handling}
 \begin{center}
-%\includegraphics[width=0.9\textwidth]{../images/presentation/brainwaves.png}
 \begin{itemize}
  \item \begin{large}timer / watchdog\end{large}
 \end{itemize}
@@ -147,9 +145,9 @@
 \begin{center}
 \begin{itemize}
   \item \begin{large}assumption of timebase\end{large}
- \item \begin{large}clock synchronisation vs. message ordering\end{large}
- \item \begin{large}adjustment method\end{large}
- \item \begin{large}latency correction\end{large}
+  \item \begin{large}clock synchronisation vs. message ordering\end{large}
+  \item \begin{large}adjustment method\end{large}
+  \item \begin{large}latency correction\end{large}
 \end{itemize}
 \end{center}
 \end{frame}
