@@ -1,0 +1,9 @@
+*.aux
+*.lot
+*.out
+*.lof
+*.log
+*.toc
+presentation.snm
+presentation.nav
+presentation.pdf
