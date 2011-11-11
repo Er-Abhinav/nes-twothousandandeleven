@@ -54,7 +54,7 @@
       \item ...
     \end{itemize}
   \item Implementation of existing protocols are often resource intensive
-  \item Migration of additional components in given systems claims expertise
+  \item Migration of additional components in given systems needs expertise
 \end{itemize}
 \end{center}
 \end{frame}
@@ -62,18 +62,26 @@
 \begin{frame}{Project goals}
 \begin{center}
 \begin{itemize}
- \item \begin{large}Easy adaptable to existing projects\end{large}
- \item \begin{large}Easy migrateable to existing systems\end{large}
+ \item \begin{large}Easily adaptable to existing projects\end{large}
+\pause
+ \item \begin{large}Easily migrateable from existing systems\end{large}
+\pause
  \item \begin{large}Usable for small microcontrollers\end{large}
+\pause
+ \item \begin{large}Masterless\end{large}
+\pause
+ \item \begin{large}Low configuration overhead\end{large}
+\pause
  \item \begin{large}Separation of communication and application layers\end{large}
- \item \begin{large}Providing basic fault tolerance\end{large}
+\pause
+ \item \begin{large}Provide basic fault tolerance\end{large}
 \end{itemize}
 \end{center}
 
 \end{frame}
 
 \section{Group subject}
-\begin{frame}{Group subject}{Clock synchronization}
+\begin{frame}{Group subject}{Clock synchronisation}
   \begin{itemize}
     \item \begin{large}Comparison of clock synchronisation algorithms\end{large}
     \item \begin{large}Implementation of an algorithm including\end{large}
@@ -120,9 +128,9 @@
    \begin{bytefield}{24}
      \bitheader{0,3-4,9-10,15-16,23}\\
      \bitbox{4}{Type} \bitbox{6}{Dest ID} \bitbox{6}{Src ID} \bitbox{8}{Len}\\
-     \bitbox[lrt]{8}{Data<0>} \bitbox[lrt]{8}{Data<1>} \bitbox[lrt]{8}{Data<2>}\\ 
+     \bitbox[lrt]{8}{Data<0>} \bitbox[lrt]{8}{Data<1>} \bitbox[lrt]{8}{..}\\ 
      \skippedwords \\
-     \bitbox[lrb]{8}{Data<Len-3>}\bitbox[lrb]{8}{Data<Len-2>}\bitbox[lrb]{8}{Data<Len-1>}\\
+     \bitbox[lrb]{8}{..}\bitbox[lrb]{8}{Data<Len-2>}\bitbox[lrb]{8}{Data<Len-1>}\\
      \bitbox[lrb]{8}{CRC<0>}\bitbox{8}{..}\bitbox{8}{CRC<3>}\\
    \end{bytefield}
 \end{center}
@@ -167,7 +175,7 @@
     \item \begin{large}Distributed clock algorithms\end{large}
     \begin{itemize}
       \item Precision time protocol
-      \item Reference broadcast synchronization
+      \item Reference broadcast synchronisation
     \end{itemize}
   \item \begin{large}Method we use\end{large}
   \end{itemize}
