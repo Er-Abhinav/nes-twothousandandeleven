@@ -132,16 +132,27 @@
 \end{frame}
 
 
-\begin{frame}{Bus protocol}{Basic fault tolerance \& non starvation handling}
+\begin{frame}{Bus protocol}{Starvation handling}
 \begin{center}
 \begin{itemize}
- \item \begin{large}Timer / watchdog\end{large}
+ \item \begin{large}Problem: Sender stops sending during communication and receiver(s) will wait for data forever.\end{large}
+ \item \begin{large}Solution: Receivers enter idle state again if no data has been received within the timeout interval.\end{large}
+ \item \begin{large}Disadvantage: HW-Timer has to be used.\end{large}
 \end{itemize}
-\begin{center}
-\includegraphics[width=0.7\textwidth]{./images/faulttolerance.png}
-\end{center}
 \end{center}
 \end{frame}
+
+
+\begin{frame}{Bus protocol}{Re/Integration handling}
+\begin{center}
+\begin{itemize}
+ \item \begin{large}Problem: How does an upcoming node detect the beginning of a layer2 message?\end{large}
+ \item \begin{large}Solution: ``Sync''-bit in layer1 set at beginning of a layer2-message.\end{large}
+ \item \begin{large}Disadvantage: 1 additional bit for every layer1 message but lower cpu usage then bit stuffing and easier to implement.\end{large}
+\end{itemize}
+\end{center}
+\end{frame}
+
 
 %welche gibts?
 %vergleichen
