@@ -1,5 +1,11 @@
+== Ideen von Anderen == 
 
  * Eigenes Timeout Frame einführen
  * Message processing
   * Calculation slots per round
   * Bandbreiten zu Computation time vergleich
+
+== Workshop Day 2 ==
+
+ * Präsentation der verwendeten projekt management Software
+  * Positive und negative Erfahrungen damit
