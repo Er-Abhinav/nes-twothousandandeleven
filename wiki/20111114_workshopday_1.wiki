@@ -17,3 +17,13 @@
 
  * Präsentation der verwendeten projekt management Software
   * Positive und negative Erfahrungen damit
+
+
+== Armin Feedback ==
+
+ * Diese Woche mit Implementation beginnen
+  * Programmer ev. noch Probleme
+  * Mit alten ESE Boards beginnend
+ * Upload der Folien bis Mittwoch KW46
+ * Austausch unter den Gruppen ist erwünscht
+ * 
