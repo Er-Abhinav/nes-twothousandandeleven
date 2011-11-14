@@ -21,6 +21,7 @@
 
 == Armin Feedback ==
 
+ * Wochentermin: jeden Mo. 09:30-10h
  * Diese Woche mit Implementation beginnen
   * Programmer ev. noch Probleme
   * Mit alten ESE Boards beginnend
