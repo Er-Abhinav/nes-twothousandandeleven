@@ -1,0 +1,5 @@
+
+ * Eigenes Timeout Frame einführen
+ * Message processing
+  * Calculation slots per round
+  * Bandbreiten zu Computation time vergleich
