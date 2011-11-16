@@ -1,19 +1,29 @@
-#summary One-sentence summary of this page.
-Meeting Protocol (16.11.2011)
+#summary Meeting Protocol (16.11.2011)
+
 = Introduction =
 
 KNX: http://de.wikipedia.org/wiki/KNX-Standard
+
 Profibus: http://de.wikipedia.org/wiki/Profibus
+
 ZigBee: http://en.wikipedia.org/wiki/ZigBee
+
 Lon Works (or works not): http://en.wikipedia.org/wiki/LonWorks
+
 Ethercat: http://de.wikipedia.org/wiki/EtherCAT
+
 CAN http://de.wikipedia.org/wiki/Local_Interconnect_Network
+
 LIN http://de.wikipedia.org/wiki/Controller_Area_Network
+
 Flexray http://de.wikipedia.org/wiki/FlexRay
+
 TTP http://de.wikipedia.org/wiki/Time-Triggered_Protocol
+
 ARINC http://de.wikipedia.org/wiki/ARINC
 
 http://en.wikipedia.org/wiki/Fieldbus#Features
+
 
 \section{Vergleiche}
 Paper TTP/A vs LIN
