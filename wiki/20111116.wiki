@@ -78,3 +78,9 @@ Max devices
 Synchronisation
 
 Sub millisecond cycle
+
+
+
+
+
+Physical layer: 
