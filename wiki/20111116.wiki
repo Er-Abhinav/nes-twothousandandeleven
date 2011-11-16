@@ -64,3 +64,5 @@ Arbitration Method
 Error Checking
 
 Diagnostics
+
+Costs
