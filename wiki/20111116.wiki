@@ -66,3 +66,15 @@ Error Checking
 Diagnostics
 
 Costs
+
+Max devices
+
+Bus power
+
+Cabling redundancy
+
+Max devices
+
+Synchronisation
+
+Sub millisecond cycle
