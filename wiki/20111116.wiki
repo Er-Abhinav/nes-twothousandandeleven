@@ -1,0 +1,39 @@
+#summary One-sentence summary of this page.
+Meeting Protocol (16.11.2011)
+= Introduction =
+
+KNX: http://de.wikipedia.org/wiki/KNX-Standard
+Profibus: http://de.wikipedia.org/wiki/Profibus
+ZigBee: http://en.wikipedia.org/wiki/ZigBee
+Lon Works (or works not): http://en.wikipedia.org/wiki/LonWorks
+Ethercat: http://de.wikipedia.org/wiki/EtherCAT
+CAN http://de.wikipedia.org/wiki/Local_Interconnect_Network
+LIN http://de.wikipedia.org/wiki/Controller_Area_Network
+Flexray http://de.wikipedia.org/wiki/FlexRay
+TTP http://de.wikipedia.org/wiki/Time-Triggered_Protocol
+ARINC http://de.wikipedia.org/wiki/ARINC
+
+http://en.wikipedia.org/wiki/Fieldbus#Features
+
+\section{Vergleiche}
+Paper TTP/A vs LIN
+http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.20.904&rep=rep1&type=pdf
+Lin1.3, Lin2.0, TTPA
+http://www.vmars.tuwien.ac.at/~wilfried/papers/2005/rr-3-2004.pdf
+CAN, TTCAN, LIN, Flexray
+http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=5158829
+Analysis and evaluation of fieldbus communication and protocol static characteristic
+http://dl.acm.org/citation.cfm?id=1509441
+http://dl.acm.org/ft_gateway.cfm?id=1509441&type=pdf&CFID=68967950&CFTOKEN=16750985
+Comparison and Analysis of Several Fieldbus Technology Applied in Intelligent Building
+http://en.cnki.com.cn/Article_en/CJFDTOTAL-DYDQ200904003.htm
+
+\subsection{Vergleichskriterien}
+\item Minimal benötigte Hardware
+\item Lizenz benötigt
+Communication Transmission
+Methods Properties
+Data Transfer Size
+Arbitration Method
+Error Checking
+Diagnostics
