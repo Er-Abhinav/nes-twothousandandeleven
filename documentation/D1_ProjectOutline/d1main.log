@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.10.31)  10 NOV 2011 19:14
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.10.31)  10 NOV 2011 19:21
 entering extended mode
  %&-line parsing enabled.
 **d1main.tex
@@ -1023,7 +1023,7 @@ LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
 File: ./images/201111_ganttchart.png Graphic file (type png)
 
 <use ./images/201111_ganttchart.png> [3] [4 <./images/201111_ganttchart.png (PN
-G copy)>]) (./d1main.aux)
+G copy)>]) (./timeplan.tex) (./d1main.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -1032,8 +1032,8 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 16401 strings out of 495061
- 276902 string characters out of 1182620
+ 16404 strings out of 495061
+ 276936 string characters out of 1182620
  352290 words of memory out of 3000000
  19162 multiletter control sequences out of 15000+50000
  16988 words of font info for 42 fonts, out of 3000000 for 9000
