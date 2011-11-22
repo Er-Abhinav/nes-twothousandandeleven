@@ -1,0 +1,13 @@
+\select@language {english}
+\select@language {english}
+\contentsline {section}{\numberline {1}Project Goal}{1}{section.1}
+\contentsline {subsection}{\numberline {1.1}Basic Idea}{1}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Requirements}{1}{subsection.1.2}
+\contentsline {subsubsection}{\numberline {1.2.1}ULFTRTP}{1}{subsubsection.1.2.1}
+\contentsline {subsubsection}{\numberline {1.2.2}Clock Synchronization}{2}{subsubsection.1.2.2}
+\contentsline {section}{\numberline {2}Project Management}{2}{section.2}
+\contentsline {subsection}{\numberline {2.1}Project Idea}{2}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Group Subject / Specialization}{2}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Role allocation}{3}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Project time schedule}{3}{subsection.2.4}
+\contentsline {subsubsection}{\numberline {2.4.1}Gantt Chart}{3}{subsubsection.2.4.1}
