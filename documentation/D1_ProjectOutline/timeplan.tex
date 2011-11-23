@@ -1,6 +1,6 @@
 \section{Project time schedule}
 
-We elected eGroupware for our project management matters that prvides:
+We elected eGroupware for our project management matters that provides:
 \begin{itemize}
  \item time management
  \item issue tracking
@@ -38,7 +38,8 @@ Resources[\%] & 40\\
 \hline
 \end{tabular}
 \end{wrapfigure}
-Documentation referes to the entire project processflow and lives therefore over the entire project.\\
+Documentation is one of the main parts of project and referes to the entire project 
+processflow and therefore lives over the entire project.\\
 One of the main parts in this project is project management and we attach much 
 importance to it and thus also on the documentation.\\
 
@@ -105,18 +106,61 @@ implementations are tested with the concerning testcase or with a miniature subs
 Testing each implementation is an important part of the implementation an takes place while
 implementing.
 \subsection{Hardware Abstraction}
-a
-\subsubsection{Timer Treiber}
-a
-\subsubsection{USART Treiber}
-a
-\subsubsection{LCD Treiber}
-a
+\begin{wrapfigure}{r}{0mm}
+\begin{tabular}[t]{|lr|}
+\hline
+Start & kw46\\
+End & kw48\\
+Resources [\%] & 5\\
+\hline
+\end{tabular}
+\end{wrapfigure}
+Hardware abstraction includes the particular parts of concrete hardwar APIs needed through the project. 
+That means that the hardware abstraction layer (HAL) makes high lvl programming interfaces available to 
+higher abstraction layers.
+
+We broke down our main hardware parts to:
+\begin{itemize}
+ \item Timer driver\\
+Which allows to initialize, set and get hardware timer concerning values that are needed
+for further use regarding our bus communication, clock, clock synchronisation and 
+measurements concerning drift rates
+ \item USART driver\\
+Wich allows to arbitrate via the bus, send and receive data including automatic message 
+pre filtering
+ \item LCD driver\\
+Wich allows to initialize and draw text to the LCD display.
+\end{itemize}
+
 \subsection{Bus Protokoll Implementation}
-a
+\begin{wrapfigure}{r}{0mm}
+\begin{tabular}[t]{|lr|}
+\hline
+Start & kw48\\
+End & kw51\\
+Resources [\%] & 10\\
+\hline
+\end{tabular}
+\end{wrapfigure}
+The bus protocol is the second main part of this project which includes the correct communication
+between multiple nodes over the available bus connection. 
+The bus itselfe is specified in \cite [NESD2]{NESD2} and deviations should stay small depending 
+the protocol specification.
 \subsection{Clocksync Implementation}
-a
-\subsection{Clocksync Application}
-a
-
-
+\begin{wrapfigure}{r}{0mm}
+\begin{tabular}[t]{|lr|}
+\hline
+Start & kw50\\
+End & kw2\\
+Resources [\%] & 10\\
+\hline
+\end{tabular}
+\end{wrapfigure}
+The clock synchronisation and clocksync application is the third and last main part of 
+this project where all conceived parts have
+\subsubsection{Clocksync Application}
+The application is ment to:
+\begin{itemize}
+ \item measure drift rates through the clock sync processflow
+ \item applying measurements in case of heavy bus load
+\end{itemize}
