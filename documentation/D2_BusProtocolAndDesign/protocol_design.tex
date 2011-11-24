@@ -18,14 +18,16 @@
 \definecolor{fgred}{rgb}{0.6,0,0}%
 %
 \begin{tikztimingtable}[
-    timing/slope=0,         % no slope
+    %timing/slope=0,         % no slope
     timing/coldist=2pt,     % column distance
+    timing/lslope=0.1,
     xscale=2.05,yscale=1.1, % scale diagrams
     semithick               % set line width
   ]
   \scriptsize timing  	& 7{C}                              \\
   data                     & [fgblue] .75L h 2.25L H LLl       \\
-  R                     & [fgblue]  1.8L .8H 2.2L 1.4H 0.8L \\
+  R                     & [fgblue]  UH .8U 1.4H 0.8L \\
+  MISO & D{z} 2D{z} \\
   %Q                     &          L .8H 1.7L 1.5H LL       \\
   %$\overline{\mbox{Q}}$ &          H .8L 1.7H 1.5L HH       \\
   %Q                     & [fgred]  HLHHHLL                  \\
