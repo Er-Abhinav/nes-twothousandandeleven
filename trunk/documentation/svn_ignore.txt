@@ -6,3 +6,5 @@
 *.toc
 main.pdf
 *.backup
+*.bbl
+*.blg
