@@ -24,6 +24,20 @@
 \usepackage{amsmath}
 \usepackage{pdflscape}
 \usepackage{tikz}
+
+\usepackage[hmargin=2cm,vmargin=1cm]{geometry}
+\renewcommand{\rmdefault}{bch} % change default font
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,fit,positioning,shapes.symbols,chains}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usetikzlibrary{shapes,arrows}
+\usepackage{amsmath,bm,times}
+\newcommand{\mx}[1]{\mathbf{\bm{#1}}} % Matrix command
+\newcommand{\vc}[1]{\mathbf{\bm{#1}}} % Vector command
+
+
 \usepackage{tikz-timing}[2009/12/09]
 \usepackage{units}
 \usepackage{tabularx}
@@ -87,9 +101,10 @@
 \input{protocol_specification}
 \input{protocol_requirements}
 \input{protocol_design}
+% \input{protocol_design_overview}
 \input{protocol_testcases}
 
 \bibliographystyle{plain}
-\bibliography{d2bib}
+{\small\bibliography{d2bib}}
 
 \end{document}

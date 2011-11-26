@@ -1,59 +1,22 @@
 \section{Bus Protocol - Design}
 \label{sec:bus:design}
 
+According to Req \ref{req:ulftrtp:interfacing} we segmented the ULFTRTP in independent layers arbitrarily exchangable with respect to the below defined interfaces.\\
+
+We will see in the subsequent sections the protocols CNI (Communication Network Interface) is considered as a stand alone component with push and pull interfaces.
+As this is not always the case the overall control mechanisms of the protocol can slightly vary depending on the platform used.\\
+
+\include{protocol_design_layer1}
+
+
 \subsection{Layer 7}
 
 \subsection{Layer 6}
 
 \subsection{Layer 2}
 
-\subsection{Layer 1}
+
+
 \subsubsection{Hardware components}
 \subsubsection{Interlayer communication}
 
-\begin{center}
-
-\definecolor{bgblue}{rgb}{0.41961,0.80784,0.80784}%
-\definecolor{bgred}{rgb}{1,0.61569,0.61569}%
-\definecolor{fgblue}{rgb}{0,0,0.6}%
-\definecolor{fgred}{rgb}{0.6,0,0}%
-%
-\begin{tikztimingtable}[
-    %timing/slope=0,         % no slope
-    timing/coldist=2pt,     % column distance
-    timing/lslope=0.1,
-    xscale=2.05,yscale=2., % scale diagrams
-    semithick               % set line width
-  ]
-  \scriptsize timing  	& 11{C}                              \\
-  \scriptsize data                     & .5H L{S} 8D{8Bit} H       \\
-  %R                     & [fgblue]  UH .8U 1.4H 0.8L \\
-  %MISO & D{z} 2D{z} \\
-  %Q                     &          L .8H 1.7L 1.5H LL       \\
-  %$\overline{\mbox{Q}}$ &          H .8L 1.7H 1.5L HH       \\
-  %Q                     & [fgred]  HLHHHLL                  \\
-  %$\overline{\mbox{Q}}$ & [fgred]  LHLLLHH                  \\
-\extracode
- \makeatletter
-  \begin{pgfonlayer}{background}
-%   % Draw shaded backgrounds
-%   \shade [right color=bgblue,left color=white]
-%      (7,-8.45) rectangle (-2,-4.6);
-%   \shade [right color=bgred,left color=white]
-%      (7,-12.8) rectangle (-2,-8.6);
-  % Add background grid lines
-  \begin{scope}[gray,semitransparent,semithick]
-    \horlines{}
-    \foreach \x in {1,...,10}
-      \draw (\x,1) -- (\x,-2); %-12.8
-    % similar: \vertlines{1,...,6}
-  \end{scope}
-  % Add labels
-%   \node [anchor=south east,inner sep=0pt]
-%     at (7,-8.45) {\tiny clocked};
-%   \node [anchor=south east,inner sep=0pt,fgred]
-%     at (7,-12.8) {\tiny positive edge triggered};
- \end{pgfonlayer}
-\end{tikztimingtable}%
-
-\end{center}
