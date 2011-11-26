@@ -4,7 +4,7 @@
 *.lof
 *.log
 *.toc
-main.pdf
+*.pdf
 *.backup
 *.bbl
 *.blg
