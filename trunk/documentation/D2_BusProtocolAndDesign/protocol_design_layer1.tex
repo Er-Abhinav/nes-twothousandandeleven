@@ -1,10 +1,10 @@
 \subsection{physical access layer}
 \label{sec:bus:design:layer1}
 
-The physical layer in the ``ES2011'' configuration is provided by a one-wire-USART terminated with a pull-down resistor, 
+The physical layer in the ``NES2011'' configuration is provided by a one-wire-USART terminated with a pull-down resistor, 
 leading us to the fact, of a dominant 0 and an recessive 1 level.\\
 
-Since this must not be true for all possible configuratoins supported by the protocol this leads
+Since this must not be true for all possible configurations supported by the protocol this leads
 us to the first physical layer description. To accomplish support for other configurations the physical 
 layer provided here has to be adjusted or completely exchanged by specific implementations.\\
 
@@ -66,7 +66,7 @@ layer provided here has to be adjusted or completely exchanged by specific imple
 For data transmission we use a USART configuration with 1 start-bit, 
 8 data bits, 1 stop bit and no parity, as depicted in Figure 
 \ref{fig:bus:design:layer1:usartconfig} \nameref{fig:bus:design:layer1:usartconfig}.
-The physical layer as defined in our protocol has to support collission avoidance 
+The physical layer as defined in our protocol has to support collision avoidance 
 strategies of higher layers, and thus provide mechanisms for bitwise arbitration as described below.\\
 
 To provide bit wise arbitration we need to access the bus 
@@ -135,9 +135,9 @@ When a node decides to send a message he/she lays the MessageID,
 the ReceiverNodeID and the SenderNodeID bitwise on the bus and reads it back.\\
 
 Since any other node deciding to send a message at the same instant in time, 
-has to perform the same collission detection strategie the nodes with a weaker 
+has to perform the same collision detection strategy the nodes with a weaker 
 arbitration mask detect that the signal on the bus is not the signal driven by themselves.
-A node detecting such a behaviour has to switch in a reading state 
+A node detecting such a behavior has to switch in a reading state 
 at a higher layer leading to only one node accessing the bus exclusively.\\
 
 As briefly mentioned the switch of the arbitration mode to a reading 
