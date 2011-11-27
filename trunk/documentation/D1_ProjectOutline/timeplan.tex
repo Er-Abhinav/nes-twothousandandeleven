@@ -60,7 +60,7 @@ importance to it and thus also on the documentation.\\
 Documentation consists of: the documents \cite [NESD1]{NESD1} - \cite [NESD5]{NESD5} 
 as well as in code documentation with doxygen.
 
-\subsection{Dilate testcases}
+\subsection{Dilate test cases}
 \begin{wrapfigure}{r}{0mm}
 \begin{tabular}[t]{|lr|}
 \hline
@@ -70,7 +70,7 @@ Resources [\%] & 10\\
 \hline
 \end{tabular}
 \end{wrapfigure}
-The matter of dialating testcases is to provide appropriate sets of conditions or variables under which
+The matter of dilating test cases is to provide appropriate sets of conditions or variables under which
 a tester is able to determine whether the application is working correctly or not.
 
 Our test cases will include a description of the functionality to be tested and the preparation required
@@ -88,9 +88,9 @@ Resources [\%] & 5\\
 \hline
 \end{tabular}
 \end{wrapfigure}
-We are providing a Gantt Chart - that is a task dependent timeline - in form of a image output of our 
+We are providing a Gantt Chart - that is a task dependent time line - in form of a image output of our 
 project management tool eGroupware. That includes milestones which are points 
-in time bounded to the timelines in the Gantt Chart.
+in time bounded to the time lines in the Gantt Chart.
 \subsection{Bus protocol specification}
 \begin{wrapfigure}{r}{0mm}
 \begin{tabular}[t]{|lr|}
@@ -115,7 +115,7 @@ Resources [\%] & 5\\
 \end{tabular}
 \end{wrapfigure}
 Over the real process of implementation the hole team has to take care that their 
-implementations are tested with the concerning testcase or with a miniature subset of a testcase.\\
+implementations are tested with the concerning test case or with a miniature subset of a test case.\\
 
 Testing each implementation is an important part of the implementation an takes place during the implementation.
 
@@ -138,7 +138,7 @@ We broke down our main hardware parts to:
  \item Timer driver\\
 Which allows to initialize, set and get hardware timer concerning values that are needed
 for further use regarding our bus communication, clock, clock synchronization and 
-measurements concerning drift rates
+measurements concerning drift rates.
  \item USART driver\\
 Which allows us to arbitrate the bus and to send and receive data over the bus.
  \item LCD driver\\
@@ -157,7 +157,7 @@ Resources [\%] & 10\\
 \end{wrapfigure}
 The bus protocol is the second main part of this project which includes the correct communication
 between multiple nodes over the available bus connection. 
-The bus itself is specified in \cite [NESD2]{NESD2} and deviations should stay small depending 
+The bus itself is specified in \cite [NESD2]{NESD2} and deviations should stay small with regards to  
 the protocol specification.
 \subsection{Clock Synchronization Implementation}
 \begin{wrapfigure}{r}{0mm}
@@ -169,19 +169,19 @@ Resources [\%] & 10\\
 \hline
 \end{tabular}
 \end{wrapfigure}
-The clock synchronization and clocksync application is the third and last main part of 
+The clock synchronization and application is the third and last main part of 
 this project where all conceived parts have to work together.
 
 The bus will include a distributed clock while we will 
 take a look at the following two synchronization methods
 \begin{itemize}
- \item precision time protocol
- \item reference broadcast synchronization
+ \item Precision time protocol
+ \item Reference broadcast synchronization
 \end{itemize}
 
-\subsubsection{Clocksync Application}
+\subsubsection{Clock synchronization application}
 The application is ment to:
 \begin{itemize}
- \item measure drift rates through the clock sync processflow
- \item applying measurements in case of heavy bus load
+ \item Measure drift rates through the clock sync process flow
+ \item Applying measurements in case of heavy bus load
 \end{itemize}
