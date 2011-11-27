@@ -1,16 +1,21 @@
 \section{Project Goal}
 
 \subsection{Basic Idea}
-The basic idea of our project is to evaluate different distributed clock synchronisation algorithms over an asynchronous bus communication. Therefore we are going to implement a csma/ca protocol providing basic fault tolerancy methods and an easy way to estimate message round trip time and message priorising.
-Upon the protocol, detailed described in \cite[NESD2]{NESD2}, we settle the algorithms for the clock synchronisation.\\
+The basic idea of our project is to evaluate different distributed clock synchronisation algorithms over an 
+asynchronous bus communication. Therefore we are going to implement a CSMA/CA protocol providing basic fault 
+tolerance and and message priorities. Besides it should be easy to estimate the message round trip time.
+Upon the protocol, described in \cite[NESD2]{NESD2} in detail, we settle the algorithms for the clock synchronisation.\\
 
-Each node has divers hardware such as buttons, leds, a bulp, a lcd and some other things as its periferial. We want to display drift rates of clocks on the lcd and trigger faults in the nodes internal clock or cause bus overloads with the connected buttons.\\
+Each node has divers hardware such as buttons, LEDs, a bulp, a LCD and other peripheral components. 
+We want to display drift rates of clocks on the LCD, trigger faults in the nodes internal clock and  
+cause bus overloads with the connected buttons.\\
 
-The outcome of this project should be the experience in the field of asynchronous real time bus engineering and to be able to estimate influences of overloads and faults to applications upon them.
+The outcome of this project should be the experience in the field of asynchronous real time bus engineering and 
+to be able to estimate influences of overloads and faults to applications upon them.
 We try to give a link between theoretical and practical aspects and how they relate.
 
-\subsection{Requirements}
 
+\subsection{Requirements}
 The requirements outlined below are only a very abstract view valid for the global project idea.
 
 \subsubsection{ULFTRTP}
@@ -39,8 +44,8 @@ The requirements outlined below are only a very abstract view valid for the glob
 \textbf{resource consumption: }the protocol has to be adaptable to minimal hardware constraints.
 \end{req}
 
-\subsubsection{Clock Synchronization}
 
+\subsubsection{Clock Synchronization}
 \begin{req}
 \label{req:clock:analyzeable}
 \textbf{analyzeable: }the clock synchronisation has to be relatively easy to analyze.
@@ -51,34 +56,3 @@ The requirements outlined below are only a very abstract view valid for the glob
 \textbf{exchangeable: }the specific clock synchronisation algorithms have to be easily interchangeable with other clock synchronisation algorithms, as we want to try out different algorithms.\\
 This Requirement correlates with Requirement \ref{req:ulftrtp:interfacing}.
 \end{req}
-
-% \subsection{Project Idea}
-% 
-% Our Claims are:
-% \begin{itemize}
-%  \item Favorable
-%  \item easy to use (or hobbyists / tinkerers)
-%  \item low resource requirements
-% \end{itemize}
-% 
-% These ideas are leading to the following main points 
-% that our protocol has to provide:
-% 
-% \begin{itemize}
-%  \item cost estimation 
-%  \item feasibility
-%  \item cheap protocol for automation in semi-professional level
-%  \item low migration effort
-%  \item poor security measures for low cost
-% \end{itemize}
-% 
-% 
-% 
-% \subsection{Group Subject / Specialization}
-% \begin{itemize}
-%  \item Specify a suitable communication protocol meeting the prerequirements
-% of the bus properties
-%  \item Define appropriate abstraction layer to provide easy extensibility and 
-% module-oriented development
-%  \item Clock-synchronization
-% \end{itemize}
