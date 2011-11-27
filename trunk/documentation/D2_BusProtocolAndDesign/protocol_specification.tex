@@ -60,7 +60,7 @@ In case we use a FTNBI window of 20ms, the bus guardian of a node blocks the act
     \bitheader{0,3-4,9-10,15-16,23} \\
 
 %   begin{rightwordgroup}{RTP \\ Header}
-    \bitbox{4}{MsgType} & \bitbox{6}{Receiver NodeID} & \bitbox{6}{Sender NodeID}
+    \bitbox{4}{Type} & \bitbox{6}{Receiver NodeID} & \bitbox{6}{Sender NodeID}
     & \bitbox{8}{Data Len} \\
 %   \end{rightwordgroup} \\
 
@@ -90,10 +90,10 @@ As shown in figure \ref{figure:bus:messageformat} the message consists of
 
 The \textit{MessageType}, \textit{ReceiverNodeID} and \textit{SenderNodeID} are part of the so called FrameID uniquely identifying all messages transferred on the bus.
 The Field DataLength holds the length of the Payload following in bytes. The message is concluded by the 4-Byte long CRC-checksum.
-
-\subsection{Fault Hypothesis}
-
-... gives the applied fault hypothesis and planned countermeasures.
+% 
+% \subsection{Fault Hypothesis}
+% 
+% ... gives the applied fault hypothesis and planned countermeasures.
 
 % 
 % 

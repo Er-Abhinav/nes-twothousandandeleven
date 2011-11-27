@@ -7,9 +7,9 @@ namely the media access sublayer controling the basic bus access as depicted in 
 the communication process and the fault tolerant sublayer providing basic fault 
 tolerant mechnaisms like the FTNSH (see section \ref{sec:bus:ftnsh}) \nameref{sec:bus:ftnsh}).\\
 
-These two sublayers and their interactions are described in the sections 
-\ref{sec:bus:design:layer2:mac} \nameref{sec:bus:design:layer2:mac} and 
-\ref{sec:bus:design:layer2:ft} \nameref{sec:bus:design:layer2:ft} in detail. 
+% These two sublayers and their interactions are described in the sections 
+% \ref{sec:bus:design:layer2:mac} \nameref{sec:bus:design:layer2:mac} and 
+% \ref{sec:bus:design:layer2:ft} \nameref{sec:bus:design:layer2:ft} in detail. 
 In the following section we describe the general workflow of the Mac \& FT layer.\\
 
 \subsubsection{general workflow}
@@ -26,15 +26,20 @@ If the arbitration was successful the rest of the message is transmitted and the
 Whenever there was a transmission attempt wheter successful or not a callback routine is fired propagating the current status of the protocol to higher level layers or to the flags and registers seperating the application from the communication network interface.\\
 
 \textbf{reception of messages}\\
-When the USART reports the receiption of data the protcol changes in a receiving state 
+When the USART reports the receiption of data the protcol changes in a receiving state in which it is not allowed to transmit data.
+Whenever data is receipt by the USART the fault tolernt non starvation protocol resets the timer providing basic error detection in the time domain.\\
+
+When the timer triggers an interrupt the node knows that the transmitting node has timed out and that he/she can change in an idle state or transmit its own messages.\\
+
+When a message is completely received its integrity is checked via the crc checksum and the message is added to the \textit{Receive Message Queue} and a \textit{Receive Callback} is triggert, informing higher level layers of the data receipt and updating the registers and flags of the CNI mapping.
 
 
-\subsubsection{media access sublayer in detail}
-\label{sec:bus:design:layer2:mac}
-
-
-\subsubsection{fault tolerance sublayer in detail}
-\label{sec:bus:design:layer2:ft}
-
+% \subsubsection{media access sublayer in detail}
+% \label{sec:bus:design:layer2:mac}
+% 
+% 
+% \subsubsection{fault tolerance sublayer in detail}
+% \label{sec:bus:design:layer2:ft}
+% 
 
  
