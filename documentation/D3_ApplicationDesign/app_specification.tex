@@ -1,10 +1,26 @@
 \section{Application specification}
 
 \subsection{Bus load app}
+\label{app_specification:bus_load}
 Has the benefit of user adjustable provocation load rates for 
 further testing
 
+The load app will provide different bus injection methodes
+\subsubsection{Fault Injection via Buttons}
+Is the ability to inject faulty transmittions into the bus by pressing
+a button to check the fail-safetyness of the bus and the protocol.
+
+This is meant to be the pendant of an electro magnatic disturbance
+injected into the bus cable and should be detected through the
+CRC sums by the receiver.
+
+\subsubsection{Overload Simulation via Buttons}
+Is the ability to inject heavy bus load by pressing a button to
+check the accessibility of the bus if the bus is busy. 
+See also: \ref{app_specification:drift_rates} \nameref{app_specification:drift_rates}
+
 \subsection{Drift rates}
+\label{app_specification:drift_rates}
 The main target of our application is to show drifts of the synchronous 
 clocks in our network. 
 
@@ -16,9 +32,13 @@ while it is under load due to the bus load app
 \end{itemize}
 
 \subsection{Visualization of Drift Rates via LCD}
-
-\subsection{Fault Injection via Buttons}
-
-\subsection{Overload Simulation via Buttons}
+The visualization is planned via a difference bar charts on the 
+LCD display of the uC board.
 
 \subsection{Debugging and Monitoring features via PC}
+The ability to debug through the PC is one of the first 
+feature most developers are looking for. Therefore, it is an
+nice to have feature for us to engineer. 
+
+This method could only unfold its full advantage in an emerging 
+developer version where the bus will be used in action.
