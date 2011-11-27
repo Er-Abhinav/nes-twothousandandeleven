@@ -1,85 +1,8 @@
-\NeedsTeXFormat{LaTeX2e}
-\documentclass[12pt,a4paper,titlepage]{article} 
-\usepackage[T1]{fontenc}
-\usepackage{graphicx} 
-\usepackage[english]{babel}
-\usepackage{epsfig} 
-\usepackage{subfigure} 
-\usepackage{babel} 
-\usepackage{epic} 
-\usepackage{amsmath} 
-\usepackage{float}
-\usepackage[utf8]{inputenc}
-%\usepackage{fancyunits}
-\usepackage{hyperref}\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
-\usepackage{listings}
-\usepackage{eurosym}
-\usepackage{verbatim}
-\lstset{backgroundcolor=\color[gray]{.9},
-         basicstyle=\scriptsize,
-         numbers=left,
-	 breaklines=true
-}
-\selectlanguage{english} \frenchspacing \sloppy 
-\usepackage{amsmath}
-\usepackage{pdflscape}
-\usepackage{tikz}
 
-\usepackage[hmargin=2cm,vmargin=1cm]{geometry}
-\renewcommand{\rmdefault}{bch} % change default font
-
-\usepackage[english]{babel}
-\usepackage[utf8]{inputenc}
-\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,fit,positioning,shapes.symbols,chains}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usetikzlibrary{shapes,arrows}
-\usepackage{amsmath,bm,times}
-\newcommand{\mx}[1]{\mathbf{\bm{#1}}} % Matrix command
-\newcommand{\vc}[1]{\mathbf{\bm{#1}}} % Vector command
-
-
-\usepackage{tikz-timing}[2009/12/09]
-\usepackage{units}
-\usepackage{tabularx}
-\usepackage{bytefield}
-
-% separate page numbering for title page and table of contents
-\pagenumbering{roman}
-
-
-% no indents
-\parindent 0pt
-
-% sans serif
-\renewcommand*\familydefault{\sfdefault}
-
-% custom date
-\usepackage{datetime}
-\newdateformat{customdate}{\monthname{ }\THEYEAR}
-
-% add html links to footnoted urls
-%\usepackage{html}
-\renewcommand{\htmladdnormallinkfoot}[2]{#1{\footnote{\htmlurl{#2}}}}
+\input{../header}
 
 \title{D2 - Specification and design of the bus protocol}
-\newcommand{\subject}{The Ultra Leightweight Fault Tolerant Real Time Protocol}
-\author{Robert Annessi, Alexander Heinisch, Nick Mayerhofer}
 \date{November 2011}
-
-% configure pdf attachments
-\usepackage{attachfile}
-\attachfilesetup{author=\author,icon=Paperclip,mimetype=text/plain,color=1 0 0,appearance=false}
-
-
-% new line after paragraph
-\makeatletter
-\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
-  {-3.25ex\@plus -1ex \@minus -.2ex}%
-  {1.5ex \@plus .2ex}%
-  {\normalfont\normalsize\bfseries}}
-\makeatother
-
-\newtheorem{req}{Req}
 
 \begin{document} 
 
@@ -105,6 +28,6 @@
 \input{protocol_testcases}
 
 \bibliographystyle{plain}
-{\small\bibliography{d2bib}}
+{\small\bibliography{../bibliography}}
 
 \end{document}
