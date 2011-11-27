@@ -22,7 +22,7 @@ Depicting a state machine we outline three cases:
 \begin{enumerate}
  \item Only one node wants to transmit data and the bus is free: Node \textit{A} knows that the bus is free by 
 observing the bus since startup. \textit{A} starts to write Start of Frame, MessageID, ReceiverNodeID, SenderNodeID  
-to the bus and listens bitwise for the data last written.
+to the bus and listens bit wise for the data last written.
        If the bit received equals the bit written \textit{A} knows the bus currently is dominated by itself and 
 the arbitration can continue. After arbitrating the whole FrameID every Node currently connected to the bus is 
 in the RECEIVE\_STATE except \textit{A} which is in the TRANSMIT\_STATE of the state machine.
@@ -35,7 +35,7 @@ their Frame ID. Since the Node IDs have to be unique one of the two nodes does n
 
  \item Node \textit{C} just powered on and has a wrong state within the protocols state machine. Hence it does not know anything about the communication going on at the moment, leading to the fact of not being capable to decide when he is allowed to arbitrate the bus without violating another transmission.
        If \textit{C} wants to send, it has to wait a predefined time for which the bus must be unused. 
-If \textit{C} wants to read, it waits for the next \textit{Start of Frame} occurence. From this time on \textit{C} has the correct state in the protocols state machine.
+If \textit{C} wants to read, it waits for the next \textit{Start of Frame} occurrence. From this time on \textit{C} has the correct state in the protocols state machine.
 \end{enumerate}
 
 
@@ -50,7 +50,7 @@ Another advantage is a faster integration of new nodes, since a new node does no
 
 \subsection {Fault tolerance: Babbling idiot handling}
 \label{sec:bus:ftnbi}
-\textit{Note: the FTNBI is not part of the protocol implementation}\\
+\textit{Note: the babbling idiot handling is not part of the protocol implementation}\\
 
 After providing fault tolerance upon the bus protocol like outlined in the sections \ref{sec:bus:basicaccess} and \ref{sec:bus:ftnsh} we want to cover fault tolerance in case of babbling idiots, by providing a simple bus guardian allowing access to the bus only at predefined times.
 In case we use a window of 20ms, the bus guardian of a node blocks the active (send) bus access for 20ms after each message sent by the node. The passive access (receive) to the bus is permitted the whole time. An additional majority voting or some other handling to detect babbling idiots can in our current design only be established with additional hard- and software implementations.

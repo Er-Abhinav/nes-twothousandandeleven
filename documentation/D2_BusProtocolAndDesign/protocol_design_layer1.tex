@@ -66,7 +66,7 @@ For data transmission we use a USART configuration with 1 start-bit,
 8 data bits, 1 stop bit and no parity, as depicted in Figure 
 \ref{fig:bus:design:layer1:usartconfig} \nameref{fig:bus:design:layer1:usartconfig}.
 The physical layer as defined in our protocol has to support collision avoidance 
-strategies of higher layers, and thus provide mechanisms for bitwise arbitration as described below.\\
+strategies of higher layers, and thus provide mechanisms for bit wise arbitration as described below.\\
 
 To provide bit wise arbitration we need to access the bus 
 in the startup-phase of sending a message in a modified software-USART.
@@ -130,7 +130,7 @@ hardware supported USART can be established, since this decreases the processor 
 The arbitration as depicted in figure \ref{fig:bus:design:layer1:arbitration} \nameref{fig:bus:design:layer1:arbitration}
 is realized via the software-USART driver. 
 When a node decides to send a message it sends the Start of Frame, the MessageID, 
-the ReceiverNodeID and the SenderNodeID bitwise on the bus and reads it back.\\
+the ReceiverNodeID and the SenderNodeID bit wise on the bus and reads it back.\\
 
 Since any other node deciding to send a message at the same instant in time, 
 has to perform the same collision detection strategy the nodes with a weaker 
