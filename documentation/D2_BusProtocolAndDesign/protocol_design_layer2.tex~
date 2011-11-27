@@ -1,3 +1,14 @@
-\subsection{media access layer}
+\subsection{media access and fault tolerance layer}
 \label{sec:bus:design:layer2}
 
+The second layer of our protocol can be seen as a composition of two internal layers, namely the media access sublayer controling the basic bus access as depicted in section \ref{sec:bus:basicaccess} and the state machine defining the communication process and the fault tolerant sublayer providing basic fault tolerant mechnaisms like the FTNSH (see section \ref{sec:bus:ftnsh}).
+These two sublayers and their interactions are described in the sections \ref{sec:bus:design:layer2:mac} and \ref{sec:bus:design:layer2:ft} in detail. In the following section we describe the general workflow of the Mac \& FT Layer.\\
+
+\subsubsection{media access sublayer in detail}
+\label{sec:bus:design:layer2:mac}
+
+\subsubsection{fault tolerance sublayer in detail}
+\label{sec:bus:design:layer2:ft}
+
+
+ 
