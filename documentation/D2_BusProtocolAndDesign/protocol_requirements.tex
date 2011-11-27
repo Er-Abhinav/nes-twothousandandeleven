@@ -3,23 +3,22 @@
 
 \begin{req}
 \label{req:ulftrtp:analyzeable}
-\textbf{analyzeable: }the protocol has to be easy to analyze with respect to worst case timing.
+\textbf{Analyzeable}: The protocol has to be easy to analyze with respect to worst case timing.
 \end{req}
 
 \begin{req}
 \label{req:ulftrtp:interfacing}
-\textbf{interfacing: }the protocol design has to follow strictly interface guidelines. This means:
+\textbf{Interfacing}: The protocol design has to strictly follow interface guidelines. This means:
 \begin{enumerate}
- \item lower levels of the protocol can only be accessed by higher levels through the defined layer interfaces.
- \item higher levels of the protocol cannot be accessed by lower levels. Data to higher layers can only be propagated 
+ \item Lower levels of the protocol can only be accessed by higher levels through the defined layer interfaces.
+ \item Higher levels of the protocol cannot be accessed by lower levels. Data to higher layers can only be propagated 
 using callback mechanisms. 
 \end{enumerate}
-
 \end{req}
 
 \begin{req}
 \label{req:ulftrtp:easy migration}
-\textbf{migration: }the protocol has to be migratable in arbitrary applications with minimal effort.
+\textbf{Migration}: The protocol has to be migratable in arbitrary applications with minimal effort.
 \end{req}
 
 \begin{req}
