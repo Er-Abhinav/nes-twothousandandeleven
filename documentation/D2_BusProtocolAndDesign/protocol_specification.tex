@@ -1,29 +1,22 @@
 \section{Specification}
 \label{sec:bus:specification}
 Generally our goal is to implement an easy to use bus protocol for fault tolerant application which can 
-detect bit errors on a very low level and possibly provide forward error correction.
-The physical layer of our protocol is a one wire bus accessed via an usart, which provides an dominant 
+detect bit errors on a low level and possibly provide forward error correction.
+The physical layer of our protocol is a one wire bus accessed via USART, which provides an dominant 
 high and an recessive low level.
-In the following we differentiate between
-
+In the following we differentiate between: 
 \begin{enumerate}
- \item the basic accessing part 
- \item the fault tolerant non starvation handling (FTNSH) part
- \item the fault tolerant non babbling idiot (FTNBI) part
+ \item Basic access
+ \item Fault tolerance: Starvation handling
+ \item Fault tolerance: Babbling idiot handling
 \end{enumerate}
 
-of the bus.\\
-
-\label{figure:bus:basicaccess:statemachine}
-
-
-\subsection{basic access}
+\subsection{Basic access}
 \label{sec:bus:basicaccess}
-
-The access to the bus is provided by arbitration via the Frame ID consisting of the Message Type (or Message ID), the Receivers Node ID  and the Sender Node ID, whereat the Node IDs have to be globally unique among all Nodes sharing the bus.\\
-
-Since we use the USART with a 9 bit data width but transfer 8 bits of payload a time only we can use the msb of the transferred character data for message synchronisation. A logic 1 prefixing a byte of data notifies the receiving nodes of the start of a frame.
-After the synchronisation bit the arbitration mask described above followed by the payload length in byte the payload and the 32-bit-CRC checksum are transmitted. (see section \ref{sec:bus:messageformat}\\
+The access to the bus is provided by arbitration through the Frame ID consisting of Start of Frame (SOF), 
+Message Type (or Message ID), the Receivers Node ID and the Sender Node ID, whereat the Node IDs have to 
+be globally unique among all Nodes sharing the bus.
+Then the payload length in byte, the actual payload and a 32-bit-CRC checksum are transmitted (see section \ref{sec:bus:messageformat}).\\
 
 Depicting the state machine shown in figure \ref{figure:bus:basicaccess:statemachine} we outline three cases.
 
