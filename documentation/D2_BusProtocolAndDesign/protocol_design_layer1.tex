@@ -1,6 +1,5 @@
-\subsection{physical access layer}
+\subsection{Physical access layer}
 \label{sec:bus:design:layer1}
-
 The physical layer in the ``NES2011'' configuration is provided by a one-wire-USART terminated with a pull-down resistor, 
 leading us to the fact, of a dominant 0 and an recessive 1 level.\\
 
@@ -70,14 +69,13 @@ The physical layer as defined in our protocol has to support collision avoidance
 strategies of higher layers, and thus provide mechanisms for bitwise arbitration as described below.\\
 
 To provide bit wise arbitration we need to access the bus 
-in the startup-phase of a message in a modified soft-usart.
+in the startup-phase of sending a message in a modified software-USART.
 After the bus is assigned to certain node the communication over the 
-hardware supported usart can be established, since this decreases the processor load immensely.
+hardware supported USART can be established, since this decreases the processor load immensely.
 
 
 \begin{figure}[h]
  \label{fig:bus:design:layer1:arbitration}
-
 \begin{center}
 
 
@@ -130,8 +128,8 @@ hardware supported usart can be established, since this decreases the processor 
 \end{figure}
 
 The arbitration as depicted in figure \ref{fig:bus:design:layer1:arbitration} \nameref{fig:bus:design:layer1:arbitration}
-is realized via the soft-usart driver. 
-When a node decides to send a message he/she lays the MessageID, 
+is realized via the software-USART driver. 
+When a node decides to send a message it sends the Start of Frame, the MessageID, 
 the ReceiverNodeID and the SenderNodeID bitwise on the bus and reads it back.\\
 
 Since any other node deciding to send a message at the same instant in time, 
