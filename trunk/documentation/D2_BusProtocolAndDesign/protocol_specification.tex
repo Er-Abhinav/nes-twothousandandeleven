@@ -3,7 +3,7 @@
 Generally our goal is to implement an easy to use bus protocol for fault tolerant application which can 
 detect bit errors on a low level and possibly provide forward error correction.
 The physical layer of our protocol is a one wire bus accessed via USART, which provides an dominant 
-low and an recessive high level.
+high and an recessive low level.
 In the following we differentiate between: 
 \begin{enumerate}
  \item Basic access
@@ -33,57 +33,49 @@ their Frame ID. Since the Node IDs have to be unique one of the two nodes does n
 
  \item A node wants to transmit data during another node's already transmitting: Since all nodes connected to the bus are in the RECEIVE\_STATE while another node is sending the node has to wait until the other node currently sending has finished.
 
- \item some new node (e.g. a node just powered on): The node C just powered on has a wrong state within the protocols state machine. This means he does not know if there is a communication going on at the moment, leading to the fact of not being capable to decide when he is allowed to arbitrate the bus without violating another transmission.
-       In this case C has to wait until the next synchronisation bit set HIGH is received. From this time on C has the correct state in the protocols state machine. And after receiving the current message C can start to arbitrate the bus like in one of the scenarios depicted above.
+ \item Node \textit{C} just powered on and has a wrong state within the protocols state machine. Hence it does not know anything about the communication going on at the moment, leading to the fact of not being capable to decide when he is allowed to arbitrate the bus without violating another transmission.
+       If \textit{C} wants to send, it has to wait a predefined time for which the bus must be unused. 
+If \textit{C} wants to read, it waits for the next \textit{Start of Frame} occurence. From this time on \textit{C} has the correct state in the protocols state machine.
 \end{enumerate}
 
-\subsection{fault tolerant none starvation handling (FTNSH)}
+
+\subsection{Fault tolerance: Starvation handling}
 \label{sec:bus:ftnsh}
-
-Since the whole network starves in case of a fault, e.g. a hang up or a power off, at the sending node during transmission as well as on power on of the very first node, we have to provide the so called FTNSH, to ensure proper operation after some time.
-For this purpose we introduce a Fault tolerant layer optional to the basic bus access handling such cases. The FTNSH handling routine is called after each receipt and sets a timer or watchdog for the time interval allowed till the next receipt.
+Since the whole network starves in case of a fault at the sending node, e.g. due to a hang up or a power off, during transmission as well as on power on of the very first node, we have to ensure proper operation after some time.
+For this purpose a routine is called after each receipt and sets a timer or watchdog for the time interval allowed till the next receipt.
 In case the message has been transmitted correctly the timer or watchdog can be deactivated.
-In case the sender node stucks during message transmission the timer or watchdog triggers an interrupt resetting the state in the protocols state machine which offers the receiver nodes to initiate a new transmission.
-Another advantage of the FTNSH is a faster integration of new nodes, since a new node does not have to wait for the synchronisation bit of another message to synchronize to the bus protocol because he can set its timer or watchdog and initiate a new transmission after the configured timeout.
+In case the sender node stucks during message transmission the timer or watchdog triggers an interrupt resetting the state in the protocols state machine which offers the receiver nodes to initiate or wait for a new transmission.
+Another advantage is a faster integration of new nodes, since a new node does not have to wait for the \textit{Start of Frame} of another message to synchronize to the bus protocol because it can set its timer or watchdog and initiate a new transmission after the configured timeout.
 
-\subsection {fault tolerant none babbling idiot (FTNBI)}
+
+\subsection {Fault tolerance: Babbling idiot handling}
 \label{sec:bus:ftnbi}
-
 \textit{Note: the FTNBI is not part of the protocol implementation}\\
 
-After providing fault tolerance upon the bus protocol like outlined in the sections \ref{sec:bus:basicaccess} and \ref{sec:bus:ftnsh} we want to cover fault tolerance in case of babbling idiots at the FTNBI, by providing a simple bus guardian allowing access to the bus only at predefined times.
-In case we use a FTNBI window of 20ms, the bus guardian of a node blocks the active (send) bus access for 20ms after each message sent by the node. The passive access (receive) to the bus is permitted the whole time. An additional majority voting or some other handling to detect babbling idiots can in our current design only be established with additional hard- and software implementations.
+After providing fault tolerance upon the bus protocol like outlined in the sections \ref{sec:bus:basicaccess} and \ref{sec:bus:ftnsh} we want to cover fault tolerance in case of babbling idiots, by providing a simple bus guardian allowing access to the bus only at predefined times.
+In case we use a window of 20ms, the bus guardian of a node blocks the active (send) bus access for 20ms after each message sent by the node. The passive access (receive) to the bus is permitted the whole time. An additional majority voting or some other handling to detect babbling idiots can in our current design only be established with additional hard- and software implementations.
 
 
-\subsection{message format in a nutshell}
+\subsection{Message format in a nutshell}
 \label{sec:bus:messageformat}
-
 \begin{figure}[htbp]
   \centering
   \begin{bytefield}{24}
-    \bitheader{0,3-4,9-10,15-16,23} \\
-
-%   begin{rightwordgroup}{RTP \\ Header}
-    \bitbox{4}{Type} & \bitbox{6}{Receiver NodeID} & \bitbox{6}{Sender NodeID}
-    & \bitbox{8}{Data Len} \\
-%   \end{rightwordgroup} \\
-
-%     \wordbox[lrt]{1}{Data 0} \\
-%     \skippedwords \\
-% %     \wordbox[lrb]{1}{} \\
-%     \wordbox[lrb]{1}{Data \textless len\textgreater}\\
-    
-    \bitbox{8}{Data 0} & \bitbox{8}{Data ... } & 
-    \bitbox{8}{Data \textless len\textgreater}\\
-    \bitbox{8}{CRC0} & \bitbox{8}{CRC ...} & \bitbox{8}{CRC 4}
-  \end{bytefield}
-  \caption{ULFTRT-Protocol}
+     \bitheader{0,4,5,8-9,14-15,20-21,24}\\
+     \bitbox{5}{SoF}\bitbox{4}{Type} \bitbox{6}{Dest ID} \bitbox{6}{Src ID} \bitbox{4}{Len}\\
+     \bitbox[lrt]{8}{Data<0>} \bitbox[lrt]{8}{Data<1>} \bitbox[lrt]{8}{..}\\ 
+     \skippedwords \\
+     \bitbox[lrb]{8}{..}\bitbox[lrb]{8}{Data<Len-2>}\bitbox[lrb]{8}{Data<Len-1>}\\
+     \bitbox[lrb]{8}{CRC<0>}\bitbox{8}{..}\bitbox{8}{CRC<3>}\\
+   \end{bytefield}
+  \caption{Layer2 message format}
   \label{figure:bus:messageformat}
 \end{figure}
 
 As shown in figure \ref{figure:bus:messageformat} the message consists of
 
 \begin{enumerate}
+ \item Start of Frame
  \item Message Type 
  \item Receiver Node ID
  \item Sender Node ID
@@ -92,46 +84,5 @@ As shown in figure \ref{figure:bus:messageformat} the message consists of
  \item CRC
 \end{enumerate}
 
-The \textit{MessageType}, \textit{ReceiverNodeID} and \textit{SenderNodeID} are part of the so called FrameID uniquely identifying all messages transferred on the bus.
+The \textit{Start of Frame}, \textit{MessageType}, \textit{ReceiverNodeID} and \textit{SenderNodeID} are part of the so called FrameID uniquely identifying all messages transferred on the bus.
 The Field DataLength holds the length of the Payload following in bytes. The message is concluded by the 4-Byte long CRC-checksum.
-% 
-% \subsection{Fault Hypothesis}
-% 
-% ... gives the applied fault hypothesis and planned countermeasures.
-
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% Ein Frame setzt sich aus folgendem Inhalt zusammen
-% \begin{itemize}
-%   \item Frame-ID
-%   \item Msg Len
-%   \item Data
-%   \item Checksum
-% \end{itemize}
-% 
-% Frame-ID und Msg-Len bilden den Header jeder Nachricht.
-% \\
-% Die Frame-ID setzt sich aus der Message-ID und einer dem Knoten fix zugewiesenen Node-ID zusammen.
-% Die Aufteilung der Bits zwischen Message- und Node-ID wird nicht spezifiziert und wird je nach Projekt verschieden aufgeteilt.\\
-% \\
-% Somit ist es möglich verschiedene Messagetypen von beliebig vielen Nodes zur selben Zeit zu versenden.
-% Die Priorisierung verschiedenster Messages ist anhand des dominanteren Bits an der höher prioren Stelle der jeweiligen Message-ID gegeben.\\
-% \\
-% Im Anschluss an den Header folgen die Nutzdaten deren Länge durch das Feld Msg-Len im Header angegeben wird und an deren Ende die Checksumme, welche sowohl über den Header- als auch den Nutzdatenteil gebildet wird, folgt.\\
-% 
-% \section{Uhrensynchronisation}
-% Auf den Layer 2 setzt die Uhrensynchronisation / das Messageordering auf.
-% 
-% \section{Benchmarking und Testing}
-% Diese wird mittels Node X mitprotokolliert und am LCD ausgegeben.
-% Buttons die sich auf den jeweiligen Nodes befinden (mit diesen verbunden sind) werden dazu verwendet diverse Fehlerszenarien zu aktivieren oder Unschärfen zu verursachen.\\ 
