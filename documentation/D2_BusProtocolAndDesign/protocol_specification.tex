@@ -19,7 +19,8 @@ of the bus.\\
 \subsection{basic access}
 \label{sec:bus:basicaccess}
 
-The access to the bus is provided by arbitration via the Frame ID consisting of the Message Type (or Message ID), the Receivers Node ID  and the Sender Node ID, whereat the Node ID have to be globally unique among all Nodes sharing the bus.\\
+The access to the bus is provided by arbitration via the Frame ID consisting of the Message Type (or Message ID), the Receivers Node ID  and the Sender Node ID, whereat the Node IDs have to be globally unique among all Nodes sharing the bus.\\
+
 Since we use the USART with a 9 bit data width but transfer 8 bits of payload a time only we can use the msb of the transferred character data for message synchronisation. A logic 1 prefixing a byte of data notifies the receiving nodes of the start of a frame.
 After the synchronisation bit the arbitration mask described above followed by the payload length in byte the payload and the 32-bit-CRC checksum are transmitted. (see section \ref{sec:bus:messageformat}\\
 
