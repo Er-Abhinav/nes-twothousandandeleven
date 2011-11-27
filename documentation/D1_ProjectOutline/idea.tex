@@ -1,10 +1,13 @@
 \section{Project Goal}
 
 \subsection{Basic Idea}
-The basic idea of our project is to evaluate different distributed clock synchronisation algorithms over an 
+The basic idea of our project is to evaluate different distributed clock synchronization algorithms over an asynchronous bus communication. Therefore we are going to implement a csma/ca protocol providing basic fault tolerance methods and an easy way to estimate message round trip time and message priority.
+Upon the protocol, detailed described in \cite[NESD2]{NESD2}, we settle the algorithms for the clock synchronization.\\
+
+The basic idea of our project is to evaluate different distributed clock synchronization algorithms over an 
 asynchronous bus communication. Therefore we are going to implement a CSMA/CA protocol providing basic fault 
 tolerance and and message priorities. Besides it should be easy to estimate the message round trip time.
-Upon the protocol, described in \cite[NESD2]{NESD2} in detail, we settle the algorithms for the clock synchronisation.\\
+Upon the protocol, described in \cite[NESD2]{NESD2} in detail, we settle the algorithms for the clock synchronization.\\
 
 Each node has divers hardware such as buttons, LEDs, a bulp, a LCD and other peripheral components. 
 We want to display drift rates of clocks on the LCD, trigger faults in the nodes internal clock and  
@@ -48,11 +51,11 @@ The requirements outlined below are only a very abstract view valid for the glob
 \subsubsection{Clock Synchronization}
 \begin{req}
 \label{req:clock:analyzeable}
-\textbf{analyzeable: }the clock synchronisation has to be relatively easy to analyze.
+\textbf{analyzeable: }the clock synchronization has to be relatively easy to analyze.
 \end{req}
 
 \begin{req}
 \label{req:clock:exchangeable}
-\textbf{exchangeable: }the specific clock synchronisation algorithms have to be easily interchangeable with other clock synchronisation algorithms, as we want to try out different algorithms.\\
+\textbf{exchangeable: }the specific clock synchronization algorithms have to be easily interchangeable with other clock synchronization algorithms, as we want to try out different algorithms.\\
 This Requirement correlates with Requirement \ref{req:ulftrtp:interfacing}.
 \end{req}

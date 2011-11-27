@@ -16,7 +16,7 @@ resources & ... & Expected resource consumption in percent\\
 \end{tabular}
 
 
-\subsection{Project presentaiton}
+\subsection{Project presentation}
 \begin{wrapfigure}{r}{0mm}
 \begin{tabular}[t]{|lr|}
 \hline
@@ -38,8 +38,8 @@ Resources[\%] & 40\\
 \hline
 \end{tabular}
 \end{wrapfigure}
-Documentation is one of the main parts of project and referes to the entire project 
-processflow and therefore lives over the entire project.\\
+Documentation is one of the main parts of project and refers to the entire project 
+process flow and therefore lives over the entire project.\\
 One of the main parts in this project is project management and we attach much 
 importance to it and thus also on the documentation.\\
 
@@ -56,13 +56,13 @@ Resources [\%] & 10\\
 \hline
 \end{tabular}
 \end{wrapfigure}
-The matter of dialating testcases is to provide apropriate sets of conditions or variables under wich
-a tester is able to determine wheter the application is working correctly or not.
+The matter of dialating testcases is to provide appropriate sets of conditions or variables under which
+a tester is able to determine whether the application is working correctly or not.
 
 Our test cases will include a description of the functionality to be tested and the preparation required
 to ensure that the test can be conducted.\\
 A test will be, that we will test our system in case of bus load and clock drifts so that we are able to get
-significant test result to ensure our clocks can be synchronised in case of a high bus load.
+significant test results to ensure our clocks can be synchronized in case of a high bus load.
 
 \subsection{Gantt Charts \& Milestones}
 \begin{wrapfigure}{r}{0mm}
@@ -76,7 +76,7 @@ Resources [\%] & 5\\
 \end{wrapfigure}
 We are providing a Gantt Chart - that is a task dependent timeline - in form of a image output of our 
 project management tool eGroupware. That includes milestones which are points 
-in time bound to the timelines in the Gantt Chart.
+in time bounded to the timelines in the Gantt Chart.
 \subsection{Bus protocol specification}
 \begin{wrapfigure}{r}{0mm}
 \begin{tabular}[t]{|lr|}
@@ -87,7 +87,7 @@ Resources [\%] & 10\\
 \hline
 \end{tabular}
 \end{wrapfigure}
-Our bus protocol specification regards layer two and can be found in the documents \cite [NESD2]{NESD2}.
+Our bus protocol specification provides a well structured communication interface and can be found in the document \cite [NESD2]{NESD2}.
 
 It describes the operational purpose and the qualities of our bus protocol.
 \subsection{Testing Implementations}
@@ -103,8 +103,8 @@ Resources [\%] & 5\\
 Over the real process of implementation the hole team has to take care that their 
 implementations are tested with the concerning testcase or with a miniature subset of a testcase.\\
 
-Testing each implementation is an important part of the implementation an takes place while
-implementing.
+Testing each implementation is an important part of the implementation an takes place during the implementation.
+
 \subsection{Hardware Abstraction}
 \begin{wrapfigure}{r}{0mm}
 \begin{tabular}[t]{|lr|}
@@ -115,24 +115,23 @@ Resources [\%] & 5\\
 \hline
 \end{tabular}
 \end{wrapfigure}
-Hardware abstraction includes the particular parts of concrete hardwar APIs needed through the project. 
-That means that the hardware abstraction layer (HAL) makes high lvl programming interfaces available to 
+Hardware abstraction includes the particular parts of concrete hardware APIs needed through the project. 
+That means that the hardware abstraction layer (HAL) makes high level programming interfaces available to 
 higher abstraction layers.
 
 We broke down our main hardware parts to:
 \begin{itemize}
  \item Timer driver\\
 Which allows to initialize, set and get hardware timer concerning values that are needed
-for further use regarding our bus communication, clock, clock synchronisation and 
+for further use regarding our bus communication, clock, clock synchronization and 
 measurements concerning drift rates
  \item USART driver\\
-Wich allows to arbitrate via the bus, send and receive data including automatic message 
-pre filtering
+Which allows us to arbitrate the bus and to send and receive data over the bus.
  \item LCD driver\\
-Wich allows to initialize and draw text to the LC-Display.
+Which allows us to initialize and draw text to the LC-Display.
 \end{itemize}
 
-\subsection{Bus Protokoll Implementation}
+\subsection{Bus Protocol Implementation}
 \begin{wrapfigure}{r}{0mm}
 \begin{tabular}[t]{|lr|}
 \hline
@@ -144,9 +143,9 @@ Resources [\%] & 10\\
 \end{wrapfigure}
 The bus protocol is the second main part of this project which includes the correct communication
 between multiple nodes over the available bus connection. 
-The bus itselfe is specified in \cite [NESD2]{NESD2} and deviations should stay small depending 
+The bus itself is specified in \cite [NESD2]{NESD2} and deviations should stay small depending 
 the protocol specification.
-\subsection{Clocksync Implementation}
+\subsection{Clock Synchronization Implementation}
 \begin{wrapfigure}{r}{0mm}
 \begin{tabular}[t]{|lr|}
 \hline
@@ -156,7 +155,7 @@ Resources [\%] & 10\\
 \hline
 \end{tabular}
 \end{wrapfigure}
-The clock synchronisation and clocksync application is the third and last main part of 
+The clock synchronization and clocksync application is the third and last main part of 
 this project where all conceived parts have
 \subsubsection{Clocksync Application}
 The application is ment to:
