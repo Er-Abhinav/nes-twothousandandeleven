@@ -13,49 +13,50 @@ Each node has divers hardware such as buttons, LEDs, a bulp, a LCD and other per
 We want to display drift rates of clocks on the LCD, trigger faults in the nodes internal clock and  
 cause bus overloads with the connected buttons.\\
 
-The outcome of this project should be the experience in the field of asynchronous real time bus engineering and 
+The outcome of this project should be bus protocol, which can be used by hobbyists and semi-professionals. 
+We hope to gain more experience in the field of asynchronous real time bus engineering and 
 to be able to estimate influences of overloads and faults to applications upon them.
 We try to give a link between theoretical and practical aspects and how they relate.
 
 
 \subsection{Requirements}
-The requirements outlined below are only a very abstract view valid for the global project idea.
+The requirements outlined below are an abstract view, valid for the global project idea.
 
-\subsubsection{ULFTRTP}
+\paragraph{Bus Protocol}
 \begin{req}
 \label{req:ulftrtp:analyzeable}
-\textbf{analyzeable: }the protocol has to be relatively easy to analyze with respect to worst case timing.
+\textbf{Analyzeable}: The protocol has to be easy to analyze with respect to worst case timing.
 \end{req}
 
 \begin{req}
 \label{req:ulftrtp:interfacing}
-\textbf{interfacing: }the protocol design has to follow strictly interface guidelines. This means:
+\textbf{Interfacing}: The protocol design has to strictly follow interface guidelines. This means:
 \begin{enumerate}
- \item lower levels of the protocol can only be accessed by higher levels through the defined layer interfaces.
- \item higher levels of the protocol cannot be accessed by lower levels. Data to higher layers can only be propagated using callback mechanisms. 
+ \item Lower levels of the protocol can only be accessed by higher levels through defined layer interfaces.
+ \item Higher levels of the protocol cannot be accessed by lower levels. Data can only be propagated to higher layers using callback mechanisms. 
 \end{enumerate}
-
 \end{req}
 
 \begin{req}
 \label{req:ulftrtp:easy migration}
-\textbf{migration: }the protocol has to be migratable in arbitrary applications with minimal effort.
+\textbf{Migration}: The protocol has to be migratable for arbitrary applications with minimal effort.
 \end{req}
 
 \begin{req}
 \label{req:ulftrtp:resource consumption}
-\textbf{resource consumption: }the protocol has to be adaptable to minimal hardware constraints.
+\textbf{Resource consumption}: The protocol has to be adaptable to minimal hardware constraints.
 \end{req}
 
 
-\subsubsection{Clock Synchronization}
+\paragraph{Clock Synchronization}
 \begin{req}
 \label{req:clock:analyzeable}
-\textbf{analyzeable: }the clock synchronization has to be relatively easy to analyze.
+\textbf{Analyzeable}: The clock synchronisation has to be easy to analyze.
 \end{req}
 
 \begin{req}
 \label{req:clock:exchangeable}
-\textbf{exchangeable: }the specific clock synchronization algorithms have to be easily interchangeable with other clock synchronization algorithms, as we want to try out different algorithms.\\
-This Requirement correlates with Requirement \ref{req:ulftrtp:interfacing}.
+\textbf{Exchangeable}: The specific clock synchronisation algorithms have to be easily interchangeable with other 
+clock synchronisation algorithms, as we want to try out different algorithms. This Requirement correlates with 
+Requirement \ref{req:ulftrtp:interfacing}.
 \end{req}
