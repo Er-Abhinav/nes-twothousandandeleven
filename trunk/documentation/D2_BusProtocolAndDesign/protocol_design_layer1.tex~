@@ -10,7 +10,7 @@ layer provided here has to be adjusted or completely exchanged by specific imple
 
 
 \begin{figure}[h]
- \label{sec:bus:design:layer1:usartconfig}
+ \label{fig:bus:design:layer1:usartconfig}
 
 \begin{center}
 
@@ -63,15 +63,20 @@ layer provided here has to be adjusted or completely exchanged by specific imple
 \caption{Timing of 8N1 USART Config.}
 \end{figure}
 
-For data transmission we use a USART configuration with 1 start-bit, 8 data bits, 1 stop bit and no parity, as depicted in Figure \ref{sec:bus:design:layer1:usartconfig}.
-The physical layer as defined in our protocol has to support collission avoidance strategies of higher layers, and thus provide mechanisms for bitwise arbitration as described below.\\
+For data transmission we use a USART configuration with 1 start-bit, 
+8 data bits, 1 stop bit and no parity, as depicted in Figure 
+\ref{fig:bus:design:layer1:usartconfig} \nameref{fig:bus:design:layer1:usartconfig}.
+The physical layer as defined in our protocol has to support collission avoidance 
+strategies of higher layers, and thus provide mechanisms for bitwise arbitration as described below.\\
 
-To provide bit wise arbitration we need to access the bus in the startup-phase of a message in a modified soft-usart.
-After the bus is assigned to certain node the communication over the hardware supported usart can be established, since this decreases the processor load immensely.
+To provide bit wise arbitration we need to access the bus 
+in the startup-phase of a message in a modified soft-usart.
+After the bus is assigned to certain node the communication over the 
+hardware supported usart can be established, since this decreases the processor load immensely.
 
 
 \begin{figure}[h]
- \label{sec:bus:design:layer1:arbitration}
+ \label{fig:bus:design:layer1:arbitration}
 
 \begin{center}
 
@@ -121,14 +126,20 @@ After the bus is assigned to certain node the communication over the hardware su
 \end{tikztimingtable}%
 
 \end{center}
-
 \caption{Collission avoidance via arbitration.}
 \end{figure}
 
-The arbitration as depicted in figure \ref{sec:bus:design:layer1:arbitration} is realized via the soft-usart driver. 
-When a node decides to send a message he/she lays the MessageID, the ReceiverNodeID and the SenderNodeID bitwise on the bus and reads it back.\\
+The arbitration as depicted in figure \ref{fig:bus:design:layer1:arbitration} \nameref{fig:bus:design:layer1:arbitration}
+is realized via the soft-usart driver. 
+When a node decides to send a message he/she lays the MessageID, 
+the ReceiverNodeID and the SenderNodeID bitwise on the bus and reads it back.\\
 
-Since any other node deciding to send a message at the same instant in time, has to perform the same collission detection strategie the nodes with a weaker arbitration mask detect that the signal on the bus is not the signal driven by themselves.
-A node detecting such a behaviour has to switch in a reading state at a higher layer leading to only one node accessing the bus exclusively.\\
+Since any other node deciding to send a message at the same instant in time, 
+has to perform the same collission detection strategie the nodes with a weaker 
+arbitration mask detect that the signal on the bus is not the signal driven by themselves.
+A node detecting such a behaviour has to switch in a reading state 
+at a higher layer leading to only one node accessing the bus exclusively.\\
 
-As briefly mentioned the switch of the arbitration mode to a reading mode has to be done on higher layers, it has also to be guaranteed by higher layers that during reading a message the node must not write data to the bus.
+As briefly mentioned the switch of the arbitration mode to a reading 
+mode has to be done on higher layers, it has also to be guaranteed 
+by higher layers that during reading a message the node must not write data to the bus.
