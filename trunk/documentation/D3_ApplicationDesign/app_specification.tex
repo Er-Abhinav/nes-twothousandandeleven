@@ -66,7 +66,7 @@ and outline the functionalities provided by the single nodes useful for our appl
 \label{sec:app:specification:node0}
 
 Node 0 is used for standard communication purposes, messages are sent and received under certain predefined load conditions. Since the real time clock provided by the environment is
-accessable by node 0 it is possible for some scenarios to synchronize the global time of the clock synchronization with the time of the real time clock.\\
+accessible by node 0 it is possible for some scenarios to synchronize the global time of the clock synchronization with the time of the real time clock.\\
 
 For message loss measurements the task running on node 0 sends beside clock synchronization messages only messages holding a node specific counter incremented after every send attempt.\\ 
 
@@ -85,7 +85,7 @@ simulating faulty messages in the time domain.\\
 \subsubsection{Node 2}
 \label{sec:app:specification:node2}
 
-Node 2 is used to provide monitoring services via the lcd. For this purpose no filtering of messages is provided by the protocol.
+Node 2 is used to provide monitoring services via the LCD. For this purpose no filtering of messages is provided by the protocol.
 All messages crossing the bus are stored and evaluated to certain properties such as
 
 \begin{enumerate}
@@ -93,9 +93,9 @@ All messages crossing the bus are stored and evaluated to certain properties suc
  \item message loss rates
 \end{enumerate}
 
-and can be visualized via the lcd as pure text or as chart.\\
+and can be visualized via the LCD as pure text or as chart.\\
 
-Although node 2 has a fully cni available the only messages transmitted by node 2 are messages for synchronization purposes and debug messages.\\
+Although node 2 has a fully CNI (communication network interface) available the only messages transmitted by node 2 are messages for synchronization purposes and debug messages.\\
 
 A sketch how the visualization could look is given in figure \ref{fig:app:specification:node2} \nameref{fig:app:specification:node2}.
 
