@@ -1,5 +1,50 @@
 \section{Application specification}
 \label{sec:app:specification}
+
+To give a short overview to the environment we use the four nodes of our microcontroller network are shown in figure \ref{fig:app:specification:node_overview} \nameref{fig:app:specification:node_overview} 
+and outline the functionalities provided by the single nodes useful for our application level.\\
+
+\begin{figure}[t]
+ \centering
+ \includegraphics[scale=0.5]{../images/node_overview.png}
+ % node_tasks.png: 448x291 pixel, 72dpi, 15.80x10.27 cm, bb=
+ \caption{capabilities of nodes}
+ \label{fig:app:specification:node_overview}
+\end{figure}
+
+\subsection{Node 0}
+\label{sec:app:specification:node0}
+
+\subsection{Node 1}
+\label{sec:app:specification:node1}
+
+\subsection{Node 2}
+\label{sec:app:specification:node2}
+
+Node 2 is used to provide monitoring services via the lcd. For this purpose no filtering of messages is provided by the protocol.
+All messages crossing the bus are stored and evaluated to certain properties such as
+
+\begin{enumerate}
+ \item the drifts of the certain clocks
+ \item message loss rates
+\end{enumerate}
+
+and can be visualized via the lcd as pure text or as chart.\\
+
+A sketch how the visualization could look is given in figure \ref{fig:app:specification:node2} \nameref{fig:app:specification:node2}.
+
+\begin{figure}[t]
+ \centering
+ \includegraphics[scale=0.8]{../images/app_visu_sketch.png}
+ % node_tasks.png: 448x291 pixel, 72dpi, 15.80x10.27 cm, bb=
+ \caption{sketch of visualization}
+ \label{fig:app:specification:node2}
+\end{figure}
+
+
+\subsection{Node 3}
+\label{sec:app:specification:node3}
+
 % 
 % 
 % \subsection{Bus load app}
@@ -48,22 +93,14 @@
 
 
 
-The application is ment to run distributed 
-as shown in figure \ref{fig:node_task_assignment} \nameref{fig:node_task_assignment}
-
-\begin{figure}[ht]
- \centering
- \includegraphics[scale=0.8]{../images/node_tasks.png}
- % node_tasks.png: 448x291 pixel, 72dpi, 15.80x10.27 cm, bb=
- \caption{Node task assignment}
- \label{fig:node_task_assignment}
-\end{figure}
-
-
-\subsection{Node2}
-Node2 will take over the task of visualization described in
-\ref{app_specification:drift_rates} \nameref{app_specification:drift_rates}
-
-\subsection{Node3}
-Node0 will take over the task of the bus load application
-\ref{app_specification:bus_load} \nameref{app_specification:bus_load}
+% The application is ment to run distributed 
+% as shown in figure \ref{fig:node_task_assignment} \nameref{fig:node_task_assignment}
+% 
+% 
+% \subsection{Node2}
+% Node2 will take over the task of visualization described in
+% \ref{app_specification:drift_rates} \nameref{app_specification:drift_rates}
+% 
+% \subsection{Node3}
+% Node0 will take over the task of the bus load application
+% \ref{app_specification:bus_load} \nameref{app_specification:bus_load}
