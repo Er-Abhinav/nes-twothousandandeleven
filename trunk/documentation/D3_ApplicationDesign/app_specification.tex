@@ -1,10 +1,60 @@
 \section{Application specification}
 \label{sec:app:specification}
 
-To give a short overview to the environment we use the four nodes of our microcontroller network are shown in figure \ref{fig:app:specification:node_overview} \nameref{fig:app:specification:node_overview} 
+To have an adequate base for application level testing of our protocol we restrict our application to the following requirements given in section \ref{sec:app:specification:req} \nameref{sec:app:specification:req}.\\
+
+\subsection{Requirements}
+\label{sec:app:specification:req}
+
+\begin{req}
+\label{req:app:load}
+\textbf{bus load}: the application has to give us the ability to adjust the bus load rate to make exhaustive testing possible.
+\end{req}
+
+\begin{req}
+\label{req:app:fault_injection}
+\textbf{fault injection}: the application has to give us the ability to inject faulty transmissions in the time as well as in the value domain to test fault and error detection and correction.
+\end{req}
+
+\begin{req}
+\label{req:app:message_loss}
+\textbf{message loss}: the application has to give us the ability to detect message losses under ``normal'' conditions as well as in ``overload'' conditions.
+\end{req}
+
+% This is meant to be the pendant of an electro magnetic disturbance
+% injected into the bus cable and should be detected through the
+% CRC sums by the receiver.
+
+\begin{req}
+\label{req:app:sync_under_overloads}
+\textbf{synchronization (drift rates) under overloads}: the application has to give us the ability to monitor drift rates of the clocks under heavy bus loads to evaluate the clock synchronization.
+\end{req}
+
+% That means that we are measuring:
+% \begin{itemize}
+%  \item The ability of the nodes to synchronize the clocks via the bus 
+% while it is under load due to the bus load application
+%  \item The drifts between the clocks before synchronizing
+% \end{itemize}
+
+\begin{req}
+\label{req:app:visualization}
+\textbf{visualization}: the application has to give us the ability to visualize drift rates and message losses via a graphical interface.
+\end{req}
+
+\begin{req}
+\label{req:app:debug_and_monitor}
+\textbf{Debugging and Monitoring features via PC}: The ability to debug through the PC is one of the first feature most developers are looking for. Therefore, it is a fundamental requirement for us to provide a bridging with respect to bus communication of the network nodes to a pc.
+\end{req}
+
+
+\subsection{Application design}
+\label{sec:app:specification:design}
+
+To give a short overview to the environment we use the four nodes of our microcontroller network as shown in figure \ref{fig:app:specification:node_overview} \nameref{fig:app:specification:node_overview} 
 and outline the functionalities provided by the single nodes useful for our application level.\\
 
-\begin{figure}[t]
+\begin{figure}[h]
  \centering
  \includegraphics[scale=0.5]{../images/node_overview.png}
  % node_tasks.png: 448x291 pixel, 72dpi, 15.80x10.27 cm, bb=
@@ -12,13 +62,27 @@ and outline the functionalities provided by the single nodes useful for our appl
  \label{fig:app:specification:node_overview}
 \end{figure}
 
-\subsection{Node 0}
+\subsubsection{Node 0}
 \label{sec:app:specification:node0}
 
-\subsection{Node 1}
+Node 0 is used for standard communication purposes, messages are sent and received under certain predefined load conditions. Since the real time clock provided by the environment is
+accessable by node 0 it is possible for some scenarios to synchronize the global time of the clock synchronization with the time of the real time clock.\\
+
+For message loss measurements the task running on node 0 sends beside clock synchronization messages only messages holding a node specific counter incremented after every send attempt.\\ 
+
+\subsubsection{Node 1}
 \label{sec:app:specification:node1}
 
-\subsection{Node 2}
+Node 1 is used for standard communication purposes, messages are sent and received under certain predefined load conditions.\\
+
+For message loss measurements the task running on node 1 sends beside clock synchronization messages only messages holding 
+a node specific counter incremented after every send attempt.\\ 
+
+Besides the usecases depicted above, node 1 provides a push-button interface triggering transmissions of faulty messages 
+by toggling single bits after the checksum calculation and another push-button interface to trigger synchronization messages 
+simulating faulty messages in the time domain.\\
+
+\subsubsection{Node 2}
 \label{sec:app:specification:node2}
 
 Node 2 is used to provide monitoring services via the lcd. For this purpose no filtering of messages is provided by the protocol.
@@ -31,9 +95,11 @@ All messages crossing the bus are stored and evaluated to certain properties suc
 
 and can be visualized via the lcd as pure text or as chart.\\
 
+Although node 2 has a fully cni available the only messages transmitted by node 2 are messages for synchronization purposes and debug messages.\\
+
 A sketch how the visualization could look is given in figure \ref{fig:app:specification:node2} \nameref{fig:app:specification:node2}.
 
-\begin{figure}[t]
+\begin{figure}[h]
  \centering
  \includegraphics[scale=0.8]{../images/app_visu_sketch.png}
  % node_tasks.png: 448x291 pixel, 72dpi, 15.80x10.27 cm, bb=
@@ -42,65 +108,11 @@ A sketch how the visualization could look is given in figure \ref{fig:app:specif
 \end{figure}
 
 
-\subsection{Node 3}
+\subsubsection{Node 3}
 \label{sec:app:specification:node3}
 
-% 
-% 
-% \subsection{Bus load app}
-% \label{app_specification:bus_load}
-% Has the benefit of user adjustable provocation load rates for 
-% further testing
-% 
-% The load app will provide different bus injection methods
-% \subsubsection{Fault Injection via Buttons}
-% Is the ability to inject faulty transmissions into the bus by pressing
-% a button to check the fail-safetyness of the bus and the protocol.
-% 
-% This is meant to be the pendant of an electro magnetic disturbance
-% injected into the bus cable and should be detected through the
-% CRC sums by the receiver.
-% 
-% \subsubsection{Overload Simulation via Buttons}
-% Is the ability to inject heavy bus load by pressing a button to
-% check the accessibility of the bus if the bus is busy. 
-% See also: \ref{app_specification:drift_rates} \nameref{app_specification:drift_rates}
-% 
-% \subsection{Drift rates}
-% \label{app_specification:drift_rates}
-% The main target of our application is to show drifts of the synchronous 
-% clocks in our network. 
-% 
-% That means that we are measuring:
-% \begin{itemize}
-%  \item The ability of the nodes to synchronize the clocks via the bus 
-% while it is under load due to the bus load application
-%  \item The drifts between the clocks before synchronizing
-% \end{itemize}
-% 
-% \subsection{Visualization of Drift Rates via LCD}
-% The visualization is planned via a difference bar charts on the 
-% LCD display of the uC board.
-% 
-% \subsection{Debugging and Monitoring features via PC}
-% The ability to debug through the PC is one of the first 
-% feature most developers are looking for. Therefore, it is an
-% nice to have feature for us to engineer. 
-% 
-% This method could only unfold its full advantage in an emerging 
-% developer version where the bus will be used in action.
+Node 3 is used for standard communication purposes, messages are sent and received under certain load conditions.\\
 
+Since node 3 can access the value of the analog potentiometer the task for node 3 is to increase or decrease the bus load by sending or leaving out messages according to the value adjusted by the potentiometer.\\
 
-
-
-% The application is ment to run distributed 
-% as shown in figure \ref{fig:node_task_assignment} \nameref{fig:node_task_assignment}
-% 
-% 
-% \subsection{Node2}
-% Node2 will take over the task of visualization described in
-% \ref{app_specification:drift_rates} \nameref{app_specification:drift_rates}
-% 
-% \subsection{Node3}
-% Node0 will take over the task of the bus load application
-% \ref{app_specification:bus_load} \nameref{app_specification:bus_load}
+For message loss measurements the task running on node 3 sends beside clock synchronization messages only messages holding a node specific counter incremented after every send attempt.\\ 
