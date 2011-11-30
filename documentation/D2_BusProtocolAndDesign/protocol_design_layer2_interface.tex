@@ -1,0 +1,42 @@
+\subsubsection{Mac \& FT layer interface}
+\label{sec:bus:design:layer2:interface}
+
+The Mac \& FT layer  provides its interfaces in such a way as it takes only data via methods and returns data only via callback routines (which can be seen as events).\\
+
+The methods provided by the interface are
+
+\begin{enumerate}
+ \item \textbf{initialize: } initializes the layer and triggers the initialization of the sublayers it uses.
+ \item \textbf{writeMessage: } takes an arbitrary message payload and the payloads size in bytes, appends it to the \textit{send queue} and triggers the transmission of the next message in the queue.
+ \item \textbf{writeMessageImmediate: } takes an arbitrary message payload and the payloads size in bytes, inserts it at the next position to be read in the \textit{send queue} and triggers the transmission of the next message in the queue.
+\end{enumerate}
+
+and the events provided by the interface are
+
+\begin{enumerate}
+ \item \textbf{messageReceivedCallback}
+ \item \textbf{messageTransmittedCallback}
+ \item \textbf{queueOverflowCallback}
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+The workflow of the layers statemachine is depicted in figure \ref{fig:bus:design:layer2:statemachine} and starts in the state \textit{STARTUP}, in which a state ``synchronzies'' to the bus.
+
+After this process the statemachine changes to state \textit{IDLE}.
+When a message is appended to the queue in state \textit{IDLE} the CRC of the message is calculated and the transmission is started (\textit{SND\_ARBITRATION}) by trying the bus arbitration.\\
+
+After the arbitration was done successfully the remaining message is transmitted in the state \textit{SND\_DATA/CRC} and the event \textit{messageTransmittedCallback} is triggered, otherwise the meanwhile received/sent data is handed out to the receive procedure and the state \textit{RCV\_ARBITRATION} is reached in which messages sent by other communication partners are received.\\
+
+When an arbitration of another node is detected in state \textit{IDLE} the statemachine switches to state \textit{RCV\_ARBITRATION} and the receiving procedure can be done.\\
+
+Whenever a message is successfully received the message is appended to the \textit{recv queue} and the \textit{messageReceivedCallback} event is triggered notifying higher layers of the message arrival.\\
+
+In case the \textit{send queue} or the \textit{recv queue} overflows and data is lost the event \textit{queueOverflowCallback} is triggered to notify higher layers.\\
