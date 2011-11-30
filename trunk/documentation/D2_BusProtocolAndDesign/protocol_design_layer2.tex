@@ -13,7 +13,8 @@ tolerant mechanisms like the starvation handling (see section \ref{sec:bus:ftnsh
 In the following section we describe the general workflow of the MAC \& FT layer.
 
 \subsubsection{General workflow}
-To describe the general workflow of the MAC \& FT layer we examine how messages are sent and received.\\
+To describe the general workflow of the MAC \& FT layer we examine how messages are sent and received. 
+See figure \ref{fig:bus:design:layer2:statemachine} for a flow chart of the bus protocol.\\
 
 \paragraph{Transmission of messages}
 When a higher layer (including the application) wants to send a message it adds the message to the \textit{Send Msg Queue} which is provided
