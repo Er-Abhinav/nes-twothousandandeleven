@@ -14,6 +14,7 @@
  \item Higher levels of the protocol cannot be accessed by lower levels. Data to higher layers can only be propagated 
 using callback mechanisms. 
 \end{enumerate}
+Every layer has to be replaceable without any interference with other layers.
 \end{req}
 
 \begin{req}
@@ -23,5 +24,41 @@ using callback mechanisms.
 
 \begin{req}
 \label{req:ulftrtp:resource consumption}
-\textbf{Resource consumption}: The protocol has to be adaptable to minimal hardware constraints.
+\textbf{Resource consumption}: The protocol has to be adaptable to minimal hardware constraints and has to work 
+ with small microcontrollers.
+\end{req}
+
+\begin{req}
+\label{req:ulftrtp:masterless}
+\textbf{Masterless}: The protocol has to work without a master.
+\end{req}
+
+\begin{req}
+\label{req:ulftrtp:length}
+\textbf{Bus length}: The protocol has to work over long distances (e.g. 450m)
+\end{req}
+
+\begin{req}
+\label{req:ulftrtp:baudrate}
+\textbf{Baud rate}: The baud rate has to be configureable.
+\end{req}
+
+\begin{req}
+\label{req:ulftrtp:configuration}
+\textbf{Configuration}: The protocol should need minimal configuration effort.
+\end{req}
+
+\begin{req}
+\label{req:ulftrtp:ft}
+\textbf{Fault tolerance}: The protocol should provide basic fault tolerance.
+\end{req}
+
+\begin{req}
+\label{req:ulftrtp:recovery}
+\textbf{Recovery}: The protocol should provide basic recovery from error states.
+\end{req}
+
+\begin{req}
+\label{req:ulftrtp:clocksync}
+\textbf{Clock synchronization}: The protocol should provide basic clock synchronization.
 \end{req}
