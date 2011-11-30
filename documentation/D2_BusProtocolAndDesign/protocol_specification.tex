@@ -18,7 +18,14 @@ Message Type (or Message ID), the Receivers Node ID and the Sender Node ID, wher
 be globally unique among all Nodes sharing the bus.
 Then the payload length in byte, the actual payload and a 32-bit-CRC checksum are transmitted (see section \ref{sec:bus:messageformat}).\\
 
-Depicting a state machine we outline three cases:
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{../images/abstract_statemachine.png}
+\caption{Abstract protocol state machine.}
+\label{fig:bus:basicaccess:abstractstatemachine}
+\end{figure}
+
+Depicting an abstract state machine (given in figure \ref{fig:bus:basicaccess:abstractstatemachine}) we outline three cases:
 \begin{enumerate}
  \item Only one node wants to transmit data and the bus is free: Node \textit{A} knows that the bus is free by 
 observing the bus since startup. \textit{A} starts to write Start of Frame, MessageID, ReceiverNodeID, SenderNodeID  
