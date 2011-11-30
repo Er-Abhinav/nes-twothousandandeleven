@@ -1,33 +1,33 @@
 \section{Application specification}
 \label{sec:app:specification}
 
-To have an adequate base for application level testing of our protocol we restrict our application to the following requirements given in section \ref{sec:app:specification:req} \nameref{sec:app:specification:req}.\\
+To have an adequate base for application level testing of our protocol we restrict our application to the following requirements:
 
 \subsection{Requirements}
 \label{sec:app:specification:req}
 
 \begin{req}
 \label{req:app:load}
-\textbf{bus load}: the application has to give us the ability to adjust the bus load rate to make exhaustive testing possible.
+\textbf{Bus load}: The application has to give us the ability to adjust the bus load rate to make exhaustive testing possible.
 \end{req}
 
 \begin{req}
 \label{req:app:fault_injection}
-\textbf{fault injection}: the application has to give us the ability to inject faulty transmissions in the time as well as in the value domain to test fault and error detection and correction.
+\textbf{Fault injection}: The application has to give us the ability to inject faulty transmissions in the time as well as in the value domain to test fault-, error detection and error handling.
 \end{req}
 
 \begin{req}
 \label{req:app:message_loss}
-\textbf{message loss}: the application has to give us the ability to detect message losses under ``normal'' conditions as well as in ``overload'' conditions.
+\textbf{Message loss}: The application has to give us the ability to detect message losses under ``normal'' conditions as well as in ``overload'' conditions.
 \end{req}
 
-% This is meant to be the pendant of an electro magnetic disturbance
+% This is meant to be the pendant of an electromagnetic disturbance
 % injected into the bus cable and should be detected through the
 % CRC sums by the receiver.
 
 \begin{req}
 \label{req:app:sync_under_overloads}
-\textbf{synchronization (drift rates) under overloads}: the application has to give us the ability to monitor drift rates of the clocks under heavy bus loads to evaluate the clock synchronization.
+\textbf{Synchronization (drift rates) under overloads}: The application has to give us the ability to monitor drift rates of the clocks under heavy bus loads to evaluate the quality of clock synchronization.
 \end{req}
 
 % That means that we are measuring:
@@ -39,12 +39,12 @@ To have an adequate base for application level testing of our protocol we restri
 
 \begin{req}
 \label{req:app:visualization}
-\textbf{visualization}: the application has to give us the ability to visualize drift rates and message losses via a graphical interface.
+\textbf{Visualization}: The application has to give us the ability to visualize drift rates and message losses through a graphical interface.
 \end{req}
 
 \begin{req}
 \label{req:app:debug_and_monitor}
-\textbf{Debugging and Monitoring features via PC}: The ability to debug through the PC is one of the first feature most developers are looking for. Therefore, it is a fundamental requirement for us to provide a bridging with respect to bus communication of the network nodes to a pc.
+\textbf{Debugging and monitoring features via PC}: The ability to debug through the PC is one of the first feature most developers are looking for. Therefore, it is a fundamental requirement for us to provide a bridging with respect to bus communication of the network nodes to a PC.
 \end{req}
 
 
@@ -58,7 +58,7 @@ and outline the functionalities provided by the single nodes useful for our appl
  \centering
  \includegraphics[scale=0.5]{../images/node_overview.png}
  % node_tasks.png: 448x291 pixel, 72dpi, 15.80x10.27 cm, bb=
- \caption{capabilities of nodes}
+ \caption{Capabilities of nodes}
  \label{fig:app:specification:node_overview}
 \end{figure}
 
@@ -78,22 +78,22 @@ Node 1 is used for standard communication purposes, messages are sent and receiv
 For message loss measurements the task running on node 1 sends beside clock synchronization messages only messages holding 
 a node specific counter incremented after every send attempt.\\ 
 
-Besides the usecases depicted above, node 1 provides a push-button interface triggering transmissions of faulty messages 
+Besides the use cases depicted above, node 1 provides a push-button interface triggering transmissions of faulty messages 
 by toggling single bits after the checksum calculation and another push-button interface to trigger synchronization messages 
 simulating faulty messages in the time domain.\\
 
 \subsubsection{Node 2}
 \label{sec:app:specification:node2}
 
-Node 2 is used to provide monitoring services via the LCD. For this purpose no filtering of messages is provided by the protocol.
+Node 2 is used to provide monitoring services through the LCD. For this purpose no filtering of messages is provided by the protocol.
 All messages crossing the bus are stored and evaluated to certain properties such as
 
 \begin{enumerate}
- \item the drifts of the certain clocks
- \item message loss rates
+ \item The drifts of the certain clocks
+ \item Message loss rates
 \end{enumerate}
 
-and can be visualized via the LCD as pure text or as chart.\\
+and can be visualized through the LCD as pure text or as chart.\\
 
 Although node 2 has a fully CNI (communication network interface) available the only messages transmitted by node 2 are messages for synchronization purposes and debug messages.\\
 
