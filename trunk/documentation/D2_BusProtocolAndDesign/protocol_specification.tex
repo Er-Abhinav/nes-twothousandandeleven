@@ -20,7 +20,7 @@ Then the payload length in byte, the actual payload and a 32-bit-CRC checksum ar
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.8\textwidth]{../images/abstract_statemachine.png}
+\includegraphics[width=0.6\textwidth]{../images/abstract_statemachine.png}
 \caption{Abstract protocol state machine.}
 \label{fig:bus:basicaccess:abstractstatemachine}
 \end{figure}
@@ -68,12 +68,12 @@ In case we use a window of 20ms, the bus guardian of a node blocks the active (s
 \begin{figure}[htbp]
   \centering
   \begin{bytefield}{24}
-     \bitheader{0,4,5,8-9,14-15,20-21,24}\\
-     \bitbox{5}{SoF}\bitbox{4}{Type} \bitbox{6}{Dest ID} \bitbox{6}{Src ID} \bitbox{4}{Len}\\
-     \bitbox[lrt]{8}{Data<0>} \bitbox[lrt]{8}{Data<1>} \bitbox[lrt]{8}{..}\\ 
+     \bitheader{0,3,4,7-8,13-14,19-20,23}\\
+     \bitbox{4}{\footnotesize{SoF}}\bitbox{4}{\footnotesize{Type}} \bitbox{6}{\footnotesize{Dest ID}} \bitbox{6}{\footnotesize{Src ID}} \bitbox{4}{\footnotesize{Len}}\\
+     \bitbox[lrt]{8}{\footnotesize{Data<0>}} \bitbox[lrt]{8}{\footnotesize{Data<1>}} \bitbox[lrt]{8}{\footnotesize{...}}\\ 
      \skippedwords \\
-     \bitbox[lrb]{8}{..}\bitbox[lrb]{8}{Data<Len-2>}\bitbox[lrb]{8}{Data<Len-1>}\\
-     \bitbox[lrb]{8}{CRC<0>}\bitbox{8}{..}\bitbox{8}{CRC<3>}\\
+     \bitbox[lrb]{8}{\footnotesize{...}}\bitbox[lrb]{8}{\footnotesize{Data<Len-2>}}\bitbox[lrb]{8}{\footnotesize{Data<Len-1>}}\\
+     \bitbox[lrb]{8}{\footnotesize{CRC<0>}}\bitbox{8}{\footnotesize{...}}\bitbox{8}{\footnotesize{CRC<3>}}\\
    \end{bytefield}
   \caption{Layer2 message format}
   \label{figure:bus:messageformat}
@@ -93,3 +93,7 @@ As shown in figure \ref{figure:bus:messageformat} the message consists of
 
 The \textit{Start of Frame}, \textit{MessageType}, \textit{ReceiverNodeID} and \textit{SenderNodeID} are part of the so called FrameID uniquely identifying all messages transferred on the bus.
 The Field DataLength holds the length of the Payload following in bytes. The message is concluded by the 4-Byte long CRC-checksum.
+
+\subsection{Requirements}
+\label{sec:bus:requirements}
+
