@@ -26,9 +26,9 @@ and the events provided by the driver are
 \end{figure}
 
 The workflow of the drivers statemachine depicted in figure \ref{fig:bus:design:layer1:interface:hwuart} starts in the state \textit{IDLE}.
-When data is pushed into the driver via the writeByte method the transmission via uart is initiated and the statemachine changes to state \textit{WRITE}.\\
+When data is pushed into the driver via the \textit{writeByte} method the transmission via uart is initiated and the statemachine changes to state \textit{WRITE}.\\
 
 In the state \textit{WRITE} the transmitted databyte is read back and compared with the read databyte. 
-Either the read and written databytes are equal the byteTransmittedCallback is triggered or the byteCorruptedCallback is triggered and the statemachine leads to state \textit{IDLE}.\\
+Either the read and written databytes are equal the \textit{byteTransmittedCallback} is triggered or the \textit{byteCorruptedCallback} is triggered and the statemachine leads to state \textit{IDLE}.\\
 
-If a byte is read via the usart it is propagated via the byteReceivedCallback event to higher layers, in the state \textit{IDLE} .\\
+If a byte is read via the usart it is propagated via the \textit{byteReceivedCallback} event to higher layers, in the state \textit{IDLE} .\\
