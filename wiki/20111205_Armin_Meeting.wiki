@@ -1,4 +1,6 @@
-* Testcases
+ * Testcases
+ * Dokument anschauen, wie spezifiziert man ein Reuqirement
+ * Das gepostete vom Armin durchlesen
 
 = Requirements Protokoll =
 
@@ -6,6 +8,10 @@
  * Es soll möglich sein zu:
   ** Validation
   ** Verifikation
+  ** zeigen, warum das wichtig ist
+  ** Wer das Requirement überwacht (traceability)
+   *** Wer hat es erfüllt
+   *** Wer hat es getestet
  * Messbar machen
   ** Was wollen wir zeigen
   ** Wie wird das gezeigt/gemessen
@@ -34,4 +40,16 @@ Bzp.: Was ist "einfach"
  * Konkrete Requirements einfügen
  * benötigte Hardware
 
+== Fault tolerance / Recovery ==
+
+ * Genau spezifizieren was gemeint ist
+  ** Ausfallsicherheit wenn eine Node ausfällt
+ * 
+
 = Building Environment =
+
+v 0.6a
+
+= D3 =
+
+Wenn wir's genauer machen können, dann genauer machen
