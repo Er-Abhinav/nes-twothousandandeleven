@@ -45,7 +45,7 @@ void receive_msgfoo(uint8_t msg_id, uint8_t msg_length, uint8_t *msg_body){
 	sei();
 	//each data gets differntly displayed
 	//constants get loaded from the flash memory
-	switch(msg_id){
+	/*switch(msg_id){
 		case ADR_ND1_TEMP: 
 			temperature=msg_body[0];
 			temperature|=(msg_body[1]<<8);
@@ -88,7 +88,7 @@ void receive_msgfoo(uint8_t msg_id, uint8_t msg_length, uint8_t *msg_body){
 			send_string_P_1(PSTR("\n\r"));
 			break;
 		default: break;
-	}
+	}*/
 }
 
 //!methode for increasing the time
@@ -119,7 +119,7 @@ void sending(void){
   tmp[1] = timearray[1];
   tmp[2] = timearray[2];
   tmp[3] = timearray[3];
-  send_msg(ADR_ND0_TIME, 4, tmp);
+  //send_msg(ADR_ND0_TIME, 4, tmp);
   //green leds indicate the sending of data
   TOGGLE_BIT(LED_PORT_REG, LED_GREEN);
 }
@@ -131,15 +131,15 @@ void sending(void){
 */
 void rec_pc(uint8_t value){
 	sei();
-	uint8_t tmp[2];
+	//uint8_t tmp[2];
 	//if the value is between 1-3 the memeval from the nodes 1-3 is requested
-	if(value>'0' && value <= '3'){
-		send_msg((ADR_MEMEVAL_REQ_OFFSET+(value-'0')), 2, tmp);
-	}
+	//if(value>'0' && value <= '3'){
+	//	send_msg((ADR_MEMEVAL_REQ_OFFSET+(value-'0')), 2, tmp);
+	//}
 	//if value is 0 the memeval from node0 is send to the pc
-	else if(value == '0') {
-		send_memory_stats(NODE_ID, &receive_msgfoo);
-	}
+	//else if(value == '0') {
+	//	send_memory_stats(NODE_ID, &receive_msgfoo);
+	//}
 }
 
 //!methode for resetting the clock
@@ -166,7 +166,7 @@ int main(void){
 	//globale interrupt enable
 	sei();
 	//inits of bus_uart, pc_uart, timers and button
-	protocol_init(RECEIVER_ON, receive_msgfoo);
+	//protocol_init(RECEIVER_ON, receive_msgfoo);
 	//every 100ms the clock is increased
 	configure_timer(0, TIMER_PERIODIC, 100, bus_time);
 	//every 100ms the clock value is send to the bus system

@@ -14,7 +14,7 @@ OBJ-M-$(MNAME)-y	+= node0
 OBJ-ESEL-$(MNAME)-y	+= 
 
 # put module specific used library modules in here
-OBJ-ESEL-MDEP-$(MNAME)-y += uart bus_protocol timer button mem_eval timer3 ringBuff
+OBJ-ESEL-MDEP-$(MNAME)-y += uart timer button mem_eval timer3 ringBuff
 
 # put module specific library CFLAGS in here (added only locally to MDEP modules)
 CFLAGS-ESEL-MDEP-$(MNAME) += -DLOCAL=1

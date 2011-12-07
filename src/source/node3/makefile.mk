@@ -14,7 +14,7 @@ OBJ-M-$(MNAME)-y	+= node3
 OBJ-ESEL-$(MNAME)-y	+= 
 
 # put module specific used library modules in here
-OBJ-ESEL-MDEP-$(MNAME)-y += timer adc generadc mem_eval bus_protocol uart timer3 ringBuff
+OBJ-ESEL-MDEP-$(MNAME)-y += timer adc generadc mem_eval uart timer3 ringBuff
 
 # put module specific library CFLAGS in here (added only locally to MDEP modules)
 CFLAGS-ESEL-MDEP-$(MNAME) += -DLOCAL=1
