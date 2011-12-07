@@ -12,8 +12,6 @@
 
 #include <timer.h>
 #include <button.h>
-#include <bus_protocol.h>
-#include <bus_addressing.h>
 #include <uart.h>
 #include <avr/io.h>
 #include <global.h>

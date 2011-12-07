@@ -14,7 +14,7 @@ OBJ-ESEL-$(MNAME)-y	+=
 
 # put the module specific used library modules in here (need 
 # to be defined in library/eselib/Makefile.eselib)
-OBJ-ESEL-MDEP-$(MNAME)-y += bus_protocol uart timer ourMath mem_eval timer3 ringBuff
+OBJ-ESEL-MDEP-$(MNAME)-y += uart timer ourMath mem_eval timer3 ringBuff
 
 # put the used scade models in here (need to be defined in 
 # library/scade/Makefile.scade)
