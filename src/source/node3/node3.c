@@ -25,6 +25,13 @@
 /*======================================================================*/
 
 
+void printOut(void) {
+#ifdef DEBUG
+	StdOutInit();
+	SendString("\r\n\r\nInitialization complete!\n\r");
+#endif	
+}
+
 int main(void){
 	InitializeMemory();
 	/* disable this anoying whirl sound */
@@ -39,13 +46,10 @@ int main(void){
 	init_adc();
 	//register_channel (TEMP, PRE128,temprature);
         //register_channel (HELLIGKEIT, PRE128,brightness);
-	//configure_timer(TIMER2, TIMER_PERIODIC, 100, start);
+	configure_timer(TIMER2, TIMER_PERIODIC, 100, printOut);
 
 	
-#ifdef DEBUG
-	StdOutInit();
-	SendString("\r\n\r\nInitialization complete!\n\r");
-#endif	
+
 
 	while(1);
 	return 0;
