@@ -36,10 +36,13 @@ HEX_EEPROM_FLAGS += --set-section-flags=.eeprom="alloc,load"
 HEX_EEPROM_FLAGS += --change-section-lma .eeprom=0 --no-change-warnings
 
 ## Objects that must be built in order to link
-OBJECTS = swusart_tester.o swusart.o
+OBJECTS = swusart_tester.o swusart.o single_wire_UART.o
 
 ## Build
 all: $(TARGET) swusart_tester.hex swusart_tester.eep
+
+single_wire_UART.o: singlewire/single_wire_UART.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
 swusart.o: swusart.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
