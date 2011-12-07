@@ -4,7 +4,7 @@
 #
 # (c) 2007 by Bernhard Froemel <bf@catechsoftworks.biz>
 
-PROJNAME	= bsp2
+PROJNAME	= nes
 
 # language used for spellchecking
 LANG		= de
