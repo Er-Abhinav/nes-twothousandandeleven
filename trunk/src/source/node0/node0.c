@@ -31,66 +31,6 @@ volatile uint8_t timearray[4]={0,0,0,0};
 /* P R O C E D U R E S                                                  */
 /*======================================================================*/
 
-//!receive routine for bus communication
-/*! 
-	\pre protocol_init(RECEIVER_ON, receive_msgfoo); completed	
-	\param msg_id is the id from the received data 
-	\param msg_length is the length from the received data
-	\param msg_body is the received data
-*/
-void receive_msgfoo(uint8_t msg_id, uint8_t msg_length, uint8_t *msg_body){
-	uint16_t temperature=0,prim=0;
-	//the red led indicates the receiving of data
-	TOGGLE_BIT(LED_PORT_REG, LED_RED);
-	sei();
-	//each data gets differntly displayed
-	//constants get loaded from the flash memory
-	/*switch(msg_id){
-		case ADR_ND1_TEMP: 
-			temperature=msg_body[0];
-			temperature|=(msg_body[1]<<8);
-			send_string_P_1(PSTR("TEMPERATUR:"));
-			send_byte_dec16_1(temperature/10);
-			send_string_P_1(PSTR("."));
-			send_byte_dec_1(temperature%10);
-			send_string_P_1(PSTR("*C\n\r"));
-			break;
-		case ADR_ND1_BRIGHTN:
-			send_string_P_1(PSTR("HELLIGKEIT:"));
-			send_byte_dec_1(msg_body[0]);
-			send_string_P_1(PSTR("%\n\r"));
-			break;
-		case ADR_ND2_ERR_PRIM:
-			prim=msg_body[0];
-			prim|=(msg_body[1]<<8);
-			send_string_P_1(PSTR("PRIMZAHL:"));
-			send_byte_dec16_1(prim);
-			send_string_P_1(PSTR("\n\r"));
-			break;
-		case ADR_ND3_ERR_OVERFLOW: 
-			send_string_P_1(PSTR("TEMPERATUR zu hoch!"));
-			send_string_P_1(PSTR("\n\r"));
-			break;
-		case ADR_MEMEVAL_REPLY_OFFSET:
-		case ADR_MEMEVAL_REPLY_N1:
-		case ADR_MEMEVAL_REPLY_N2:
-		case ADR_MEMEVAL_REPLY_N3:
-			send_string_P_1(PSTR("Node:"));
-			//we evaluate the node number from the id 
-			//therefor we have only 1 chase for every memory data we get
-			send_byte_dec_1(msg_id-ADR_MEMEVAL_REPLY_OFFSET);
-			send_string_P_1(PSTR("\n\rSize: "));
-			send_byte_dec16_1((msg_body[1]<<8)|msg_body[0]);
-			send_string_P_1(PSTR("\n\rBegin: "));
-			send_byte_dec16_1((msg_body[3]<<8)|msg_body[2]);
-			send_string_P_1(PSTR("\n\rEnd: "));
-			send_byte_dec16_1((msg_body[5]<<8)|msg_body[4]);
-			send_string_P_1(PSTR("\n\r"));
-			break;
-		default: break;
-	}*/
-}
-
 //!methode for increasing the time
 /*! 
 	\pre none	
@@ -107,6 +47,8 @@ void bus_time(void){
   timearray[1]=sec;
   timearray[2]=min;
   timearray[3]=hour;
+  
+  TOGGLE_BIT(LED_PORT_REG, LED_RED);
 }
 
 //!methode for sending the time
@@ -122,6 +64,7 @@ void sending(void){
   //send_msg(ADR_ND0_TIME, 4, tmp);
   //green leds indicate the sending of data
   TOGGLE_BIT(LED_PORT_REG, LED_GREEN);
+  
 }
 
 //!methode for receiving data from the pc
@@ -171,9 +114,12 @@ int main(void){
 	configure_timer(0, TIMER_PERIODIC, 100, bus_time);
 	//every 100ms the clock value is send to the bus system
 	configure_timer(2, TIMER_PERIODIC, 100, sending);
-	configure_uart_1(MODE_8N1, 230400, &rec_pc);
+	configure_uart_1(MODE_8N1, 115200, &rec_pc);
 	init_pushbutton(reset);
 	
+	send_string_P_1(PSTR("\r\nHello World\r\n"));
+	send_byte_dec16_1(0xfefe); //print out as int
+	//send_byte_dec_1(temperature%10);
 	while(1);
 	return 0;
 
