@@ -10,13 +10,10 @@
 #ifndef __NODE0_H__
 #define __NODE0_H__
 
-#include <timer.h>
-#include <button.h>
-#include <uart.h>
 #include <avr/io.h>
 #include <global.h>
 
-//#include "hwusart.h"
+#include <hwusart.h>
 
 #define NODE_ID							(0)
 

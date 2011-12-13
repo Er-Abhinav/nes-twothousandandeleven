@@ -23,9 +23,10 @@
 /* Authors:     Nick Mayerhofer 					*/
 /*======================================================================*/
 #include <avr/io.h>
-#include <avr/pgmspace.h>
 #include <avr/interrupt.h>
 #include <global.h>
+
+#include <hwusart.h>
 
 
 /*======================================================================*/
