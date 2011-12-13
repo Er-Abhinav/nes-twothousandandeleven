@@ -45,7 +45,7 @@
 // Please note that the UART consumes about all CPU resources when WAIT_ONE*PRESCALER<100.
 
 /* Communication parameters. The WAIT_ONE definiton has to be changed according to equation 2-1 in the application note. */
-#define WAIT_ONE             51       //!< Half bit period compare setting. See the application note for calculation of this value. Make sure timer prescaler is set to the intended value.
+#define WAIT_ONE             103       //!< Half bit period compare setting. See the application note for calculation of this value. Make sure timer prescaler is set to the intended value.
 #define PRESCALER             8       //!< Prescaler setting. Must be set according to the baud rate setting.
 
 /* Port and pin settings. */
@@ -101,13 +101,13 @@
 #define CLEAR_UART_TIMER()                      (TCNT0 = 0x00)
 #define ENABLE_UART_TIMER_INTERRUPT()           (TIMSK |= (1<<OCIE0))
 #define DISABLE_UART_TIMER_INTERRUPT()          (TIMSK &= ~(1<<OCIE0))
-#define CLEAR_UART_TIMER_INTERRUPT_FLAG()       (TIFR = (1<<OCF0))
+#define CLEAR_UART_TIMER_INTERRUPT_FLAG()       (TIFR &= ~(1<<OCF0)) //(TIFR = (1<<OCF0))
 
 /* External interrupt macros. These are device dependent. */
 #define INITIALIZE_UART_EXTERNAL_INTERRUPT()    (MCUCR |= (1<<ISC01))   //< Sets falling edge of INT0 generates interrupt.
 #define ENABLE_UART_EXTERNAL_INTERRUPT()        (EIMSK |= (1<<INT0))
 #define DISABLE_UART_EXTERNAL_INTERRUPT()       (EIMSK &= ~(1<<INT0))
-#define CLEAR_UART_EXTERNAL_INTERRUPT_FLAG()    (EIFR  &= ~(1<<INTF0)) // (EIFR = (1<<INTF0))
+#define CLEAR_UART_EXTERNAL_INTERRUPT_FLAG()    (EIFR  &= ~(1<<INTF0)) //(EIFR = (1<<INTF0)) //
 
 /* Status register defines. */
 #define SW_UART_TX_BUFFER_FULL        4     //!< Set if data is ready to be sent from the Tx buffer.
