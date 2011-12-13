@@ -124,6 +124,7 @@ void SW_UART_Transmit(uint8_t data)
   //Start transmission if no ongoing communication.
   if( UART_counter == UART_STATE_IDLE )
   {
+	 PORTC = 0x01;
     //Copy byte from buffer and clear buffer full flag.
     UART_Tx_data = UART_Tx_buffer;
     CLEAR_FLAG( SW_UART_status, SW_UART_TX_BUFFER_FULL );
@@ -136,6 +137,7 @@ void SW_UART_Transmit(uint8_t data)
     CLEAR_UART_TIMER_INTERRUPT_FLAG();        //Make sure timer interrupt flag is not set.
     ENABLE_UART_TIMER_INTERRUPT();
     START_UART_TIMER();
+    PORTC |= 0x02;
   }
 }
 
@@ -197,6 +199,10 @@ ISR(SW_UART_EXTERNAL_INTERRUPT_VECTOR) {
  *          so an interrupt is not missed.
  */
 ISR(SW_UART_TIMER_COMPARE_INTERRUPT_VECTOR) {
+
+	ACHTUNG: Interrupt not triggered!!
+
+	PORTC |= 0x03;
 
   SET_UART_TIMER_COMPARE_WAIT_ONE(); //Set timer compare value to trigger the ISR once every bit period.
 
