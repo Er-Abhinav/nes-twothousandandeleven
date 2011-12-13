@@ -8,13 +8,13 @@ include $(MSTDPRE)
 CFLAGS-$(MNAME) += -DGLOBAL=1
 
 # node modules must be added here
-OBJ-M-$(MNAME)-y	+= node0 hwusart
+OBJ-M-$(MNAME)-y	+= node0
 
 # put global used library modules in here
 OBJ-ESEL-$(MNAME)-y	+= 
 
 # put module specific used library modules in here
-OBJ-ESEL-MDEP-$(MNAME)-y += uart timer button mem_eval timer3 ringBuff
+OBJ-ESEL-MDEP-$(MNAME)-y += timer timer3 ringBuff hwusart
 
 # put module specific library CFLAGS in here (added only locally to MDEP modules)
 CFLAGS-ESEL-MDEP-$(MNAME) += -DLOCAL=1
