@@ -10,18 +10,9 @@ install:
 # This target requires that the environment variable N is set
 # to a specific node: e.g. # N=0 make flash_node
 flash_node: node${N}/node${N}.elf
-	#switch programming target
-	$(MUXR) --port=${N}
-	#enable programmer
-	$(MUXR) --global-disable=0
 	#install program on selected target
-	$(PROGR) --erase --program --file node${N}/node${N}.elf --jtag $(INTERFACE)
-	#resetting programmer and node
-	$(MUXR) --reset16
-	$(MUXR) --target-disable=1
-	$(MUXR) --target-disable=0
-	#disable programmer
-	$(MUXR) --global-disable=1
+	$(MUXR) erase --infile node${N}/node${N}.elf -m${N} -p $(INTERFACE) prog-flash-pageload prog-eeprom-bytewise 
+	
 
 # correct the nodes
 FLASH_NODES	:= $(strip $(FLASH_NODES))
