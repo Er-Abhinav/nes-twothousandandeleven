@@ -89,9 +89,9 @@ void reset(void){
 }
 
 void receivedData(uint8_t data) {
-   PORTB = data;
+   //PORTB = data;
 
-   HWUSART_writeByte(data);
+  // HWUSART_writeByte(data);
 } // end of receive_data
 
 /*======================================================================*/
@@ -113,7 +113,12 @@ int main(void){
 	configure_timer(0, TIMER_PERIODIC, 100, bus_time);
 	//every 100ms the clock value is send to the bus system
 	configure_timer(2, TIMER_PERIODIC, 100, sending);
-	//configure_uart_1(MODE_8N1, 115200, &rec_pc); //FOR DEBUGING
+//	configure_uart_1(MODE_8N1, 115200, &rec_pc); //FOR DEBUGING
+//	send_string_P_1(PSTR("\r\nHello World\r\n"));
+//	send_byte_dec16_1(0xfefe); //print out as int
+	//send_byte_dec_1(temperature%10);
+
+
 	init_pushbutton(reset);
 	
 
@@ -123,10 +128,13 @@ int main(void){
 	//globale interrupt enable
 	sei();
 
-//	send_string_P_1(PSTR("\r\nHello World\r\n"));
-//	send_byte_dec16_1(0xfefe); //print out as int
-	//send_byte_dec_1(temperature%10);
-	while(1);
+int i, j;
+	while(1)
+		{
+		HWUSART_writeByte('a');
+		for(i=0;i<10000; i++) asm("nop");
+
+		}
 	return 0;
 
 }

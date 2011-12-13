@@ -12,20 +12,6 @@
 
 #define NODE_ID							(1)
 
-
-#define BULP_PIN							PB5
-#define LCD_BLIGHT						PB6
-
-
-#define N1_LED0							PD0
-#define N1_LED1							PD1
-#define N1_LED2							PD2
-#define N1_LED3							PD3
-#define N1_LED4							PD4
-#define N1_LED5							PD5
-#define N1_LED6							PD6
-#define N1_LED7							PD7
-
 			
 /*======================================================================*/
 /* Project:	   LCD-Display						*/

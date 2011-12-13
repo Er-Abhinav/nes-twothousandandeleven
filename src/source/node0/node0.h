@@ -16,7 +16,7 @@
 #include <avr/io.h>
 #include <global.h>
 
-#include "hwusart.h"
+//#include "hwusart.h"
 
 #define NODE_ID							(0)
 
