@@ -14,22 +14,11 @@
 /* C O N S T A N T S  (place const in flash)                            */
 /*======================================================================*/
 
-/*======================================================================*/
-/* G L O B A L  V A R I A B L E S  (SRAM)                               */
-/*======================================================================*/
-volatile uint8_t prot_sendBright=0;		//!< Buffer for received brightness value
-volatile uint8_t prot_sendTemp[2]={0,0};	//!< Buffer for received temperature value
-volatile uint8_t flagtemp=0;		//!< Marks temperature to send it from main
-volatile uint8_t flagbright=0;		//!< Marks brightness to send it from main
+
 
 /*======================================================================*/
 /* S U B R O U T I N E S                                                */
 /*======================================================================*/
-void ports_init(void) {
-	DDRD=0xFF;
-	PORTD=0xFE;
-}
-
 void pwm_init(void) {
   ICR1=200;
   OCR1B=100; //BGLight 0==Max
@@ -47,20 +36,18 @@ void pwm_init(void) {
   SET_BIT(TCCR1A,COMC1); 
 }
 
-
-
 void node1_init(void) {
     //uint8_t i;
-    ports_init();
+	DDRD = 0xFF;
+	PORTD = 0xFE;
+
+	//Luefter aus
+	SET_BIT(DDRB, PB7);
+	CLEAR_BIT(PORTB, PB7);
+
     //pwm_init();
 }
 
-
-
-SIGNAL(SIG_INTERRUPT4){
-	TOGGLE_BIT(PORTB, PB5);
-	//if( (PORTB & (1<<PB5)) == 0){}
-}
 
 /*======================================================================*/
 /* M A I N                                                              */
@@ -68,15 +55,10 @@ SIGNAL(SIG_INTERRUPT4){
 int main(void){
 	//uint8_t temp[2]={111, 0};
 	InitializeMemory();
-	DDRB |= (1<<PB5);
-	PORTB &= ~(1<<PB5);
 
-	LED_DDR |= ((1<<LED_GREEN)|(1<<LED_RED));
 
-	EICRB |= (1<<ISC41);
-	EICRB &= ~(1<<ISC40);
-	EIMSK |= (1<<INT4);
-	//init_pushbutton(&bulb);
+
+
 
     //sei();
     node1_init();

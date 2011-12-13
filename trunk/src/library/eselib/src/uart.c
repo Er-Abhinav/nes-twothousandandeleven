@@ -584,20 +584,20 @@ void enable_rx_interrupt_uart_0(void) {
  * \brief ISR for UART RX
  * \note If an error bit is set, the handler function will not be called
  */
-SIGNAL(SIG_USART1_RECV)
-{
-	uint8_t status, temp;
-	status = UCSR1A;
-	temp = UDR1;
-	if((status & ((1<<FE)|(1<<DOR)|(1<<UPE))) != 0) {
-		//error
-	}
-	else {
-		if(uart_rx_isr_1 != NULL) {
-			//sei();
-			uart_rx_isr_1(temp);
-		}
-	}
-	return;
-}
+//SIGNAL(SIG_USART1_RECV)
+//{
+//	uint8_t status, temp;
+//	status = UCSR1A;
+//	temp = UDR1;
+//	if((status & ((1<<FE)|(1<<DOR)|(1<<UPE))) != 0) {
+//		//error
+//	}
+//	else {
+//		if(uart_rx_isr_1 != NULL) {
+//			//sei();
+//			uart_rx_isr_1(temp);
+//		}
+//	}
+//	return;
+//}
 
