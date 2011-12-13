@@ -74,15 +74,7 @@ void sending(void){
 */
 void rec_pc(uint8_t value){
 	sei();
-	//uint8_t tmp[2];
-	//if the value is between 1-3 the memeval from the nodes 1-3 is requested
-	//if(value>'0' && value <= '3'){
-	//	send_msg((ADR_MEMEVAL_REQ_OFFSET+(value-'0')), 2, tmp);
-	//}
-	//if value is 0 the memeval from node0 is send to the pc
-	//else if(value == '0') {
-	//	send_memory_stats(NODE_ID, &receive_msgfoo);
-	//}
+
 }
 
 //!methode for resetting the clock
@@ -96,6 +88,12 @@ void reset(void){
 	hour=0;
 }
 
+void receivedData(uint8_t data) {
+   PORTB = data;
+
+   HWUSART_writeByte(data);
+} // end of receive_data
+
 /*======================================================================*/
 /* Main                                                                 */
 /*======================================================================*/
@@ -105,20 +103,28 @@ int main(void){
 	//init red and green led
 	LED_DDR |= (1<<LED_RED);
 	LED_DDR |= (1<<LED_GREEN);
-	DDRB=0xFF;
-	//globale interrupt enable
-	sei();
+	DDRB = 0xFF;
+	PORTB = 0x0F;
+
+
 	//inits of bus_uart, pc_uart, timers and button
 	//protocol_init(RECEIVER_ON, receive_msgfoo);
 	//every 100ms the clock is increased
 	configure_timer(0, TIMER_PERIODIC, 100, bus_time);
 	//every 100ms the clock value is send to the bus system
 	configure_timer(2, TIMER_PERIODIC, 100, sending);
-	configure_uart_1(MODE_8N1, 115200, &rec_pc);
+	//configure_uart_1(MODE_8N1, 115200, &rec_pc); //FOR DEBUGING
 	init_pushbutton(reset);
 	
-	send_string_P_1(PSTR("\r\nHello World\r\n"));
-	send_byte_dec16_1(0xfefe); //print out as int
+
+
+	// initialize the usart
+	HWUSART_initialize(MODE_8N1, 9600, receivedData, NULL, NULL);
+	//globale interrupt enable
+	sei();
+
+//	send_string_P_1(PSTR("\r\nHello World\r\n"));
+//	send_byte_dec16_1(0xfefe); //print out as int
 	//send_byte_dec_1(temperature%10);
 	while(1);
 	return 0;

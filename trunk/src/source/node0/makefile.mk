@@ -8,7 +8,7 @@ include $(MSTDPRE)
 CFLAGS-$(MNAME) += -DGLOBAL=1
 
 # node modules must be added here
-OBJ-M-$(MNAME)-y	+= node0
+OBJ-M-$(MNAME)-y	+= node0 hwusart
 
 # put global used library modules in here
 OBJ-ESEL-$(MNAME)-y	+= 

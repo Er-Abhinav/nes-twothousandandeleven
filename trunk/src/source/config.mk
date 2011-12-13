@@ -1,7 +1,7 @@
 # (c) 2007 by Bernhard Froemel <bf@catechsoftworks.biz>
 
 DEBUGPORT	= 6000
-INTERFACE	= /dev/ttyUSB2
+INTERFACE	= /dev/ttyACM0
 
 MCU		= atmega128
 FORMAT		= ihex
@@ -25,7 +25,7 @@ CHMOD		= chmod
 SED		= sed
 
 PROGR		= avarice
-MUXR		= JTAGZeusProg
+MUXR		= jtagprog
 
 PDFLTX		= pdflatex
 
