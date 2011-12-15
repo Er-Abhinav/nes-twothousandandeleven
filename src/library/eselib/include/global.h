@@ -19,13 +19,14 @@
 /* target specific things */
 #define SRAM_SIZE						0x1000 /* 4k SRAM */
 #define CPU_CLK							14745600
-//#define CYCLES_PER_US ((F_CPU+500000)/1000000) 	// cpu cycles per microsecond
+#define F_CPU		CPU_CLK
+#define CYCLES_PER_US ((F_CPU+500000)/1000000) 	// cpu cycles per microsecond
 
 /* LEDs available on all nodes */
-#define LED_RED							PG4 /* altern: TOSC1 */
-#define LED_GREEN						PG3 /* altern: TOSC2 */
-#define LED_DDR							DDRG
-#define LED_PORT_REG						PORTG
+#define LED_RED							PF3 /* altern: TOSC1 */
+#define LED_GREEN						PF2 /* altern: TOSC2 */
+#define LED_DDR							DDRF
+#define LED_PORT_REG					PORTF
 
 /* virtual buttons/switches available on all nodes */
 #define BTN_IRQ							SIG_INTERRUPT4
@@ -102,7 +103,6 @@
 /*======================================================================*/
 /* M A C R O S                                                          */
 /*======================================================================*/
-//Responsible: Nick
 #define SET_BIT(PORT, BITNUM)    ((PORT) |=  (1<<(BITNUM)))
 #define CLEAR_BIT(PORT, BITNUM)  ((PORT) &= ~(1<<(BITNUM)))
 #define TOGGLE_BIT(PORT, BITNUM) ((PORT) ^=  (1<<(BITNUM)))
@@ -116,13 +116,5 @@
  * Global sreg copy. We use this variable for the __atomic macros.
  **/
 uint8_t glb_sreg_cpy;
-
-
-//// nickma special redundant fu
-
-#define F_CPU		CPU_CLK
-#define CYCLES_PER_US ((F_CPU+500000)/1000000) 	// cpu cycles per microsecond
-
-
 
 #endif

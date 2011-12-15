@@ -32,6 +32,12 @@ void printOut(void) {
 #endif	
 }
 
+
+void node3Init(void) {
+	LED_DDR |= ((1<<LED_GREEN)|(1<<LED_RED));
+	LED_PORT_REG |= ((1<<LED_GREEN)|(1<<LED_RED));
+}
+
 int main(void){
 	InitializeMemory();
 	/* disable this anoying whirl sound */
@@ -41,9 +47,9 @@ int main(void){
 	DDRD = 0xFF;	
 	PORTD = 0xFF;
 	//inits of bus_uart, timers
-	sei();
-	set_adc_ref(0);	
-	init_adc();
+//	sei();
+//	set_adc_ref(0);
+//	init_adc();
 	//register_channel (TEMP, PRE128,temprature);
         //register_channel (HELLIGKEIT, PRE128,brightness);
 	configure_timer(TIMER2, TIMER_PERIODIC, 100, printOut);
