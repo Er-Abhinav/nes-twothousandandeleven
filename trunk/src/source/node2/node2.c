@@ -30,16 +30,8 @@ void node2Init(void) {
  * send out the prime value
 */
 void node2DoIt(void) {
-	static uint16_t zahl=0;
-	static uint8_t running=0;
-	if(!running) {
-		running=1;
-		zahl++;
-		if(isPrime_8(zahl)) {
-			prime=zahl;
-		}
-		running=0;
-	}
+	TOGGLE_BIT(LED_PORT_REG, LED_GREEN);
+	TOGGLE_BIT(LED_PORT_REG, LED_RED);
 }
 
 int main(void) {
@@ -47,7 +39,7 @@ int main(void) {
    uint8_t tmp[2];
    node2Init();
    
-   //sei();
+   sei();
    configure_timer(0, TIMER_PERIODIC, PERIODE, &node2DoIt);
    	
    while(1) {
