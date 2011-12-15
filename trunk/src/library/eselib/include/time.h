@@ -14,11 +14,10 @@ extern "C" {
 
 #  define CLOCKS_PER_SEC  0l
 
-struct mini_timeval
-  {
+typedef struct mini_timeval {
     uint16_t tv_sec;		/* Seconds.  */
     uint16_t tv_msec;	/* Millisecond.  */
-  };
+} mini_timeval_t;
 
 
 
@@ -34,19 +33,18 @@ struct mini_timeval
   do {									      \
     (result)->tv_sec = (a)->tv_sec + (b)->tv_sec;			      \
     (result)->tv_msec = (a)->tv_msec + (b)->tv_msec;			      \
-    if ((result)->tv_msec >= 1000)					      \
-      {									      \
-	++(result)->tv_sec;						      \
-	(result)->tv_msec -= 1000;					      \
+    while ((result)->tv_msec >= 1000) {       \
+    	++(result)->tv_sec;					  \
+    	(result)->tv_msec -= 1000;			  \
       }									      \
   } while (0)
-# define timersub(a, b, result)						      \
+# define timersub(a, b, result)			      \
   do {									      \
-    (result)->tv_sec = (a)->tv_sec - (b)->tv_sec;			      \
-    (result)->tv_msec = (a)->tv_msec - (b)->tv_msec;			      \
-    if ((result)->tv_msec < 0) {					      \
-      --(result)->tv_sec;						      \
-      (result)->tv_msec += 1000;					      \
+    (result)->tv_sec = (a)->tv_sec - (b)->tv_sec;		\
+    (result)->tv_msec = (a)->tv_msec - (b)->tv_msec;	\
+    if ((result)->tv_msec < 0) {					    \
+      --(result)->tv_sec;						      	\
+      (result)->tv_msec += 1000;					    \
     }									      \
   } while (0)
 
