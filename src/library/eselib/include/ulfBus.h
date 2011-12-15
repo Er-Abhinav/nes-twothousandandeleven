@@ -23,7 +23,7 @@ typedef enum {
 	DEAD
 } msg_state;
 
-typedef enum {
+typedef enum attach_detach {
 	ATTACH,
 	DETACH
 } attach_detach_t;
@@ -34,7 +34,7 @@ typedef enum {
 	BUSY,
 	CLAIMED,
 	FREE
-} l1_bus_status;
+} l2_bus_status;
 
 /**
  * Start/Sets timer

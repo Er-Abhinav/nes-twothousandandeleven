@@ -1,0 +1,43 @@
+\subsection{Media access and fault tolerance layer}
+\label{sec:bus:design:layer2}
+
+The second layer of our protocol can be seen as a composition of two internal layers, 
+namely the media access sublayer controlling the basic bus access as depicted in section 
+\ref{sec:bus:basicaccess} \nameref{sec:bus:basicaccess} and the state machine defining 
+the communication process and the fault tolerant sublayer providing basic fault 
+tolerant mechanisms like the starvation handling (see section \ref{sec:bus:ftnsh}).\\
+
+% These two sublayers and their interactions are described in the sections 
+% \ref{sec:bus:design:layer2:mac} \nameref{sec:bus:design:layer2:mac} and 
+% \ref{sec:bus:design:layer2:ft} \nameref{sec:bus:design:layer2:ft} in detail. 
+In the following section we describe the general workflow of the MAC \& FT layer.
+
+\subsubsection{General workflow}
+To describe the general workflow of the MAC \& FT layer we examine how messages are sent and received. 
+See figure \ref{fig:bus:design:layer2:statemachine} for a flow chart of the bus protocol.\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{../images/layer2_state_machine.png}
+\caption{Layer2 state machine}
+\label{fig:bus:design:layer2:statemachine}
+\end{figure}
+
+\paragraph{Transmission of messages}
+When a higher layer (including the application) wants to send a message it adds the message to the \textit{Send Msg Queue} which is provided
+by a ring buffer holding all the messages payloads and the messages types. The highest prior message is stored in the protocols state machine, waiting for the bus to be free.\\
+
+When the bus seems to be free, e.g. the transmission of a previous message has completed, the protocol tries to arbitrate the bus via the message type delivered through the message description held in the queue.\\
+
+If the arbitration was successful the rest of the message is transmitted and the next message from the queue is fetched into the protocols finite state machine. Otherwise the message is kept in the finite state machine of the protocol and retransmitted when the bus is free again.
+Whenever there was a transmission attempt whether successful or not a callback routine is fired propagating the current status of the protocol to higher level layers or to the flags and registers separating the application from the communication network interface.\\
+
+\paragraph{Reception of messages}
+When the USART reports the reception of data the protocol changes in a receiving state in which it is not allowed to transmit data.
+Whenever data is receipt by the USART the fault tolerant non starvation protocol resets the timer providing basic error detection in the time domain.\\
+
+When the timer triggers an interrupt the node knows that the transmitting node has timed out and that it can change in an idle state or transmit its own messages.\\
+
+When a message is completely received its integrity is checked trough the CRC checksum and the message is added to the \textit{Receive Message Queue} and a \textit{Receive Callback} is triggered, informing higher level layers of the data receipt and updating the registers and flags of the CNI mapping.
+
+\input{protocol_design_layer2_interface}

@@ -34,20 +34,20 @@
 
 
 /* UART available on all nodes */
-#define HWUART0_OPORT						PORTE
-#define HWUART0_IPORT						PINE
+#define HWUART0_OPORT					PORTE
+#define HWUART0_IPORT					PINE
 #define HWUART0_DDR						DDRE
 #define HWUART0_RXD						PE0
 #define HWUART0_TXD						PE1
 
-#define HWUART1_OPORT						PORTD
-#define HWUART1_IPOR						PIND
+#define HWUART1_OPORT					PORTD
+#define HWUART1_IPOR					PIND
 #define HWUART1_DDR						DDRD
 #define HWUART1_RXD						PD2
 #define HWUART1_TXD						PD3
 
-#define SWUART_OPORT						PORTE
-#define SWUART_IPORT						PINE
+#define SWUART_OPORT					PORTE
+#define SWUART_IPORT					PINE
 #define SWUART_DDR						DDRE
 #define SWUART_RXD						PE7
 #define SWUART_TXD						PE5

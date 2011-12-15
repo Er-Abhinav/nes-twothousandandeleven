@@ -1,0 +1,8 @@
+\subsection{Real time layer}
+\label{sec:bus:design:layer3}
+\label{sec:bus:design:layer6}
+The RT (real time) layer is on top of the MAC \& FT layer described in section \ref{sec:bus:design:layer2} and provides clock synchronization mechanisms to achieve a commonly agreed notion of time within the nodes.\\
+
+In our implementation we will provide a clock synchronization upon an averaging algorithm with acceptable granularity, providing us with a globally agreed sparse time base.\\
+
+To minimize latency and jitter during the timestamping and the evaluation of a synchronization message we bypass the FIFO ordering within the queue and add clock synchronization messages directly to the media access sublayer.\\
