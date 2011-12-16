@@ -52,6 +52,9 @@ void SWUSART_writeByte (uint8_t data) {
 //-----------
 // internal -
 //-----------
+ISR(SW_UART_EXTERNAL_INTERRUPT2_VECTOR) {
+    onStartBitDetected();
+}
 
 //ISR(SW_UART_EXTERNAL_INTERRUPT_VECTOR) {
 //

@@ -82,9 +82,9 @@ void SW_UART_Enable(void)
   CLEAR_UART_TIMER_ON_COMPARE_MATCH();
 
   //Set up interrupts
-  INITIALIZE_UART_EXTERNAL_INTERRUPT(); //Set up the external interrupt to wait for incoming start bit on correct pin.
-  CLEAR_UART_EXTERNAL_INTERRUPT_FLAG(); //Clear flag in case it is already set for some reason.
-  ENABLE_UART_EXTERNAL_INTERRUPT();
+  INITIALIZE_UART_EXTERNAL_INTERRUPT2(); //Set up the external interrupt to wait for incoming start bit on correct pin.
+  CLEAR_UART_EXTERNAL_INTERRUPT2_FLAG(); //Clear flag in case it is already set for some reason.
+  ENABLE_UART_EXTERNAL_INTERRUPT2();
 }
 
 
@@ -129,7 +129,7 @@ void SW_UART_Transmit(uint8_t data)
     UART_Tx_data = UART_Tx_buffer;
     CLEAR_FLAG( SW_UART_status, SW_UART_TX_BUFFER_FULL );
 
-    DISABLE_UART_EXTERNAL_INTERRUPT();
+    DISABLE_UART_EXTERNAL_INTERRUPT2();
     CLEAR_UART_PIN();                         //Write start bit.
     UART_counter = TRANSMIT_FIRST_DATA;       //Update counter so the 1. data bit is the next bit to be transmitted.
     CLEAR_UART_TIMER();                       //Clear timer.
@@ -170,7 +170,7 @@ uint8_t SW_UART_Receive(void)
  *  is set to RECEIVE_FIRST_DATA to signal that the next bit is
  *  the first data bit to be received.
  */
-ISR(SW_UART_EXTERNAL_INTERRUPT_VECTOR) {
+/*ISR(SW_UART_EXTERNAL_INTERRUPT2_VECTOR) {
   //Make sure bit is low.
   if(!READ_UART_PIN())
   {
@@ -179,13 +179,13 @@ ISR(SW_UART_EXTERNAL_INTERRUPT_VECTOR) {
     STOP_UART_TIMER();                      //Stop timer to make sure prescaler is reset.
     CLEAR_UART_TIMER();
     SET_UART_TIMER_COMPARE_START_RECEIVE(); //Set timer compare value so the 1. data bit is sampled in the middle of the period.
-    DISABLE_UART_EXTERNAL_INTERRUPT();
+    DISABLE_UART_EXTERNAL_INTERRUPT2();
     CLEAR_UART_TIMER_INTERRUPT_FLAG();
     ENABLE_UART_TIMER_INTERRUPT();
     START_UART_TIMER();
   }
 }
-
+*/
 
 /*! \brief  Timer compare interrupt service routine
  *
@@ -198,7 +198,7 @@ ISR(SW_UART_EXTERNAL_INTERRUPT_VECTOR) {
  *          the maximum time spent in this routine
  *          so an interrupt is not missed.
  */
-ISR(SW_UART_TIMER_COMPARE_INTERRUPT_VECTOR) {
+/*ISR(SW_UART_TIMER_COMPARE_INTERRUPT_VECTOR) {
 
 	ACHTUNG: Interrupt not triggered!!
 
@@ -246,8 +246,8 @@ ISR(SW_UART_TIMER_COMPARE_INTERRUPT_VECTOR) {
 
       UART_Rx_buffer = UART_Rx_data;
       SET_FLAG( SW_UART_status, SW_UART_RX_BUFFER_FULL );
-      CLEAR_UART_EXTERNAL_INTERRUPT_FLAG();
-      ENABLE_UART_EXTERNAL_INTERRUPT();   //Get ready to receive new byte.
+      CLEAR_UART_EXTERNAL_INTERRUPT2_FLAG();
+      ENABLE_UART_EXTERNAL_INTERRUPT2();   //Get ready to receive new byte.
     }
 
     //If reception finished and no new incoming data has been detected.
@@ -259,7 +259,7 @@ ISR(SW_UART_TIMER_COMPARE_INTERRUPT_VECTOR) {
       {
         UART_Tx_data = UART_Tx_buffer;
         CLEAR_FLAG( SW_UART_status, SW_UART_TX_BUFFER_FULL );
-        DISABLE_UART_EXTERNAL_INTERRUPT();
+        DISABLE_UART_EXTERNAL_INTERRUPT2();
         CLEAR_UART_PIN();                         //Write start bit.
         UART_counter = TRANSMIT_FIRST_DATA;       //Update counter so the 1. data bit is the next bit to be transmitted.
         STOP_UART_TIMER();                        //Stop timer to reset prescaler.
@@ -323,8 +323,8 @@ ISR(SW_UART_TIMER_COMPARE_INTERRUPT_VECTOR) {
     }
     else if(UART_counter == TRANSMIT_STOP_2)
     {
-      CLEAR_UART_EXTERNAL_INTERRUPT_FLAG();
-      ENABLE_UART_EXTERNAL_INTERRUPT();
+      CLEAR_UART_EXTERNAL_INTERRUPT2_FLAG();
+      ENABLE_UART_EXTERNAL_INTERRUPT2();
       bit_out = 0x01;
     }
 
@@ -348,7 +348,7 @@ ISR(SW_UART_TIMER_COMPARE_INTERRUPT_VECTOR) {
         UART_Tx_data = UART_Tx_buffer;
         CLEAR_FLAG( SW_UART_status, SW_UART_TX_BUFFER_FULL );
         UART_counter = TRANSMIT_FIRST_DATA - 2; //Need to substract 2 because counter is updated at the end of the ISR.
-        DISABLE_UART_EXTERNAL_INTERRUPT();
+        DISABLE_UART_EXTERNAL_INTERRUPT2();
         //bit_out already set to 0x00.
       }
     }
@@ -364,4 +364,4 @@ ISR(SW_UART_TIMER_COMPARE_INTERRUPT_VECTOR) {
     }
   }
   UART_counter = UART_counter + 2; //Update counter.
-}
+}*/

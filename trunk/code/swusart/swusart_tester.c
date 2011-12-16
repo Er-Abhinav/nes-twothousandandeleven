@@ -2,16 +2,19 @@
 #include <stdio.h>
 
 #include "swusart.h"
+#include "singlewire/single_wire_UART.h"
 
 void startBitDetected();
 void transmittedData(uint8_t data);
 void corruptedData(uint8_t dataSent, uint8_t dataReceived);
 
+int8_t cntr = 0;
+
 int main (void) {
   int i,a;
 
   DDRC = 0xFF;
-  PORTC = 0x0F;
+  PORTC = 0x10;
 
   // initialize the usart
   SWUSART_initialize (MODE_8N1,
@@ -20,11 +23,16 @@ int main (void) {
 		              transmittedData,
                       corruptedData);
 
+  //Set up interrupts
+  INITIALIZE_UART_EXTERNAL_INTERRUPT2();
+  CLEAR_UART_EXTERNAL_INTERRUPT2_FLAG();
+  ENABLE_UART_EXTERNAL_INTERRUPT2();
+
   sei();
 
-  //send_byte('a');
-
   while(1) {
+
+     //SWUSART_writeByte('a');
 
 	  SWUSART_writeByte('a');
 
@@ -36,7 +44,10 @@ int main (void) {
 } // end of main
 
 void startBitDetected() {
-   PORTC = 0xF0;
+    cntr++; 
+    PORTC = cntr;// 0xF0;
+
+    DISABLE_UART_EXTERNAL_INTERRUPT2();
 } // end of startBitDetected
 
 void transmittedData(uint8_t data) {
