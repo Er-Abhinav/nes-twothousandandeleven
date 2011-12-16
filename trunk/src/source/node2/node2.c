@@ -36,7 +36,6 @@ void node2DoIt(void) {
 
 int main(void) {
    InitializeMemory();
-   uint8_t tmp[2];
    node2Init();
    
    sei();
