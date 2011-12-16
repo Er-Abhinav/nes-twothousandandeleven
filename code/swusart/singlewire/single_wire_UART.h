@@ -90,7 +90,8 @@
 //#define CLEAR_UART_PIN()        ( SW_UART_PORT |= (1<<SW_UART_PIN_NUMBER) ) //!< Set pin output low.
 
 /* UART interrupt vectors definitions. */
-#define SW_UART_EXTERNAL_INTERRUPT_VECTOR       INT0_vect             //!< UART external interrupt vector. Make sure this is in accordance to the defined UART pin.
+//#define SW_UART_EXTERNAL_INTERRUPT_VECTOR       INT0_vect             //!< UART external interrupt vector. Make sure this is in accordance to the defined UART pin.
+#define SW_UART_EXTERNAL_INTERRUPT2_VECTOR      INT2_vect             //!< UART external interrupt vector. Make sure this is in accordance to the defined UART pin.
 #define SW_UART_TIMER_COMPARE_INTERRUPT_VECTOR  TIMER0_COMP_vect      //!< UART compare interrupt vector.
 
 /* Timer macros. These are device dependent. */
@@ -104,10 +105,16 @@
 #define CLEAR_UART_TIMER_INTERRUPT_FLAG()       (TIFR &= ~(1<<OCF0)) //(TIFR = (1<<OCF0))
 
 /* External interrupt macros. These are device dependent. */
-#define INITIALIZE_UART_EXTERNAL_INTERRUPT()    (MCUCR |= (1<<ISC01))   //< Sets falling edge of INT0 generates interrupt.
+/*#define INITIALIZE_UART_EXTERNAL_INTERRUPT()    (MCUCR |= (1<<ISC01))   //< Sets falling edge of INT0 generates interrupt.
 #define ENABLE_UART_EXTERNAL_INTERRUPT()        (EIMSK |= (1<<INT0))
 #define DISABLE_UART_EXTERNAL_INTERRUPT()       (EIMSK &= ~(1<<INT0))
 #define CLEAR_UART_EXTERNAL_INTERRUPT_FLAG()    (EIFR  &= ~(1<<INTF0)) //(EIFR = (1<<INTF0)) //
+*/
+#define INITIALIZE_UART_EXTERNAL_INTERRUPT2()    (MCUCR |= (1<<ISC21))   //< Sets falling edge of INT0 generates interrupt.
+#define ENABLE_UART_EXTERNAL_INTERRUPT2()        (EIMSK |= (1<<INT2))
+#define DISABLE_UART_EXTERNAL_INTERRUPT2()       (EIMSK &= ~(1<<INT2))
+#define CLEAR_UART_EXTERNAL_INTERRUPT2_FLAG()    (EIFR  &= ~(1<<INTF2)) // (EIFR = (1<<INTF0))
+
 
 /* Status register defines. */
 #define SW_UART_TX_BUFFER_FULL        4     //!< Set if data is ready to be sent from the Tx buffer.
