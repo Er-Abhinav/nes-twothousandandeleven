@@ -141,9 +141,6 @@ void configure_uart_0(uint8_t mode, uint32_t baud, void (*receivefunction)(uint8
  */
 void configure_uart_1(uint8_t mode, uint32_t baud, void (*receivefunction)(uint8_t))
 {
-
-
-
 	//disable interrupt and save sreg
 	__atomic_start();
 

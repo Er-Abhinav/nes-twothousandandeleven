@@ -2,8 +2,6 @@
 #define __UART_H__
 
 #include <avr/io.h>
-#include <avr/signal.h>
-#include <avr/interrupt.h>
 #include <avr/pgmspace.h>
 #include <string.h>
 #include <global.h>

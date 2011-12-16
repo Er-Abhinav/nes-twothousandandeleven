@@ -10,7 +10,6 @@
 /*======================================================================*/
 #include <avr/io.h>
 #include <avr/pgmspace.h>
-#include <avr/signal.h>
 #include "global.h"
 #include "ringBuff.h"
 
