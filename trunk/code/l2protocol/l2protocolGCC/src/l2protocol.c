@@ -8,6 +8,12 @@
 #include <stdio.h>
 #include <string.h>
 
+
+typedef enum l2MsgState {
+	PROCESSED,
+	UNPROCESSED
+} l2MsgState_t;
+
 // internal prototypes
 uint8_t __transmitNextMessage();
 uint8_t __transmitMessage(l2Msg_t msg);
@@ -99,6 +105,7 @@ uint8_t l2Initialize(void(*messageReceivedCallback)(l2Msg_t msg),
 	// TODO: (alex) fix me
 	//l2state = STARTUP;
 	l2state = IDLE;
+	sendMsgState = UNPROCESSED;
 
 	// initialize sublayers
 	HWUSART_initialize((uint8_t)L2CONFIG_UART_MODE,
@@ -174,19 +181,30 @@ uint8_t __transmitNextMessage() {
 	queue_entry qe;
 	l2Msg_t msg;
 
-	if(!queue_isEmpty(&sendQueue)) {
-    	// read from queue
-    	queue_getNext(&sendQueue, &qe);
+	if(sendMsgState == PROCESSED) {
 
-    	msg.msgId.full = qe.msgType;
-    	msg.payloadLen = qe.msgSize;
-    	memcpy(msg.payload, qe.msgPayload, qe.msgSize * sizeof(uint8_t));
+		if(!queue_isEmpty(&sendQueue)) {
+			// read from queue
+			queue_getNext(&sendQueue, &qe);
 
-    	err = __transmitMessage(msg);
-    } // end if
+			msg.msgId.full = qe.msgType;
+			msg.payloadLen = qe.msgSize;
+			memcpy(msg.payload, qe.msgPayload, qe.msgSize * sizeof(uint8_t));
+
+			err = __transmitMessage(msg);
+		}
+		else {
+			l2state = IDLE;
+		} // end if
+	}
+	else if (sendMsgState == UNPROCESSED){
+		__transmitMessage(sendMsg);
+	} // end if
 
 	return err;
 }
+
+l2MsgState_t sendMsgState = UNPROCESSED;
 
 uint8_t sendBufferBytesTransmitted = 0;
 uint8_t sendBufferBytesInUse = 0;
@@ -217,8 +235,10 @@ uint8_t __transmitMessage(l2Msg_t msg) {
     	outbuffer[j] = msg.payload[i];
     }
 
+    // TODO: (alex) adapt for crc checksum
     outbufferBytesInUse = 3 + msg.payloadLen; // + 4 crc
 
+    // TODO: (alex) adapt for bit stuffing
     //stuff()
     for(i=0; i<outbufferBytesInUse; i++) {        // set by stuff();
     	sendBuffer[i] = outbuffer[i];			  // set by stuff();
@@ -241,8 +261,69 @@ uint8_t __transmitMessage(l2Msg_t msg) {
 } // end of __transmitMessage
 
 // l1 event handler implementation
-void __byteReceivedEventHandler(uint8_t data) {
 
+uint8_t receiveBufferBytesInUse = 0;
+uint8_t receiveBufferBytesReceived = 0;
+// 3 header + 16 payload + 4 crc + 6 worst case stuff bytes
+uint8_t receiveBuffer[3+16+4+6];
+
+l2Msg_t receiveMsg;
+
+void __byteReceivedEventHandler(uint8_t data) {
+	uint8_t i;
+
+	if(!(data & 0xf0)) {
+		// SOF detected
+		receiveBufferBytesReceived = 0;
+		receiveBufferBytesInUse = 0;
+		l2state = RECEIVE;
+	} // end if
+
+
+	if(l2state == IDLE) {
+		receiveBufferBytesReceived = 0;
+		receiveBufferBytesInUse = 0;
+
+		l2state = RECEIVE;
+	}
+
+	if(l2state == RECEIVE) {
+		receiveBuffer[receiveBufferBytesReceived] = data;
+		receiveBufferBytesReceived++;
+
+		// TODO: (alex) has to be adapted for bit unstuffing!!!
+		if(receiveBufferBytesInUse == 0) {
+			if(receiveBufferBytesReceived >= 3) {
+
+				receiveBufferBytesInUse = (receiveBuffer[3] & 0x0f);
+			}
+		}
+
+		// TODO: (alex) adapt with crc checksum length
+		// check message has finished
+		if(receiveBufferBytesReceived >= receiveBufferBytesInUse + 3) { // +4 for crc
+			// TODO: (alex) unstuff msg
+
+			// build receiveMsg from receiveBuffer
+			receiveMsg.msgId.type = receiveBuffer[0] & 0x0f;
+			receiveMsg.msgId.receiver = (receiveBuffer[1] & 0xfc) >> 2;
+			receiveMsg.msgId.sender = (receiveBuffer[1] & 0x03 << 4) | (receiveBuffer[2] & 0xf0 >> 4);
+
+			receiveMsg.payloadLen = receiveBufferBytesInUse;
+
+			for(i=0; i<receiveMsg.payloadLen; i++) {
+				receiveMsg.payload[i] = receiveBuffer[i+3];
+			}
+
+			receiveBufferBytesInUse = 0;
+			receiveBufferBytesReceived = 0;
+
+			__triggerOnMessageReceived(receiveMsg);
+			// TODO: (alex) add message to queue
+
+			__transmitNextMessage();
+		}
+	}
 }
 
 void __byteTransmittedEventHandler (uint8_t data) {
@@ -260,6 +341,9 @@ void __byteTransmittedEventHandler (uint8_t data) {
 				sendBufferBytesInUse = 0;
 				sendBufferBytesTransmitted = 0;
 
+				l2MsgState = PROCESSED;
+				l2state = IDLE;
+
 			    // trigger transmission finished event
 			    __triggerOnMessageTransmitted(sendMsg);
 			    __transmitNextMessage();
@@ -269,12 +353,14 @@ void __byteTransmittedEventHandler (uint8_t data) {
 }
 
 void __byteCorruptedEventHandler(uint8_t dataSent,
-							   uint8_t dataReceived) {
+							     uint8_t dataReceived) {
+	__triggerOnMessageTransmitError(sendMsg);
+	l2state = IDLE;
 
+	__transmitNextMessage();
 }
 
 void __startBitDetectedEventHandler() {
-
 }
 
 void __arbitrationSucceedEventHandler(uint8_t data) {
@@ -311,6 +397,20 @@ void __arbitrationSucceedEventHandler(uint8_t data) {
 
 void __arbitrationFailedEventHandler(uint8_t dataSent,
                                      uint8_t dataReceived) {
+	uint8_t i;
 
+	if(l2state == ARBITRATE) {
 
+		for(i=0; i<sendBufferBytesTransmitted; i++) {
+			receiveBuffer[i] = sendBuffer[i]
+		}
+		receiveBuffer[i] = dataReceived;
+
+		l2state = RECEIVE;
+
+		sendBufferBytesTransmitted = 0;
+
+		SWUSART_disable();
+		HWUSART_enable();
+	}
 }

@@ -3,14 +3,6 @@
 
 #include <stdint.h>
 
-
-//typedef struct l2MsgId
-//{
-//	unsigned type : 4;
-//	unsigned receiver : 6;
-//	unsigned sender : 6;
-//} l2MsgId_t;
-
 typedef union l2MsgId
 {
 	struct{
@@ -20,7 +12,6 @@ typedef union l2MsgId
 	};
 	uint16_t full;
 } l2MsgId_t;
-
 
 typedef struct l2Msg
 {
