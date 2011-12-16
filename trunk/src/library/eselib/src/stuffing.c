@@ -9,10 +9,6 @@
 #include <string.h>
 #include <stdint.h>
 
-#ifndef NULL
-	#define NULL						((void *) 0)
-#endif
-
 /**
  * Adds <addBits> to the <bit> counter
  * if bit sizes overflows a byte, the <byte>
@@ -35,19 +31,18 @@ typedef struct bit_byte {
 } bit_byte_t;
 
 #define STUFF_DATATYPE_BITLENGTH	8
-#define STUFF_CYCLE					4
+#define STUFF_CYCLE			4
 /**
  * @var stuffBitLength[in]	BIT count that should be stuffed,
- * 								NULL in case of destuffing
+ * 								0 in case of destuffing
  * @var destuffByteLength[in]	BYTE count that shoud be destuffed,
- * 								NULL in case of stuffing
+ * 								0 in case of stuffing
  * @var *inBuffer[in]		input Buffer
  * @var *outBuffer[out]		output Buffer
  * @return resulting count of BYTES which were converted
  *
- * @pre		outBuffer has to be cleared
+ * @pre		outBuffer has to be set to '\0'
  *
- * sizeof(inBuffer) !=
  * Little endianness == Least significant Bit first
  *  (Byte 0)      (Byte 1)
  *  [LSB,,,,,,,]  [,,,,,,,MSB]
@@ -62,7 +57,7 @@ uint8_t stuff(uint16_t stuffBitLength, uint8_t destuffByteLength,
 
 	if((stuffBitLength) && (destuffByteLength))
 		return 0;
-
+	
 
 	bitsToScan = (stuffBitLength) ? stuffBitLength : bitsToScan;
 	bitsToScan = (destuffByteLength) ? 8*destuffByteLength : bitsToScan;
