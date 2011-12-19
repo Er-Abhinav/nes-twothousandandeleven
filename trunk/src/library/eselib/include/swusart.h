@@ -18,70 +18,23 @@
 #include "global.h"
 #include "single_wire_UART.h"
 
-/***********/
-/* defines */
-/***********/
-/** \brief begin of constants for modes with one stop bit */
-#define SINGLESTOP 0
+typedef enum _sw_uart_state_e {
+	UNINITIALIZED = -1,
+	DISABLED = 0,
+	ENABLED,
+	WRITE_STARTBIT,
+	WRITE_DATA,
+	READ_DATA,
+	WRITE_STOP,
+	FINISH
+} _sw_uart_state_t;
 
-/** \brief 8 databits, 1 stoppbit, no parity */
-#define MODE_8N1  0 // 8 Datenbits, 1 Stoppbit, kein Paritycheck
-/** \brief 8 databits, 1 stoppbit, even parity */
-#define MODE_8E1  1 // 8 Datenbits, 1 Stoppbit, even parity
-/** \brief 8 databits, 1 stoppbit, odd parity */
-#define MODE_8O1  2 // 8 Datenbits, 1 Stoppbit, odd parity
-
-/** \brief 7 databits, 1 stoppbit, no parity */
-#define MODE_7N1  3 // 7 Datenbits, 1 Stoppbit, kein Paritycheck
-/** \brief 7 databits, 1 stoppbit, even parity */
-#define MODE_7E1  4 // 7 Datenbits, 1 Stoppbit, even parity
-/** \brief 7 databits, 1 stoppbit, odd parity */
-#define MODE_7O1  5 // 7 Datenbits, 1 Stoppbit, odd parity
-
-/** \brief 6 databits, 1 stoppbit, no parity */
-#define MODE_6N1  6 // 6 Datenbits, 1 Stoppbit, kein Paritycheck
-/** \brief 6 databits, 1 stoppbit, even parity */
-#define MODE_6E1  7 // 6 Datenbits, 1 Stoppbit, even parity
-/** \brief 6 databits, 1 stoppbit, odd parity */
-#define MODE_6O1  8 // 6 Datenbits, 1 Stoppbit, odd parity
-
-/** \brief 5 databits, 1 stoppbit, no parity */
-#define MODE_5N1  9 // 5 Datenbits, 1 Stoppbit, kein Paritycheck
-/** \brief 5 databits, 1 stoppbit, even parity */
-#define MODE_5E1 10 // 5 Datenbits, 1 Stoppbit, even parity
-/** \brief 5 databits, 1 stoppbit, odd parity */
-#define MODE_5O1 11 // 5 Datenbits, 1 Stoppbit, odd parity
-
-/** \brief begin of constants for modes with two stop bit */
-#define DOUBLESTOP 20
-
-/** \brief 8 databits, 2 stoppbit, no parity */
-#define MODE_8N2 (DOUBLESTOP+MODE_8N1) // 8 Datenbits, 2 Stoppbit, kein Paritycheck
-/** \brief 8 databits, 2 stoppbit, even parity */
-#define MODE_8E2 (DOUBLESTOP+MODE_8E1) // 8 Datenbits, 2 Stoppbit, even parity
-/** \brief 8 databits, 2 stoppbit, odd parity */
-#define MODE_8O2 (DOUBLESTOP+MODE_8O1) // 8 Datenbits, 2 Stoppbit, odd parity
-
-/** \brief 7 databits, 2 stoppbit, no parity */
-#define MODE_7N2 (DOUBLESTOP+MODE_7N1) // 7 Datenbits, 2 Stoppbit, kein Paritycheck
-/** \brief 7 databits, 2 stoppbit, even parity */
-#define MODE_7E2 (DOUBLESTOP+MODE_7E1) // 7 Datenbits, 2 Stoppbit, even parity
-/** \brief 7 databits, 2 stoppbit, odd parity */
-#define MODE_7O2 (DOUBLESTOP+MODE_7O1) // 7 Datenbits, 2 Stoppbit, odd parity
-
-/** \brief 6 databits, 2 stoppbit, no parity */
-#define MODE_6N2 (DOUBLESTOP+MODE_6N1) // 6 Datenbits, 2 Stoppbit, kein Paritycheck
-/** \brief 6 databits, 2 stoppbit, even parity */
-#define MODE_6E2 (DOUBLESTOP+MODE_6E1) // 6 Datenbits, 2 Stoppbit, even parity
-/** \brief 6 databits, 2 stoppbit, odd parity */
-#define MODE_6O2 (DOUBLESTOP+MODE_6O1) // 6 Datenbits, 2 Stoppbit, odd parity
-
-/** \brief 5 databits, 2 stoppbit, no parity */
-#define MODE_5N2 (DOUBLESTOP+MODE_5N1) // 5 Datenbits, 2 Stoppbit, kein Paritycheck
-/** \brief 5 databits, 2 stoppbit, even parity */
-#define MODE_5E2 (DOUBLESTOP+MODE_5E1) // 5 Datenbits, 2 Stoppbit, even parity
-/** \brief 5 databits, 2 stoppbit, odd parity */
-#define MODE_5O2 (DOUBLESTOP+MODE_5O1) // 5 Datenbits, 2 Stoppbit, odd parity
+typedef enum swUart_finish_states {
+	UNKNOWN = -1,
+	BUSY,
+	GOT_BUS,
+	ARBITRATION_LOST
+} swUart_finish_state_t;
 
 /**
 * \brief initializes the uart
@@ -95,8 +48,7 @@
 
 void SWUSART_initialize(uint8_t mode,
                         uint32_t baud,
-                        void(*startBitDetectedCallback)()
-                        );
+                        void(*startBitDetectedCallback)(void));
 
 /**
 * \brief transmit a single character (blocking mode)
@@ -104,5 +56,10 @@ void SWUSART_initialize(uint8_t mode,
 * \return none
 */
 void SWUSART_writeByte (uint8_t data);
+
+int8_t swUart_arbitrate(uint8_t data);
+
+int8_t    SW_UART_Enable(void);       //!< Enable the UART.
+void    SW_UART_Disable(void);      //!< Disable the UART.
 
 #endif

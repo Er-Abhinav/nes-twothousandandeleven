@@ -49,7 +49,7 @@
 #define PRESCALER             8       //!< Prescaler setting. Must be set according to the baud rate setting.
 
 /* Port and pin settings. */
-#define SW_UART_PIN_NUMBER    2       //!< Set pin number for communication.
+#define SW_UART_RX_PIN_NUMBER    2       //!< Set pin number for communication.
 #define SW_UART_PORT          PORTD   //!< Set port for communication.
 #define SW_UART_PIN           PIND    //!< Set pin for communication.
 #define SW_UART_DDR           DDRD    //!< Data direction register. Not available for high voltage ports.
@@ -79,12 +79,12 @@
 #endif
 
 /* Pin macros.  */
-#define INITIALIZE_UART_PIN()   ( SW_UART_PORT &= ~(1<<SW_UART_PIN_NUMBER) )    //!< Clear port.
-#define READ_UART_PIN()         ( SW_UART_PIN & (1<<SW_UART_PIN_NUMBER) )
+#define INITIALIZE_UART_PIN()   ( SW_UART_PORT &= ~(1<<SW_UART_RX_PIN_NUMBER) )    //!< Clear port.
+#define READ_UART_PIN()         ( SW_UART_PIN & (1<<SW_UART_RX_PIN_NUMBER) )
 
 /* Macros for standard AVR ports. */
-#define SET_UART_PIN()          ( SW_UART_DDR &= ~(1<<SW_UART_PIN_NUMBER) )     //!< Tri-state pin.
-#define CLEAR_UART_PIN()        ( SW_UART_DDR |= (1<<SW_UART_PIN_NUMBER) )      //!< Set pin output low.
+#define SET_UART_PIN()          ( SW_UART_DDR &= ~(1<<SW_UART_RX_PIN_NUMBER) )     //!< Tri-state pin.
+#define CLEAR_UART_PIN()        ( SW_UART_DDR |= (1<<SW_UART_RX_PIN_NUMBER) )      //!< Set pin output low.
 /* Macros for high voltage AVR ports. */
 //#define SET_UART_PIN()          ( SW_UART_PORT &= ~(1<<SW_UART_PIN_NUMBER) )//!< Tri-state pin.
 //#define CLEAR_UART_PIN()        ( SW_UART_PORT |= (1<<SW_UART_PIN_NUMBER) ) //!< Set pin output low.

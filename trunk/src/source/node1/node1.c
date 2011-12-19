@@ -33,6 +33,9 @@ void node1_init(void) {
 	SET_BIT(DDRB, PB7);
 	CLEAR_BIT(PORTB, PB7);
 
+	//CPU_board LEDs
+	LED_DDR |= ((1<<LED_GREEN)|(1<<LED_RED));
+	LED_PORT_REG |= ((1<<LED_GREEN)|(1<<LED_RED));
 	//8Leds init
 	DDRA = 0xFF; //output
 	PORTA = 0xF0; //turn off
@@ -45,6 +48,9 @@ void node1_init(void) {
 }
 
 
+void startBitDetected(void) {
+	SET_BIT(LED_PORT_REG, LED_GREEN);
+}
 
 /*======================================================================*/
 /* M A I N                                                              */
@@ -57,12 +63,14 @@ int main(void){
 
 	// initialize the usart
 	HWUSART_initialize(MODE_8N1, 9600, receivedData, NULL, NULL);
+	SWUSART_initialize (MODE_8N1,9600, startBitDetected);
 	//globale interrupt enable
 	sei();
 	while(1){
 		if(!((1<<PE5) & PINE)) {
 			if(!deactivate) {
-				HWUSART_writeByte(cnt++);
+				//HWUSART_writeByte(cnt++);
+				SWUSART_writeByte(cnt++);
 				for(i=0; i<10000;i++) asm("nop");
 			}
 			deactivate = 1;

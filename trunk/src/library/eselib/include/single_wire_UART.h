@@ -1,31 +1,3 @@
-/* This file has been prepared for Doxygen automatic documentation generation.*/
-/*! \file *********************************************************************
- *
- * \brief
- *      This is the header file for the single-wire software UART.
- *
- *      The file contains definitions and macros for the single-wire software
- *      UART. If a different microcontroller than the ATmega32 is used, this
- *      file needs to be changed. Port and baud rate settings may also be
- *      changed in this file.
- *
- * \par Application note:
- *      AVR274: Single-wire Software UART
- *
- * \par Documentation
- *      For comprehensive code documentation, supported compilers, compiler
- *      settings and supported devices see readme.html
- *
- * \author
- *      Atmel Corporation: http://www.atmel.com \n
- *      Support email: avr@atmel.com
- *
- * $Name:  $
- * $Revision: 1364 $
- * $RCSfile: single_wire_UART.h,v $
- * $Date: 2007-02-08 14:13:02 +0100 (to, 08 feb 2007) $  \n
- ******************************************************************************/
-
 #include <avr/io.h>              //Device specific register/Bit definitions.
 #include <avr/interrupt.h>              //The __enable_interrupt() intrinsic.
 #include "stdint.h"     //Integer types.
@@ -42,17 +14,18 @@
 //    19200       NA      103 - 1   207 - 1    51 - 8
 //    28800       NA         NA     138 - 1    34 - 8
 //    38400       NA         NA     103 - 1   207 - 1
-// Please note that the UART consumes about all CPU resources when WAIT_ONE*PRESCALER<100.
+// Please note that the UART consumes about all CPU resources
+//  when WAIT_ONE*PRESCALER<100.
 
 /* Communication parameters. The WAIT_ONE definiton has to be changed according to equation 2-1 in the application note. */
 #define WAIT_ONE             103       //!< Half bit period compare setting. See the application note for calculation of this value. Make sure timer prescaler is set to the intended value.
 #define PRESCALER             8       //!< Prescaler setting. Must be set according to the baud rate setting.
 
 /* Port and pin settings. */
-#define SW_UART_PIN_NUMBER    2       //!< Set pin number for communication.
-#define SW_UART_PORT          PORTD   //!< Set port for communication.
-#define SW_UART_PIN           PIND    //!< Set pin for communication.
-#define SW_UART_DDR           DDRD    //!< Data direction register. Not available for high voltage ports.
+#define SW_UART_RX_PIN_NUMBER    2       //!< Set pin number for communication.
+#define SW_UART_RX_PORT          PORTD   //!< Set port for communication.
+#define SW_UART_RX_PIN           PIND    //!< Set pin for communication.
+#define SW_UART_RX_DDR           DDRD    //!< Data direction register. Not available for high voltage ports.
 
 #define TRANSMIT_DELAY        70    //!< Cycles from the start bit is sent (from UART_transmit) to the timer is started plus cycles in the timer interrupt before first data bit is sent.
 #define RECEIVE_DELAY         76    //!< Cycles from the start bit is detected to the timer is started plus cycles in timer interrupt before first data bit is received.
@@ -79,19 +52,14 @@
 #endif
 
 /* Pin macros.  */
-#define INITIALIZE_UART_PIN()   ( SW_UART_PORT &= ~(1<<SW_UART_PIN_NUMBER) )    //!< Clear port.
-#define READ_UART_PIN()         ( SW_UART_PIN & (1<<SW_UART_PIN_NUMBER) )
+#define INITIALIZE_UART_PIN()   ( SW_UART_RX_PORT &= ~(1<<SW_UART_RX_PIN_NUMBER) )    //!< Clear port.
+#define READ_UART_PIN()         ( SW_UART_RX_PIN & (1<<SW_UART_RX_PIN_NUMBER) )
 
 /* Macros for standard AVR ports. */
-#define SET_UART_PIN()          ( SW_UART_DDR &= ~(1<<SW_UART_PIN_NUMBER) )     //!< Tri-state pin.
-#define CLEAR_UART_PIN()        ( SW_UART_DDR |= (1<<SW_UART_PIN_NUMBER) )      //!< Set pin output low.
-/* Macros for high voltage AVR ports. */
-//#define SET_UART_PIN()          ( SW_UART_PORT &= ~(1<<SW_UART_PIN_NUMBER) )//!< Tri-state pin.
-//#define CLEAR_UART_PIN()        ( SW_UART_PORT |= (1<<SW_UART_PIN_NUMBER) ) //!< Set pin output low.
+#define SET_UART_PIN()          ( SW_UART_RX_DDR &= ~(1<<SW_UART_RX_PIN_NUMBER) )     //!< Tri-state pin.
+#define CLEAR_UART_PIN()        ( SW_UART_RX_DDR |= (1<<SW_UART_RX_PIN_NUMBER) )      //!< Set pin output low.
 
 /* UART interrupt vectors definitions. */
-//#define SW_UART_EXTERNAL_INTERRUPT_VECTOR       INT0_vect             //!< UART external interrupt vector. Make sure this is in accordance to the defined UART pin.
-#define SW_UART_EXTERNAL_INTERRUPT2_VECTOR      INT2_vect             //!< UART external interrupt vector. Make sure this is in accordance to the defined UART pin.
 #define SW_UART_TIMER_COMPARE_INTERRUPT_VECTOR  TIMER0_COMP_vect      //!< UART compare interrupt vector.
 
 /* Timer macros. These are device dependent. */
@@ -104,23 +72,6 @@
 #define DISABLE_UART_TIMER_INTERRUPT()          (TIMSK &= ~(1<<OCIE0))
 #define CLEAR_UART_TIMER_INTERRUPT_FLAG()       (TIFR &= ~(1<<OCF0)) //(TIFR = (1<<OCF0))
 
-/* External interrupt macros. These are device dependent. */
-#define INITIALIZE_UART_EXTERNAL_INTERRUPT()    (MCUCR |= (1<<ISC01))   //< Sets falling edge of INT0 generates interrupt.
-#define ENABLE_UART_EXTERNAL_INTERRUPT()        (EIMSK |= (1<<INT0))
-#define DISABLE_UART_EXTERNAL_INTERRUPT()       (EIMSK &= ~(1<<INT0))
-#define CLEAR_UART_EXTERNAL_INTERRUPT_FLAG()    (EIFR  &= ~(1<<INTF0)) //(EIFR = (1<<INTF0)) //
-
-#define INITIALIZE_UART_EXTERNAL_INTERRUPT2()    (MCUCR |= (1<<ISC21))   //< Sets falling edge of INT0 generates interrupt.
-#define ENABLE_UART_EXTERNAL_INTERRUPT2()        (EIMSK |= (1<<INT2))
-#define DISABLE_UART_EXTERNAL_INTERRUPT2()       (EIMSK &= ~(1<<INT2))
-#define CLEAR_UART_EXTERNAL_INTERRUPT2_FLAG()    (EIFR  &= ~(1<<INTF2)) // (EIFR = (1<<INTF0))
-
-
-/* Status register defines. */
-#define SW_UART_TX_BUFFER_FULL        4     //!< Set if data is ready to be sent from the Tx buffer.
-#define SW_UART_RX_BUFFER_FULL        5     //!< Set if data is ready to be received from the Rx buffer.
-#define SW_UART_RX_BUFFER_OVERFLOW    6     //!< Set if receive buffer is overflowed. Indicates data loss.
-#define SW_UART_FRAME_ERROR           7     //!< Set if a frame error has occured.
 
 /* Flag macros. */
 #define SET_FLAG(flag_register,flag_bit)    ( (flag_register) |= (1 << (flag_bit)) )  //!< Use this macro when setting a flag in a register.
@@ -145,20 +96,8 @@
 //when the GPIO register is used.
 //__io __no_init static volatile uint8_t SW_UART_status @ 0x1E;
 
-/* Counter values */
-#define UART_STATE_IDLE       0
-#define RECEIVE_FIRST_DATA    3
-#define RECEIVE_LAST_DATA     17
-#define RECEIVE_STOP_1        19
-#define RECEIVE_FINISH        23
-#define TRANSMIT_FIRST_DATA   2
-#define TRANSMIT_LAST_DATA    16
-#define TRANSMIT_STOP_1       18
-#define TRANSMIT_STOP_2       20
-#define TRANSMIT_FINISH       22
 
 /* Global UART functions. */
-void    SW_UART_Enable(void);       //!< Enable the UART.
-void    SW_UART_Disable(void);      //!< Disable the UART.
+
 //void    SW_UART_Transmit(uint8_t);  //!< Transmit one byte.
 //uint8_t SW_UART_Receive(void);      //!< Receive one byte.
