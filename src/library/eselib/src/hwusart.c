@@ -9,14 +9,12 @@ typedef enum hwusart_state {
 } hwusart_state_t;
 
 
-hwusart_state_t state = UNINITIALIZED;
-//uint8_t state = HWUSART_STATE_UNINITIALIZED;
+hwusart_state_t _state = UNINITIALIZED;
+//uint8_t _state = HWUSART_STATE_UNINITIALIZED;
 
 // events
 void(*onByteReceived)(uint8_t data) = NULL;
-
 void(*onByteTransmitted)(uint8_t data) = NULL;
-
 void(*onByteCorrupted)(uint8_t dataSent, uint8_t dataReceived) = NULL;
 
 // methods
@@ -30,7 +28,7 @@ void HWUSART_initialize(uint8_t mode, uint32_t baud,
 	onByteCorrupted = byteCorruptedCallback;
 
 	// initialize hw usart
-	state = IDLE;
+	_state = IDLE;
 
 	// setup baud rate
 	uint16_t internal_baudrate = (CPU_CLK / (baud * 16)) - 1;

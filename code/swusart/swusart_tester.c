@@ -22,12 +22,6 @@ int main (void) {
                       startBitDetected,
 		              transmittedData,
                       corruptedData);
-
-  //Set up interrupts
-  INITIALIZE_UART_EXTERNAL_INTERRUPT2();
-  CLEAR_UART_EXTERNAL_INTERRUPT2_FLAG();
-  ENABLE_UART_EXTERNAL_INTERRUPT2();
-
   sei();
 
   while(1) {
