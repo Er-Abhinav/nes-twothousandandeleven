@@ -9,7 +9,23 @@
 #define SWUSART_STATE_WRITE_DATABIT  3
 #define SWUSART_STATE_WRITE_STOPBIT  4
 
-uint8_t state = SWUSART_STATE_UNINITIALIZED;
+enum _swUart_state {
+	UNINITIALIZED = -1,
+	IDLE = 0,
+	WRITE_STARTBIT,
+	WRITE_DATA,
+	WRITE_STOP,
+	FINISH
+};
+
+enum _swUart_finish_states {
+	UNKNOWN = -1,
+	BUSY,
+	GOT_BUS,
+	ARBITRATION_LOST
+};
+
+enum _swUart_state _state = SWUSART_STATE_UNINITIALIZED;
 
 // events
 void(*onStartBitDetected)() = NULL;
@@ -31,21 +47,19 @@ void SWUSART_initialize(uint8_t mode,
     onByteTransmitted = byteTransmittedCallback;
     onByteCorrupted = byteCorruptedCallback;
 
+    //Set up interrupts
+    INITIALIZE_UART_EXTERNAL_INTERRUPT2();
+    CLEAR_UART_EXTERNAL_INTERRUPT2_FLAG();
+    ENABLE_UART_EXTERNAL_INTERRUPT2();
+
     // initialize hw usart
-    state = SWUSART_STATE_IDLE;
-
-
-    // set global interrupt enable
-    //sei();
+    _state = IDLE;
 } // end of HWUSART_initialize
 
 void SWUSART_writeByte (uint8_t data) {
-
 	SW_UART_Enable();
-
     // trigger write for sw usart
 	SW_UART_Transmit(data);
-
 } // end of SWUSART_writeByte
 
 

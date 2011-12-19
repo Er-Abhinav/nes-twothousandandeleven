@@ -27,6 +27,7 @@
 #include <global.h>
 
 #include <hwusart.h>
+#include <swusart.h>
 
 
 /*======================================================================*/

@@ -36,6 +36,12 @@ void node1_init(void) {
 	//8Leds init
 	DDRA = 0xFF; //output
 	PORTA = 0xF0; //turn off
+
+	//Push button pull ups on
+	CLEAR_BIT(DDRE, PE5);
+	CLEAR_BIT(DDRE, PE6);
+	SET_BIT(PORTE, PE5);
+	SET_BIT(PORTE, PE6);
 }
 
 
@@ -46,6 +52,7 @@ void node1_init(void) {
 int main(void){
 	int i;
 	int cnt=0;
+	uint8_t deactivate=0;
 	node1_init();
 
 	// initialize the usart
@@ -54,12 +61,15 @@ int main(void){
 	sei();
 	while(1){
 		if(!((1<<PE5) & PINE)) {
-			HWUSART_writeByte(cnt++);
-			for(i=0; i<10000;i++) asm("nop");
+			if(!deactivate) {
+				HWUSART_writeByte(cnt++);
+				for(i=0; i<10000;i++) asm("nop");
+			}
+			deactivate = 1;
+		} else {
+			deactivate = 0;
 		}
 	}
-
-    while(1);
     return 0;
 }
 

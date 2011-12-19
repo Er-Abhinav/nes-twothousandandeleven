@@ -14,7 +14,7 @@ OBJ-ESEL-$(MNAME)-y	+=
 
 # put the module specific used library modules in here (need 
 # to be defined in library/eselib/Makefile.eselib)
-OBJ-ESEL-MDEP-$(MNAME)-y += uart spi ringBuff timer3 hwusart
+OBJ-ESEL-MDEP-$(MNAME)-y += uart spi ringBuff timer3 hwusart swusart
 
 # put the used scade models in here (need to be defined in 
 # library/scade/Makefile.scade)
