@@ -27,6 +27,13 @@
 #define SW_UART_RX_PIN           PIND    //!< Set pin for communication.
 #define SW_UART_RX_DDR           DDRD    //!< Data direction register. Not available for high voltage ports.
 
+//@TODO PIN ASSIGNMENT!!!!
+#define SW_UART_RX_PIN_NUMBER    //2
+#define SW_UART_RX_PORT          //PORTD
+#define SW_UART_RX_PIN           //PIND
+#define SW_UART_RX_DDR           //DDRD
+
+
 #define TRANSMIT_DELAY        70    //!< Cycles from the start bit is sent (from UART_transmit) to the timer is started plus cycles in the timer interrupt before first data bit is sent.
 #define RECEIVE_DELAY         76    //!< Cycles from the start bit is detected to the timer is started plus cycles in timer interrupt before first data bit is received.
 
