@@ -9,20 +9,26 @@ static volatile uint8_t   UART_Rx_data;     //!< Byte holding data being receive
 
 
 
-typedef struct _sw_uart_s {
-	_sw_uart_state_t state;
-	uint8_t bitCount;
+typedef struct _sw_uart_s {  //@TODO move to header
+	volatile _sw_uart_state_t state;
+	volatile swUart_finish_state_t bus_state;
 } _sw_uart_t;
-volatile _sw_uart_t _sw_uart = {UNINITIALIZED, 0};
 
+typedef struct _sw_uart_isr {  //@TODO move to header
+	volatile uint8_t bitCount;		//!< temp bit counter for ISR
+} _sw_uart_isr_t;
+
+
+volatile _sw_uart_t sw_uart = {UNINITIALIZED, UNKNOWN};
+volatile _sw_uart_isr_t _swUartISR = {0};
 
 int8_t SW_UART_Enable(void){
   //Tri-state communication pin.
   INITIALIZE_UART_PIN();
 
   CLEAR_UART_TIMER_ON_COMPARE_MATCH();
-  if (_sw_uart.state  <= 0) {
-	  _sw_uart.state = ENABLED;
+  if (sw_uart.state  <= 0) {
+	  sw_uart.state = IDLE;
   } else {
 	  return -1;
   }
@@ -39,7 +45,7 @@ void SW_UART_Disable()
 {
   DISABLE_UART_TIMER_INTERRUPT();
   STOP_UART_TIMER();
-  _sw_uart.state = DISABLED;
+  sw_uart.state = DISABLED;
 }
 
 /*! \brief  Transmit one byte.
@@ -57,18 +63,19 @@ void SW_UART_Disable()
 int8_t swUart_arbitrate(uint8_t data) {
   UART_Tx_data = data;
 
-  if (_sw_uart.state != ENABLED)
+  if (sw_uart.state != IDLE)
 	  return BUSY;
 
   //Start transmission if no ongoing communication.
-  if( _sw_uart.state == ENABLED )
+  if( sw_uart.state == IDLE )
   {
     //Copy byte from buffer and clear buffer full flag.
     //CLEAR_FLAG( SW_UART_status, SW_UART_TX_BUFFER_FULL );
 
     CLEAR_UART_PIN();                         //Write start bit.
-    _sw_uart.state = WRITE_STARTBIT;
-    _sw_uart.bitCount = 0;
+    sw_uart.state = WRITE_STARTBIT;
+    sw_uart.bus_state = UNKNOWN;
+    sw_uart.bitCount = 0;
     CLEAR_UART_TIMER();                       //Clear timer.
     SET_UART_TIMER_COMPARE_START_TRANSMIT();  //Set timer compare value.
     CLEAR_UART_TIMER_INTERRUPT_FLAG();        //Make sure timer interrupt flag is not set.
@@ -95,32 +102,38 @@ ISR(SW_UART_TIMER_COMPARE_INTERRUPT_VECTOR) {
 	SET_UART_TIMER_COMPARE_WAIT_ONE(); //Set timer compare value to trigger the ISR once every bit period.
 
 	//Sample bit by checking the value on the UART pin:
+	//@TODO move to a volatile part
 	uint8_t bit_in = 0, bit_out = 0;
-	uint8_t last_bit_sent = 0;
+	uint8_t last_bit_sent = 0;		//!< bool that the last bit was sent
 
-	switch(_sw_uart.state) {
-	case ENABLED:
+	switch(sw_uart.state) {
+	case READY:
+		sw_uart.state = ERROR;
 		break;
 	case WRITE_STARTBIT:
-		PORTA = ~(_sw_uart.bitCount++);
+		//@pre bus has to be FREE or UNKNOWN status
+		PORTA = ~(sw_uart.bitCount++);
+		//@TODO set new timing
+		sw_uart.state = READ_DATA;
 		break;
 	case WRITE_DATA:
 
 		if(bit_out) SET_UART_PIN();
 		else CLEAR_UART_PIN();
+		sw_uart.state = READ_DATA;
 		break;
 	case READ_DATA:
 		bit_in = (READ_UART_PIN()) ? 1 : 0;
-		if (_sw_uart.bitCount == 1) {
+		if (sw_uart.bitCount == 1) {
 			asm("nop;");
 		}
 
-		if (_sw_uart.bitCount == 7) {
+		if (sw_uart.bitCount == 7) {
 			last_bit_sent = UART_Tx_data & 0x01;
 		}
 
 		//If to receive data bit -> Copy received bit into Rx_data.
-	    if(_sw_uart.bitCount <= 7) {
+	    if(sw_uart.bitCount <= 7) {
 	      UART_Rx_data = ( UART_Rx_data >> 1 ); //Right shift RX_data so the new bit can be masked into the Rx_data byte.
 	      if(bit_in) UART_Rx_data |= 0x80;               //Set MSB of RX data if received bit == 1.
 	    }
@@ -145,7 +158,7 @@ void SWUSART_initialize(uint8_t mode,
                         void(*startBitDetectedCallback)(void)
                         ) {
     onStartBitDetected = startBitDetectedCallback;
-    _sw_uart.state = DISABLED;
+    sw_uart.state = DISABLED;
 }
 
 void SWUSART_writeByte (uint8_t data) {
