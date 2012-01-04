@@ -45,6 +45,8 @@ void SW_UART_Disable()
   DISABLE_UART_TIMER_INTERRUPT();
   STOP_UART_TIMER();
   sw_uart.state = DISABLED;
+
+  //@TODO  release bus-pins
 }
 
 /*! \brief  Transmit one byte.
@@ -75,7 +77,7 @@ int8_t swUart_arbitrate(uint8_t data) {
     //Reset arbitration Variables
     sw_uart.state = WRITE_STARTBIT;
     sw_uart.bus_state = UNKNOWN;
-    sw_uart.bitCount = 0;
+    _swUartISR.bitCount = 0;
     _swUartISR.last_bit_sent = 0;
     CLEAR_UART_TIMER();                       //Clear timer.
     SET_UART_TIMER_COMPARE_START_TRANSMIT();  //Set timer compare value.
@@ -107,12 +109,9 @@ ISR(SW_UART_TIMER_COMPARE_INTERRUPT_VECTOR) {
 	uint8_t bit_in = 0, bit_out = 0;
 
 	switch(sw_uart.state) {
-	case READY:
-		sw_uart.state = ERROR;
-		break;
 	case WRITE_STARTBIT:
 		//@pre bus has to be FREE or UNKNOWN status
-		PORTA = ~(sw_uart.bitCount++); //Increment bitcount
+		PORTA = ~(_swUartISR.bitCount++); //Increment bitcount
 		//@TODO set new timing
 		sw_uart.state = READ_DATA;
 		break;
@@ -125,17 +124,19 @@ ISR(SW_UART_TIMER_COMPARE_INTERRUPT_VECTOR) {
 	case READ_DATA:
 		sw_uart.state = WRITE_DATA;
 		bit_in = (READ_UART_PIN()) ? 1 : 0;
-		if (sw_uart.bitCount == 1) {
+		if (_swUartISR.bitCount == 1) {
 			asm("nop;");
 		}
 
-		if (sw_uart.bitCount == 7) {
+		if (_swUartISR.bitCount == 7) {
 			_swUartISR.last_bit_sent = UART_Tx_data & 0x01;
 			sw_uart.state = WRITE_STOP;
 		}
 
+		//@TODO Arbitration Lost logic
+
 		//If to receive data bit -> Copy received bit into Rx_data.
-	    if(sw_uart.bitCount <= 7) {
+	    if(_swUartISR.bitCount <= 7) {
 	      UART_Rx_data = ( UART_Rx_data >> 1 ); //Right shift RX_data so the new bit can be masked into the Rx_data byte.
 	      if(bit_in) UART_Rx_data |= 0x80;               //Set MSB of RX data if received bit == 1.
 	    }
@@ -147,11 +148,12 @@ ISR(SW_UART_TIMER_COMPARE_INTERRUPT_VECTOR) {
 		} else {
 			sw_uart.bus_state = ARBITRATION_LOST;
 		}
-		//@TODO  release bus-pins
+
 		break;
 	case FINISH:
 		break;
 	default:
+		sw_uart.state = ERROR;
 		break;
 	}
 
