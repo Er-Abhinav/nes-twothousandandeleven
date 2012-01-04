@@ -7,17 +7,16 @@
 static volatile uint8_t   UART_Tx_data;     //!< Byte holding data being transmitted.
 static volatile uint8_t   UART_Rx_data;     //!< Byte holding data being received.
 
-
-
 typedef struct _sw_uart_s {  //@TODO move to header
 	volatile _sw_uart_state_t state;
 	volatile swUart_finish_state_t bus_state;
+
 } _sw_uart_t;
 
 typedef struct _sw_uart_isr {  //@TODO move to header
-	volatile uint8_t bitCount;		//!< temp bit counter for ISR
+	volatile uint8_t bitCount;			//!< temp bit counter for ISR
+	volatile uint8_t last_bit_sent = 0;	//!< bool that the last bit was sent
 } _sw_uart_isr_t;
-
 
 volatile _sw_uart_t sw_uart = {UNINITIALIZED, UNKNOWN};
 volatile _sw_uart_isr_t _swUartISR = {0};
@@ -73,9 +72,11 @@ int8_t swUart_arbitrate(uint8_t data) {
     //CLEAR_FLAG( SW_UART_status, SW_UART_TX_BUFFER_FULL );
 
     CLEAR_UART_PIN();                         //Write start bit.
+    //Reset arbitration Variables
     sw_uart.state = WRITE_STARTBIT;
     sw_uart.bus_state = UNKNOWN;
     sw_uart.bitCount = 0;
+    _swUartISR.last_bit_sent = 0;
     CLEAR_UART_TIMER();                       //Clear timer.
     SET_UART_TIMER_COMPARE_START_TRANSMIT();  //Set timer compare value.
     CLEAR_UART_TIMER_INTERRUPT_FLAG();        //Make sure timer interrupt flag is not set.
@@ -102,9 +103,8 @@ ISR(SW_UART_TIMER_COMPARE_INTERRUPT_VECTOR) {
 	SET_UART_TIMER_COMPARE_WAIT_ONE(); //Set timer compare value to trigger the ISR once every bit period.
 
 	//Sample bit by checking the value on the UART pin:
-	//@TODO move to a volatile part
+
 	uint8_t bit_in = 0, bit_out = 0;
-	uint8_t last_bit_sent = 0;		//!< bool that the last bit was sent
 
 	switch(sw_uart.state) {
 	case READY:
@@ -112,7 +112,7 @@ ISR(SW_UART_TIMER_COMPARE_INTERRUPT_VECTOR) {
 		break;
 	case WRITE_STARTBIT:
 		//@pre bus has to be FREE or UNKNOWN status
-		PORTA = ~(sw_uart.bitCount++);
+		PORTA = ~(sw_uart.bitCount++); //Increment bitcount
 		//@TODO set new timing
 		sw_uart.state = READ_DATA;
 		break;
@@ -123,13 +123,15 @@ ISR(SW_UART_TIMER_COMPARE_INTERRUPT_VECTOR) {
 		sw_uart.state = READ_DATA;
 		break;
 	case READ_DATA:
+		sw_uart.state = WRITE_DATA;
 		bit_in = (READ_UART_PIN()) ? 1 : 0;
 		if (sw_uart.bitCount == 1) {
 			asm("nop;");
 		}
 
 		if (sw_uart.bitCount == 7) {
-			last_bit_sent = UART_Tx_data & 0x01;
+			_swUartISR.last_bit_sent = UART_Tx_data & 0x01;
+			sw_uart.state = WRITE_STOP;
 		}
 
 		//If to receive data bit -> Copy received bit into Rx_data.
@@ -139,6 +141,13 @@ ISR(SW_UART_TIMER_COMPARE_INTERRUPT_VECTOR) {
 	    }
 		break;
 	case WRITE_STOP:
+		//@TODO write stop bit
+		if(_swUartISR.last_bit_sent) {
+			sw_uart.bus_state = GOT_BUS;
+		} else {
+			sw_uart.bus_state = ARBITRATION_LOST;
+		}
+		//@TODO  release bus-pins
 		break;
 	case FINISH:
 		break;
