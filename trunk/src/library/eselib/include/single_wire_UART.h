@@ -52,12 +52,12 @@
 #endif
 
 /* Pin macros.  */
-#define INITIALIZE_UART_PIN()   ( SW_UART_RX_PORT &= ~(1<<SW_UART_RX_PIN_NUMBER) )    //!< Clear port.
-#define READ_UART_PIN()         ( SW_UART_RX_PIN & (1<<SW_UART_RX_PIN_NUMBER) )
+//#define INITIALIZE_UART_PIN()   ( SW_UART_RX_PORT &= ~(1<<SW_UART_RX_PIN_NUMBER) )    //!< Clear port.
+#define READ_UART_RX_PIN()         ( SW_UART_RX_PIN & (1<<SW_UART_RX_PIN_NUMBER) )
 
 /* Macros for standard AVR ports. */
-#define SET_UART_PIN()          ( SW_UART_RX_DDR &= ~(1<<SW_UART_RX_PIN_NUMBER) )     //!< Tri-state pin.
-#define CLEAR_UART_PIN()        ( SW_UART_RX_DDR |= (1<<SW_UART_RX_PIN_NUMBER) )      //!< Set pin output low.
+#define SET_UART_TX_PIN()          ( SW_UART_TX_DDR &= ~(1<<SW_UART_TX_PIN_NUMBER) )     //!< Tri-state pin.
+#define CLEAR_UART_TX_PIN()        ( SW_UART_TX_DDR |= (1<<SW_UART_TX_PIN_NUMBER) )      //!< Set pin output low.
 
 /* UART interrupt vectors definitions. */
 #define SW_UART_TIMER_COMPARE_INTERRUPT_VECTOR  TIMER0_COMP_vect      //!< UART compare interrupt vector.

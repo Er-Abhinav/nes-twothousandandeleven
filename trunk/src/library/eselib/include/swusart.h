@@ -21,12 +21,13 @@
 typedef enum _sw_uart_state_e {
 	UNINITIALIZED = -1,
 	DISABLED = 0,
-	ENABLED,
+	IDLE,
 	WRITE_STARTBIT,
 	WRITE_DATA,
 	READ_DATA,
 	WRITE_STOP,
-	FINISH
+	FINISH,
+	ERROR = 0xF0
 } _sw_uart_state_t;
 
 typedef enum swUart_finish_states {

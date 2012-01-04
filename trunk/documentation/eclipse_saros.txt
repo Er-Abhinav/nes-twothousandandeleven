@@ -1,0 +1,6 @@
+https://register.jabber.org/
+
+##### Install in Eclipse
+http://www.eclipse.org/gef/downloads/index.php
+##### and install
+http://dpp.sf.net/update
