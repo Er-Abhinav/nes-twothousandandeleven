@@ -1,4 +1,3 @@
-
 =Evaluierung=
 
 Beschreibung - Evaluierung dass die Arbitrierung richtig funktioniert
@@ -7,4 +6,4 @@ Beschreibung - Evaluierung dass die Arbitrierung richtig funktioniert
 # was macht es
 # was soll gezeigt werden
 # wie wird es angewandt
-# 
+#
